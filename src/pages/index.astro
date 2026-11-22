@@ -15,6 +15,7 @@ import HowIWork from '../components/HowIWork.astro';
 import Beyond from '../components/Beyond.astro';
 import Contact from '../components/Contact.astro';
 import ContactDialog from '../components/ContactDialog.astro';
+import Search from '../components/Search.astro';
 
 const profile = (await getEntry('profile', 'stephen'))!.data;
 const h = profile.headings;
@@ -40,4 +41,5 @@ const h = profile.headings;
     </div>
   </footer>
   <ContactDialog popup={profile.contactPopup} linkedin={profile.linkedin} />
+  <Search />
 </Base>

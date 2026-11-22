@@ -33,7 +33,8 @@ for (const f of html) {
 
   for (const m of s.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)) {
     const attrs = m[1];
-    const isData = /type\s*=\s*["']?application\/ld\+json/i.test(attrs);
+    // Non-executable data blocks (JSON-LD, the search index) are not governed by script-src.
+    const isData = /type\s*=\s*["']?application\/(?:ld\+)?json/i.test(attrs);
     const hasSrc = /\bsrc\s*=/i.test(attrs);
     if (!hasSrc && !isData) fail(f, `inline <script>: ${m[0].slice(0, 80)}`);
     if (hasSrc && m[2].trim()) fail(f, '<script src> with inline body');
@@ -77,6 +78,34 @@ for (const f of images) {
     for (const k of ['exif', 'xmp', 'iptc']) if (meta[k]) fail(f, `image carries ${k.toUpperCase()} metadata`);
   } catch (e) {
     if (!f.endsWith('.ico')) fail(f, `could not read image: ${e.message}`);
+  }
+}
+
+// --- Search index: well formed, no placeholders, every target exists on the page ----
+const home = html.find((f) => path.relative(DIST, f) === 'index.html');
+if (home) {
+  const s = fs.readFileSync(home, 'utf8');
+  const raw = s.match(/<script type="application\/json" id="search-index">([\s\S]*?)<\/script>/)?.[1];
+  if (!raw) fail(home, 'search index data block missing');
+  else {
+    let idx = [];
+    try {
+      idx = JSON.parse(raw);
+    } catch (e) {
+      fail(home, `search index is not valid JSON: ${e.message}`);
+    }
+    const ids = new Set([...s.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
+    const titles = new Set();
+    for (const e of idx) {
+      if (titles.has(e.t)) fail(home, `search: duplicate title "${e.t}"`);
+      titles.add(e.t);
+      for (const k of ['t', 's', 'h']) {
+        if (/\{|\}|undefined|\[object/.test(e[k] ?? '')) fail(home, `search: placeholder in ${k} of "${e.t}"`);
+      }
+      for (const k of ['i', 'o']) if (e[k] && !ids.has(e[k])) fail(home, `search: "${e.t}" targets missing #${e[k]}`);
+      if (e.a === 'rec' && !ids.has(`rec-${e.rc}`)) fail(home, `search: no card for recommender "${e.t}"`);
+      if (!e.i && !e.a) fail(home, `search: "${e.t}" has no target`);
+    }
   }
 }
 

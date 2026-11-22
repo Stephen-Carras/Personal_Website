@@ -1219,3 +1219,220 @@ html:has(dialog[open]) {
     }
   }
 }
+
+/* ---- Search overlay (native <dialog>) ----------------------------------- */
+.srch {
+  width: calc(100% - 40px);
+  max-width: 660px;
+  max-height: 78vh;
+  max-height: 78dvh;
+  margin: 11vh auto auto;
+  margin-top: 11dvh;
+  padding: 0;
+  border: none;
+  border-radius: 24px;
+  background: var(--bg);
+  color: var(--t1);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.srch[open] {
+  display: flex;
+  flex-direction: column;
+}
+.srch::backdrop {
+  background: rgba(0, 0, 0, 0.38);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.srch-in {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+.srch-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 66px;
+  padding: 0 12px 0 22px;
+  border-bottom: 1px solid var(--hair2);
+}
+.srch-ic {
+  flex: none;
+  color: var(--m);
+}
+.srch-q {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--t0);
+}
+.srch-q::placeholder {
+  color: var(--m);
+  opacity: 1;
+}
+.srch-q::-webkit-search-cancel-button {
+  display: none;
+}
+.srch-x {
+  flex: none;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: none;
+  color: var(--m);
+  font-size: 13px;
+}
+.srch-body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px 8px 10px;
+  -webkit-overflow-scrolling: touch;
+}
+.srch-h {
+  padding: 10px 14px 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--m);
+}
+.sr {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 14px;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--t1);
+  transition: transform 0.25s var(--ease), background-color 0.2s ease;
+}
+.sr[aria-selected='true'] {
+  background: var(--cardw);
+}
+.sr[aria-selected='true'] .sr-k {
+  background: var(--bg);
+}
+.sr:focus-visible {
+  outline-offset: -2px;
+  border-radius: 14px;
+}
+.sr:active {
+  transform: scale(0.99);
+}
+.sr-txt {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sr-t,
+.sr-s {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sr-t {
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--t0);
+}
+.sr-s {
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--m);
+}
+.sr-k {
+  flex: none;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--cardw);
+  font-size: 12px;
+  color: var(--t3);
+}
+.srch-none {
+  margin: 0;
+  padding: 28px 16px 12px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--t2);
+}
+.srch-sugs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 14px 8px;
+}
+.sug {
+  margin: 0;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--cardw);
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  color: var(--t1);
+  transition: transform 0.25s var(--ease), background-color 0.2s ease;
+}
+.sug:focus-visible {
+  border-radius: 999px;
+}
+.sug:active {
+  transform: scale(0.96);
+}
+@media (hover: hover) {
+  .sug:hover,
+  .srch-x:hover {
+    background: var(--hair2);
+  }
+  .srch-x:hover {
+    color: var(--t0);
+  }
+}
+@media (max-width: 860px) {
+  .sug {
+    min-height: 44px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .srch[open] {
+    animation: cmod-in 0.3s var(--ease) both;
+  }
+  .srch[open]::backdrop {
+    animation: cmod-fade 0.25s ease both;
+  }
+}
+
+/* Soft highlight on the element a search result jumps to. */
+.flash {
+  animation: flash 2s ease-out;
+}
+@keyframes flash {
+  from {
+    background-color: var(--accbg);
+  }
+  to {
+    background-color: transparent;
+  }
+}

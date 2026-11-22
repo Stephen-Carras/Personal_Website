@@ -5,6 +5,7 @@ import { duration } from '../lib/dates';
 import { initCarousels } from './carousel';
 import { initContact } from './contact';
 import { initFolds } from './folds';
+import { initSearch } from './search';
 
 /* ------------------------------------------------------------------------
    Theme. public/theme.js already set data-theme before paint. Here: the
@@ -79,3 +80,4 @@ if (!isApple) document.querySelectorAll('[data-kbd]').forEach((k) => (k.textCont
 initCarousels();
 initFolds();
 initContact();
+initSearch();

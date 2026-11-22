@@ -16,7 +16,11 @@ const FOCUSABLE =
 export function trapFocus(box: HTMLElement) {
   box.addEventListener('keydown', (e) => {
     if (e.key !== 'Tab') return;
-    const f = $$(FOCUSABLE, box).filter((el) => el.offsetParent !== null || el === document.activeElement);
+    // Only real Tab stops: visible, and not taken out of the order with tabindex="-1"
+    // (search results are buttons with tabindex -1; arrow keys reach them instead).
+    const f = $$(FOCUSABLE, box).filter(
+      (el) => el.tabIndex >= 0 && (el.offsetParent !== null || el === document.activeElement),
+    );
     if (!f.length) return;
     const first = f[0];
     const last = f[f.length - 1];

@@ -196,7 +196,39 @@ const beyond = defineCollection({
   }),
 });
 
+const search = defineCollection({
+  loader: file('src/data/search.yaml'),
+  schema: z.object({
+    inputLabel: text,
+    placeholder: text,
+    closeLabel: text,
+    closeText: text,
+    jumpHeading: text,
+    resultsHeading: text,
+    noResults: text.includes('{q}'),
+    suggestions: z.array(text).min(1),
+    jumpTo: z.array(
+      z
+        .object({
+          title: text,
+          sub: text.optional(),
+          target: text.optional(),
+          action: z.enum(['contact', 'linkedin']).optional(),
+        })
+        .refine((j) => !!j.target !== !!j.action, 'Give a jump either a target or an action'),
+    ),
+    about: z.object({ title: text, sub: text }),
+    recognition: z.object({ company: text, sub: text, keywords: text }),
+    education: z.object({
+      school: z.object({ sub: text, keywords: text }),
+      degrees: z.record(z.string(), z.object({ sub: text, coursework: text.optional() })),
+    }),
+    contact: z.object({ keywords: text }),
+  }),
+});
+
 export const collections = {
+  search,
   profile,
   results,
   competencies,

@@ -121,6 +121,16 @@ main:focus {
   outline: none;
 }
 
+/* The hidden attribute always wins over component display rules. */
+[hidden] {
+  display: none !important;
+}
+
+/* Anything a link or search result scrolls to clears the sticky nav. Zero
+   specificity, so the section rule below and component rules still win. */
+:where(main [id]) {
+  scroll-margin-top: 72px;
+}
 section,
 header {
   scroll-margin-top: 47px;
