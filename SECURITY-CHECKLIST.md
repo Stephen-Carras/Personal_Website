@@ -62,7 +62,12 @@ in the repo. **[ ]** = a GitHub account or repository setting only Stephen can c
 - [x] **13. `/.well-known/security.txt`** (RFC 9116), generated at build time; `Expires` is
       180 days out and the monthly scheduled rebuild keeps it fresh.
   - [ ] Repo → Settings → Pages → **Enforce HTTPS** (available once the first deploy is live).
-- [ ] **14. Lighthouse and accessibility check before launch.** Phase 7.
+- [x] **14. Lighthouse and accessibility check before launch** (2026-11-22, local build).
+      Lighthouse 100/100/100/100 (performance, accessibility, best practices, SEO) on mobile
+      and desktop; the 404 page scores 100/100/100 and SEO 63 only because it is
+      deliberately `noindex`. axe-core 4.14: no violations in light and dark, at 1440px
+      and 390px, with everything expanded, and with search and the contact popup open.
+  - [ ] Re-run Lighthouse against the live URL after the first deploy.
 
 Also checked by `check:dist`: images carry no EXIF/GPS/XMP, no unreferenced originals in
 `dist/_astro`, no plain-text email address, no `YOUR-DOMAIN` placeholder, a valid search

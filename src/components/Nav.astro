@@ -21,9 +21,9 @@ const mark = img('mark.jpg');
       <div class="navl">
         {links.map((l) => <a class="navk" href={l.href}>{l.label}</a>)}
       </div>
-      <button class="nav-search" type="button" data-open-search aria-label="Search this site" aria-haspopup="dialog">
+      <button class="nav-search" type="button" data-open-search aria-haspopup="dialog" aria-keyshortcuts="Meta+K Control+K /">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-        <span class="nav-search-t">Search</span>
+        <span class="nav-search-t">Search</span><span class="sr-only"> this site</span>
         <kbd class="nav-kbd" aria-hidden="true" data-kbd>⌘K</kbd>
       </button>
       <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">

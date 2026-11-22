@@ -513,6 +513,27 @@ html:not(.js) .about-toggle {
   background: var(--awbg);
   color: var(--awfg);
 }
+/* Small links get a 44px tap area on touch-size screens without changing their look
+   (an invisible pseudo-element extends the hit box). */
+.pill-award,
+.rec-name {
+  position: relative;
+}
+.rec-name {
+  display: inline-block;
+}
+@media (max-width: 860px) {
+  .pill-award::after,
+  .rec-name::after {
+    content: '';
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    top: 50%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+}
 .co-roles {
   flex: 2 1 480px;
   min-width: 0;
@@ -1286,6 +1307,7 @@ html:has(dialog[open]) {
   display: none;
 }
 .srch-x {
+  position: relative;
   flex: none;
   min-width: 44px;
   height: 44px;

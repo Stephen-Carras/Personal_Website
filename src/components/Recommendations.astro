@@ -50,7 +50,7 @@ const recs = await inFileOrder('recommendations');
                 <figcaption class="rec-by">
                   <Image src={photo.src} alt={photo.alt} width={56} height={56} densities={[1, 2]} loading="lazy" />
                   <div>
-                    <a href={r.linkedin} target="_blank" rel="noopener noreferrer">
+                    <a class="rec-name" href={r.linkedin} target="_blank" rel="noopener noreferrer">
                       {r.name}
                       <span class="sr-only"> (opens in a new tab)</span>
                     </a>

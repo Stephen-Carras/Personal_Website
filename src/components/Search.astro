@@ -31,7 +31,7 @@ const json = JSON.stringify(index).replace(/</g, '\\u003c');
         enterkeyhint="go"
         data-search-input
       />
-      <button class="ib srch-x" type="button" aria-label={cfg.closeLabel} data-close-dialog>{cfg.closeText}</button>
+      <button class="ib srch-x" type="button" data-close-dialog>{cfg.closeText}<span class="sr-only"> ({cfg.closeLabel.toLowerCase()})</span></button>
     </div>
     <div class="srch-body">
       <div class="srch-h" data-clear-sel data-search-heading data-jump={cfg.jumpHeading} data-results={cfg.resultsHeading}>{cfg.jumpHeading}</div>

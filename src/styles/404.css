@@ -65,9 +65,11 @@ body.nf {
   .nf-main {
     animation: nf-in 0.9s var(--ease) both;
   }
+  /* Starts at 0.01, not 0: Chrome never reports a first contentful paint for content
+     that first paints fully transparent, so the page would measure as blank. */
   @keyframes nf-in {
     from {
-      opacity: 0;
+      opacity: 0.01;
       transform: translateY(24px);
     }
   }
