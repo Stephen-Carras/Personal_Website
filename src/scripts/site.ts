@@ -1,0 +1,98 @@
+// The site's one external script (bundled by Astro into a single file). No inline
+// handlers anywhere: everything is wired with addEventListener. Module scripts run
+// after the HTML is parsed, so the DOM is ready here.
+import { duration } from '../lib/dates';
+import { initCarousels } from './carousel';
+import { initContact } from './contact';
+import { initFolds } from './folds';
+import { initSearch } from './search';
+
+/* ------------------------------------------------------------------------
+   Theme. public/theme.js already set data-theme before paint. Here: the
+   toggle, remembering the visitor's choice, and following system changes
+   until the visitor picks.
+   ------------------------------------------------------------------------ */
+type Theme = 'light' | 'dark';
+const root = document.documentElement;
+const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+function saved(): Theme | null {
+  try {
+    const t = localStorage.getItem('theme');
+    return t === 'light' || t === 'dark' ? t : null;
+  } catch {
+    return null;
+  }
+}
+
+function apply(theme: Theme) {
+  root.setAttribute('data-theme', theme);
+  const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((b) => {
+    b.setAttribute('aria-label', label);
+  });
+  // Keep the browser UI color in step with the chosen theme, not just the system one.
+  const color = theme === 'dark' ? '#000000' : '#FFFFFF';
+  document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((m) => {
+    m.content = color;
+  });
+}
+
+apply((root.getAttribute('data-theme') as Theme) || (mq.matches ? 'dark' : 'light'));
+
+document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((b) => {
+  b.addEventListener('click', () => {
+    const next: Theme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    apply(next);
+    try {
+      localStorage.setItem('theme', next);
+    } catch {
+      /* storage blocked: the choice lasts for this page view only */
+    }
+  });
+});
+
+mq.addEventListener('change', (e) => {
+  if (!saved()) apply(e.matches ? 'dark' : 'light');
+});
+
+/* ------------------------------------------------------------------------
+   Durations. Built at build time; elements for open-ended roles carry
+   data-start (and no data-end), so recompute them here to stay current.
+   ------------------------------------------------------------------------ */
+document.querySelectorAll<HTMLElement>('[data-dur-start]').forEach((el) => {
+  const start = el.dataset.durStart!;
+  const end = el.dataset.durEnd || null;
+  const prefix = el.dataset.durPrefix ?? '';
+  el.textContent = prefix + duration(start, end);
+});
+
+/* ------------------------------------------------------------------------
+   Search shortcut hint: ⌘K on Apple platforms, Ctrl K elsewhere.
+   ------------------------------------------------------------------------ */
+const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+if (!isApple) document.querySelectorAll('[data-kbd]').forEach((k) => (k.textContent = 'Ctrl K'));
+
+/* ------------------------------------------------------------------------
+   Interactions. Carousels first: they add the loop clones that the
+   recommendation toggles also need to cover.
+   ------------------------------------------------------------------------ */
+initCarousels();
+initFolds();
+initContact();
+initSearch();
+
+/* ------------------------------------------------------------------------
+   Print: expand everything. CSS handles ::details-content where supported;
+   this opens the <details> elements themselves for other browsers, and
+   puts them back afterwards.
+   ------------------------------------------------------------------------ */
+let printOpened: HTMLDetailsElement[] = [];
+window.addEventListener('beforeprint', () => {
+  printOpened = Array.from(document.querySelectorAll<HTMLDetailsElement>('main details:not([open])'));
+  printOpened.forEach((d) => (d.open = true));
+});
+window.addEventListener('afterprint', () => {
+  printOpened.forEach((d) => (d.open = false));
+  printOpened = [];
+});

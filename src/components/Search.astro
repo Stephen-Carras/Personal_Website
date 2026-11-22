@@ -1,0 +1,46 @@
+---
+// Full-screen search overlay (native modal <dialog>), opened by the nav button,
+// ⌘/Ctrl+K or "/". The index is generated at build time from the content files and
+// embedded as a non-executable JSON data block (allowed by the CSP).
+import { getEntry } from 'astro:content';
+import { buildSearchIndex } from '../lib/search-index';
+
+const cfg = (await getEntry('search', 'main'))!.data;
+const index = await buildSearchIndex();
+// Escape "<" so the JSON can never close its <script> element early.
+const json = JSON.stringify(index).replace(/</g, '\\u003c');
+---
+
+<dialog id="srch" class="srch" aria-label={cfg.inputLabel}>
+  <div class="srch-in">
+    <div class="sr-only" role="status" aria-live="polite" data-search-status></div>
+    <div class="srch-head" data-clear-sel>
+      <svg class="srch-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input
+        class="srch-q"
+        type="text"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="srl"
+        aria-autocomplete="list"
+        aria-label={cfg.inputLabel}
+        placeholder={cfg.placeholder}
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        enterkeyhint="go"
+        data-search-input
+      />
+      <button class="ib srch-x" type="button" data-close-dialog>{cfg.closeText}<span class="sr-only"> ({cfg.closeLabel.toLowerCase()})</span></button>
+    </div>
+    <div class="srch-body">
+      <div class="srch-h" data-clear-sel data-search-heading data-jump={cfg.jumpHeading} data-results={cfg.resultsHeading}>{cfg.jumpHeading}</div>
+      <div id="srl" role="listbox" aria-label="Search results"></div>
+      <p class="srch-none" data-search-none data-text={cfg.noResults} hidden></p>
+      <div class="srch-sugs" data-clear-sel data-search-sugs>
+        {cfg.suggestions.map((s) => <button class="sug" type="button" data-sug={s}>{s}</button>)}
+      </div>
+    </div>
+  </div>
+</dialog>
+<script type="application/json" id="search-index" set:html={json} />

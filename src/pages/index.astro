@@ -1,0 +1,46 @@
+---
+// The page, in CLAUDE.md order. Every section reads from the YAML files in src/data/.
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import '../styles/sections.css';
+import '../styles/motion.css';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Results from '../components/Results.astro';
+import About from '../components/About.astro';
+import Competencies from '../components/Competencies.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import Recommendations from '../components/Recommendations.astro';
+import HowIWork from '../components/HowIWork.astro';
+import Beyond from '../components/Beyond.astro';
+import Contact from '../components/Contact.astro';
+import ContactDialog from '../components/ContactDialog.astro';
+import Search from '../components/Search.astro';
+
+const profile = (await getEntry('profile', 'stephen'))!.data;
+const h = profile.headings;
+---
+
+<Base>
+  <Nav name={profile.name} links={profile.nav} />
+  <main id="main" tabindex="-1">
+    <Hero name={profile.name} hero={profile.hero} />
+    <Results heading={h.results} />
+    <About about={profile.about} />
+    <Competencies />
+    <Experience heading={h.experience} />
+    <Education heading={h.education} />
+    <Recommendations heading={h.recommendations} hint={h.recommendationsHint} />
+    <HowIWork />
+    <Beyond />
+    <Contact contact={profile.contact} linkedin={profile.linkedin.url} email={profile.email} />
+  </main>
+  <footer class="foot">
+    <div>
+      {profile.footer.map((line, n) => (n ? [<br />, line] : line))}
+    </div>
+  </footer>
+  <ContactDialog popup={profile.contactPopup} linkedin={profile.linkedin} />
+  <Search />
+</Base>

@@ -1,0 +1,120 @@
+---
+// Experience: per company a sticky left column (logo, name, pills, tenure) and a right
+// column of roles, each collapsed behind "About this role +" (native <details>).
+// Durations are computed from start/end. Open-ended ones carry data-dur-* so the
+// browser recomputes them and they never go stale.
+import { inFileOrder } from '../lib/order';
+import { Image } from 'astro:assets';
+import { img } from '../lib/images';
+import { dateRange, duration, tenureSpan } from '../lib/dates';
+
+interface Props {
+  heading: string;
+}
+const companies = await inFileOrder('roles');
+const FT = 'Full-time · ';
+---
+
+<section id="experience" class="sec">
+  <div class="wrap">
+    <h2 class="h2 rv-u">{Astro.props.heading}</h2>
+    <div class="rows">
+      {
+        companies.map(({ id, data: co }) => {
+          const span = tenureSpan(co.roles);
+          const logo = co.logo ? img(co.logo) : null;
+          return (
+            <div class="row-co rv-u" id={`co-${id}`}>
+              <div class="co-side">
+                {logo ? (
+                  <div class:list={['logo', `logo-${id}`]}>
+                    <Image src={logo.src} alt={logo.alt} width={56} height={56} densities={[1, 2]} />
+                  </div>
+                ) : (
+                  <div class="logo logo-initials" role="img" aria-label={co.name}>
+                    {co.initials}
+                  </div>
+                )}
+                <div>
+                  <h3 class="co-name">{co.name}</h3>
+                  {co.pills?.map((p) =>
+                    p.kind === 'award' ? (
+                      <>
+                        <br />
+                        <a class="pill-award tp" href={p.href} target="_blank" rel="noopener noreferrer">
+                          {p.label}
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9" /></svg>
+                          <span class="sr-only"> (opens in a new tab)</span>
+                        </a>
+                      </>
+                    ) : (
+                      <div class:list={['pill-tag', p.kind === 'acquired' && 'pill-acq']}>{p.label}</div>
+                    ),
+                  )}
+                  <div
+                    class="co-meta"
+                    data-dur-start={span.end ? undefined : span.start}
+                    data-dur-prefix={span.end ? undefined : FT}
+                  >
+                    {FT + duration(span.start, span.end)}
+                  </div>
+                </div>
+              </div>
+              <div class="co-roles">
+                {co.roles.map((r) => (
+                  <div class="role" id={`r-${r.id}`}>
+                    <h4 class="role-t">{r.title}</h4>
+                    <div
+                      class="role-m role-dur"
+                      data-dur-start={r.end ? undefined : r.start}
+                      data-dur-prefix={r.end ? undefined : FT}
+                    >
+                      {FT + duration(r.start, r.end)}
+                    </div>
+                    <div class="role-m">{dateRange(r.start, r.end)}</div>
+                    {r.location && (
+                      <div class="role-loc">{r.workplace ? `${r.location} · ${r.workplace}` : r.location}</div>
+                    )}
+                    <details id={`rd-${r.id}`}>
+                      <summary class="aboutrole">
+                        <span class="ab-c">About this role +</span>
+                        <span class="ab-o">Hide details −</span>
+                      </summary>
+                      <div class="role-body">
+                        <p>
+                          {r.lead && (
+                            <>
+                              <strong>{r.lead}</strong>{' '}
+                            </>
+                          )}
+                          {r.summary}
+                        </p>
+                        {r.bullets && (
+                          <ul>
+                            {r.bullets.map((b) => (
+                              <li>{b}</li>
+                            ))}
+                          </ul>
+                        )}
+                        {r.skills && (
+                          <div class="skills">
+                            <span class="skills-h">Skills</span>
+                            <div class="skills-l">
+                              {r.skills.map((s) => (
+                                <span>{s}</span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </details>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

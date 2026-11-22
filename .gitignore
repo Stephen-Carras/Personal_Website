@@ -155,3 +155,9 @@ vite.config.ts.timestamp-*
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+
+# macOS
+.DS_Store
+
+# Claude Code local settings (per machine, never committed)
+.claude/settings.local.json

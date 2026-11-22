@@ -1,0 +1,52 @@
+# Education. Undergraduate GPAs are intentionally not shown (decided 2026-11-21).
+
+- id: penn-state
+  school: Penn State University
+  logo: logo-penn-state.png
+  degrees:
+    - id: mba
+      title: Master of Business Administration (MBA)
+      detail: Double Concentrations in Engineering Leadership and Innovation Management and Management Consulting
+      note: 3.93 GPA
+      coursework:
+        - Team Performance
+        - Financial Accounting
+        - Leadership Communications and Change Management
+        - Data Analysis for Decision Making
+        - Marketing in a Global Environment
+        - Financial Management
+        - Managing and Leading People in Organizations
+        - Economics for Business Strategy
+        - Managing Supply Chains in Global Markets
+        - Ethical and Responsible Business Leadership
+        - Global Strategic Management
+        - Corporate Innovation and Entrepreneurship
+        - Managing in the Digital Economy
+        - Project Management for Professionals
+        - Engineering Across Cultures and Nations
+        - Engineering Product Innovation
+        - Business Transformation Consulting
+        - Management Consulting Methods and Practices
+        - Strategy Implementation and Organizational Change
+
+    - id: ms
+      title: Master's Degree, Cybersecurity Analytics and Operations
+      detail: Summa Cum Laude · 3.97 Cumulative GPA
+      coursework:
+        - Network Management and Security
+        - Foundations of Information Security and Assurance
+        - Web Security and Privacy
+        - Enterprise Architecture Foundations 1
+        - Architecting Enterprise Security and Risk Analysis
+        - Cybersecurity Analytics
+        - Crisis, Disaster, and Risk Management
+        - Topics in Visual Analytics for Security
+        - Intelligent Agents and Distributed Decision Making
+        - Foundations of Software Security
+
+    - id: bs-sra
+      title: Bachelor's Degree, Security and Risk Analysis – Information and Cyber Security
+
+    - id: bs-business
+      title: Bachelor's Degree, Business Administration
+      detail: Minor in Global Finance and Renewable Energy

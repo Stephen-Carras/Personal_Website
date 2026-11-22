@@ -1,0 +1,119 @@
+---
+// Beyond work: intro, photo gallery with "A little about me", Trips & places, hobbies,
+// books, music, then "Ask me about" and "Now" cards. Carousels are rendered once;
+// the script adds loop clones in phase 3. Never put scroll-driven animation classes
+// on elements inside the horizontal tracks (MOTION.md); the wrappers carry them.
+import { getEntry } from 'astro:content';
+import { inFileOrder } from '../lib/order';
+import { Image } from 'astro:assets';
+import { img } from '../lib/images';
+
+const b = (await getEntry('beyond', 'main'))!.data;
+const g = (await getEntry('gallery', 'main'))!.data;
+const trips = await inFileOrder('trips');
+const portrait = img(g.portrait);
+---
+
+<section id="beyond" class="sec beyond">
+  <div class="wrap">
+    <h2 class="h2 rv-u">{b.heading}</h2>
+    <p class="beyond-intro rv-u i1">{b.intro}</p>
+
+    <div class="gal-row">
+      <div class="gal-about rv-l">
+        <Image class="gal-mark" src={portrait.src} alt={portrait.alt} width={96} height={96} densities={[1, 2]} loading="lazy" />
+        <h3>{g.heading}</h3>
+        <p>{g.text}</p>
+      </div>
+      <div class="gal-col rv-r">
+        <div id="galtrack" class="track galtrack" role="region" aria-label="Photo gallery. Swipe or use the arrow buttons." tabindex="0" data-loop>
+          {
+            g.photos.map((file) => {
+              const p = img(file);
+              return (
+                <figure class="gal-slide">
+                  <Image src={p.src} alt={p.alt} widths={[480, 720, 1024]} sizes="(min-width: 1144px) 560px, 88vw" loading="lazy" />
+                </figure>
+              );
+            })
+          }
+        </div>
+        <div class="gal-bar">
+          <span>{g.caption}</span>
+          <div class="gbtns">
+            <button class="ib gb" type="button" data-track-prev="galtrack" aria-label="Previous photo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+            </button>
+            <button class="ib gb" type="button" data-track-next="galtrack" aria-label="Next photo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trips rv-z">
+      <h3 class="h3">{b.tripsHeading}</h3>
+      <div id="triptrack" class="track trip-track" role="region" aria-label="Trips and places, scroll horizontally" tabindex="0" data-loop>
+        {
+          trips.map(({ data: t }) => {
+            const p = img(t.photo);
+            return (
+              <figure class="trip">
+                <Image src={p.src} alt={p.alt} widths={[300, 600, 900]} sizes="(min-width: 400px) 300px, 76vw" loading="lazy" />
+                <figcaption>
+                  <span class="trip-p">{t.place}</span>
+                  <span class="trip-c">{t.country}</span>
+                </figcaption>
+              </figure>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <div class="likes">
+      <div class="likes-col rv-u i0">
+        <h3 class="h3">{b.hobbies.heading}</h3>
+        <div class="tags">{b.hobbies.items.map((t) => <span>{t}</span>)}</div>
+      </div>
+      <div class="likes-col rv-u i1">
+        <h3 class="h3">{b.books.heading}</h3>
+        <ul class="books">
+          {
+            b.books.items.map((bk) => (
+              <li>
+                <span class="bk-t">{bk.title}</span>
+                <span class="bk-a">{bk.author}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="likes-col rv-u i2">
+        <h3 class="h3">{b.music.heading}</h3>
+        <div class="tags">{b.music.items.map((t) => <span>{t}</span>)}</div>
+      </div>
+    </div>
+
+    <div class="cards">
+      <div class="card rv-l">
+        <h3 class="h3">{b.askMeAbout.heading}</h3>
+        <ul class="ask">{b.askMeAbout.items.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="card rv-r">
+        <h3 class="h3">{b.now.heading}</h3>
+        <div class="now">
+          {
+            b.now.items.map((n) => (
+              <div class="now-r">
+                <span class="now-l">{n.label}</span>
+                <span class="now-t">{n.text}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

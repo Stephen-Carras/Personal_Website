@@ -1,0 +1,57 @@
+---
+// Education: sticky left column like Experience; degrees on the right, coursework
+// collapsed behind native <details>.
+import { inFileOrder } from '../lib/order';
+import { Image } from 'astro:assets';
+import { img } from '../lib/images';
+
+interface Props {
+  heading: string;
+}
+const schools = await inFileOrder('education');
+---
+
+<section id="education" class="sec alt">
+  <div class="wrap">
+    <h2 class="h2 rv-u">{Astro.props.heading}</h2>
+    <div class="rows">
+      {
+        schools.map(({ id, data: s }) => {
+          const logo = img(s.logo);
+          return (
+            <div class="row-co rv-u" id={`ed-${id}`}>
+              <div class="co-side">
+                <div class:list={['logo', `logo-${id}`]}>
+                  <Image src={logo.src} alt={logo.alt} width={56} height={56} densities={[1, 2]} />
+                </div>
+                <h3 class="co-name">{s.school}</h3>
+              </div>
+              <div class="co-roles">
+                {s.degrees.map((d) => (
+                  <div class="degree">
+                    <h4 class="role-t">{d.title}</h4>
+                    {d.detail && <div class="deg-d">{d.detail}</div>}
+                    {d.note && <div class="deg-n">{d.note}</div>}
+                    {d.coursework && (
+                      <details id={`cw-${d.id}`}>
+                        <summary class="aboutrole">
+                          <span class="ab-c">Coursework ({d.coursework.length}) +</span>
+                          <span class="ab-o">Hide coursework −</span>
+                        </summary>
+                        <div class="cw">
+                          {d.coursework.map((c, k) => (
+                            <span class={`k${k}`}>{c}</span>
+                          ))}
+                        </div>
+                      </details>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

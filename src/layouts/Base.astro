@@ -1,0 +1,95 @@
+---
+// Base layout. The <head> is site-assets/head-snippet.html, with its absolute URLs built
+// from `site` in astro.config.mjs, plus the CSP from CLAUDE.md, the blocking
+// theme script, the stylesheet and the main script. Nothing is inlined except the
+// JSON-LD data block, which is not executable and not governed by script-src.
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Extra pages (404) skip the share and structured-data tags. */
+  minimal?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title = 'Stephen Carras | Strategy & Operations Leader',
+  description = 'Stephen Carras: data-driven strategy and operations leader. Two startups (one acquired), bridging hardware, AI, security and business. Seattle, WA.',
+  minimal = false,
+  bodyClass,
+} = Astro.props;
+
+if (!Astro.site) throw new Error('Set `site` in astro.config.mjs (used for canonical and share URLs).');
+const home = new URL('/', Astro.site).href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+
+const csp =
+  "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'";
+
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Stephen Carras',
+  url: home,
+  image: ogImage,
+  jobTitle: 'Strategy & Operations Leader',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Seattle',
+    addressRegion: 'WA',
+    addressCountry: 'US',
+  },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Penn State University' },
+  sameAs: ['https://www.linkedin.com/in/stephencarras'],
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <script is:inline src="/theme.js"></script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {!minimal && <link rel="canonical" href={home} />}
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {!minimal && <link rel="manifest" href="/site.webmanifest" />}
+    {
+      minimal ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <meta property="og:type" content="website" />
+          <meta property="og:site_name" content="Stephen Carras" />
+          <meta property="og:title" content="Stephen Carras | Turning ideas into execution" />
+          <meta
+            property="og:description"
+            content="Strategy & operations leader. Two startups (one acquired). Hardware, AI, security and business."
+          />
+          <meta property="og:url" content={home} />
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content="Stephen Carras: Turning ideas into execution." />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
+    }
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    {!minimal && <script type="application/ld+json" is:inline set:html={jsonLd} />}
+  </head>
+  <body class={bodyClass}>
+    <slot />
+    <script>
+      import '../scripts/site';
+    </script>
+  </body>
+</html>

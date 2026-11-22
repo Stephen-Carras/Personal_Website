@@ -1,0 +1,21 @@
+# Results tiles (2x2 grid), in display order.
+
+- id: revenue
+  value: $13.4M
+  label: New revenue potential unlocked in 8 months by a 5-person strategy team
+  source: Startup · Series C
+
+- id: network
+  value: $3.46M
+  label: Network modernization delivered a year ahead of schedule
+  source: Boeing
+
+- id: wifi
+  value: 37 days
+  label: Facility WiFi upgrade delivered without impacting production-rate targets
+  source: Boeing
+
+- id: assets
+  value: 150K
+  label: Unassigned assets traced; unknown-owner backlog cut 30%
+  source: T-Mobile

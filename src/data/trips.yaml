@@ -1,0 +1,8 @@
+# Trips & places carousel, in display order. Photos live in source-images/;
+# alt text comes from source-images/image-manifest.json.
+
+- { id: toronto, place: Toronto, country: Canada, photo: trip-toronto.jpg }
+- { id: seoul, place: Seoul, country: South Korea, photo: trip-seoul.jpg }
+- { id: florence, place: Florence, country: Italy, photo: trip-florence.jpg }
+- { id: rome, place: Rome, country: Italy, photo: trip-rome.jpg }
+- { id: jeju, place: Jeju Island, country: South Korea, photo: trip-jeju.jpg }

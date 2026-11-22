@@ -1,0 +1,48 @@
+# Search overlay: its labels, plus the few strings that exist only in search
+# (copied verbatim from the design's index). Everything else in the index is
+# generated from the other data files by src/lib/search-index.ts, so a new role,
+# recommendation, trip, book, etc. shows up in search automatically.
+
+- id: main
+  inputLabel: Search this site
+  placeholder: Search skills, companies, roles, anything
+  closeLabel: Close search
+  closeText: Esc
+  jumpHeading: Jump to
+  resultsHeading: Results
+  # {q} is replaced with what the visitor typed.
+  noResults: 'No matches for “{q}”. Try one of these:'
+  suggestions: [Boeing, AI strategy, Tableau, Penn State, Startups, Leadership]
+
+  # Shown when the box is empty. target = a section id; action = contact | linkedin.
+  jumpTo:
+    - { title: Results, target: results }
+    - { title: About, target: about }
+    - { title: Experience, target: experience }
+    - { title: Education, target: education }
+    - { title: Recommendations, target: recommendations }
+    - { title: How I work, target: how }
+    - { title: Beyond work, target: beyond }
+    - { title: Contact, target: contact }
+    - { title: Contact me, sub: Open the contact card, action: contact }
+    - { title: LinkedIn, action: linkedin } # subtitle and URL come from profile.yaml
+
+  about: { title: About Stephen, sub: Career story }
+
+  # Attached to a company's award pill (the pill label is the title).
+  recognition:
+    company: inductev
+    sub: InductEV Wireless Charging Network
+    keywords: TIME Magazine Best Inventions 2024 award
+
+  education:
+    school: { sub: MBA · M.S. · two B.S. degrees, keywords: Smeal College of Business }
+    degrees:
+      mba:
+        sub: 3.93 GPA · Engineering Leadership and Innovation Management; Management Consulting
+        coursework: MBA coursework
+      ms:
+        sub: Summa Cum Laude · 3.97 GPA
+        coursework: Master's coursework
+
+  contact: { keywords: Remote Hybrid relocate }

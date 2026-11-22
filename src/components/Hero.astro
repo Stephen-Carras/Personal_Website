@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import { img } from '../lib/images';
+
+interface Props {
+  name: string;
+  hero: {
+    headline: string[];
+    sub: string[];
+    button: string;
+    location: string;
+    educationLink: string;
+    banner: string;
+    headshot: string;
+    experienceLead: string;
+    experienceList: string[];
+  };
+}
+const { name, hero } = Astro.props;
+const headshot = img(hero.headshot);
+const banner = img(hero.banner);
+---
+
+<header id="top" class="hero">
+  <div class="hero-in">
+    <Image
+      class="hero-shot ld"
+      src={headshot.src}
+      alt={headshot.alt}
+      width={128}
+      height={128}
+      densities={[1, 2, 3]}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="hero-name ld d1">{name}</div>
+    <h1 class="hero-h1 ld d2">
+      {hero.headline.map((line, n) => (n ? [<br />, line] : line))}
+    </h1>
+    <p class="hero-sub ld d3">
+      {hero.sub.map((s, n) => [n ? ' ' : '', <span>{s}</span>])}
+    </p>
+    <div class="hero-cta ld d4">
+      <button class="btp" type="button" data-open-contact aria-haspopup="dialog">{hero.button}</button>
+    </div>
+    <div class="hero-loc ld d5">
+      {hero.location} &nbsp;·&nbsp; <a href="#education">{hero.educationLink}</a>
+    </div>
+  </div>
+  <div class="hero-banner ld d6">
+    <Image
+      src={banner.src}
+      alt={banner.alt}
+      widths={[600, 900, 1200, 1400]}
+      sizes="(min-width: 1264px) 1200px, calc(100vw - 64px)"
+      loading="eager"
+    />
+  </div>
+  <div class="hero-xp">
+    {hero.experienceLead} &nbsp;<span>{hero.experienceList.join('  ·  ')}</span>
+  </div>
+</header>

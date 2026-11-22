@@ -1,0 +1,74 @@
+# Recommendations, newest first. Quotes are the writers' own words: keep typos verbatim
+# ("inisitatives", "pursing", "recommend course of action", "continously", "hestitated").
+# A blank line inside a quote starts a new paragraph.
+# Everyone here confirmed Stephen may publish their quote and photo.
+# Search can only jump to a card if the person is listed here.
+
+- id: collin
+  name: Collin Long
+  title: Generative AI Project Manager | Penn Engineering - MCIT Graduate Student
+  linkedin: https://www.linkedin.com/in/collin-long-technical-project-manager/
+  photo: rec-collin-long.jpg
+  date: 2025-08-28
+  relation: Collin worked with Stephen but on different teams
+  quote: >-
+    Stephen is one of the most well-rounded professionals I’ve had the pleasure of knowing.
+    With interests spanning a wide variety of topics, a conversation with Stephen leaves one
+    feeling inspired and learned. His openness to ideas, desire to constantly innovate and
+    explore possibilities, and continuous support and positivity differentiates him from his
+    peers. With his extensive experience blending the technical and business domains, Stephen
+    is an asset to any team in any organization.
+
+- id: kevin
+  name: Kevin Murphy
+  title: Cybersecurity, CISSP, CISM
+  linkedin: https://www.linkedin.com/in/kevin-murphy-8632565/
+  photo: rec-kevin-murphy.jpg
+  date: 2023-12-09
+  relation: Kevin worked with Stephen but on different teams
+  quote: >-
+    I have worked with Stephen for the last two years, and I found him to be super creative
+    and a great problem-solver. He consistently sees patterns before others and is quick to
+    point out areas where the team can brainstorm to get to a recommend course of action. He
+    can sort through a tough issue, determine what is germane and zero in on the resolution. I
+    would love the opportunity to work with him again. I would be happy to hire him in any
+    capacity that he is pursing.
+
+
+    He is one of those rare employees that you can count on to just, “figure it out.”
+
+- id: allen
+  name: Allen Khaligh
+  title: Senior Enterprise Delivery Solution Architect at T-Mobile
+  linkedin: https://www.linkedin.com/in/allenkhaligh/
+  photo: rec-allen-khaligh.png
+  date: 2022-09-06
+  relation: Allen was senior to Stephen but didn’t manage Stephen directly
+  quote: >-
+    I have had a pleasure and honor to work with Stephen on couple of security-related
+    inisitatives at T-Mobile. He was one of our most active participants for the sensitive and
+    critical projects that we worked on and for which he continously supported the team with
+    his clear and constructive guidance and directions to remediate and/or avoid any potential
+    vulnerability gaps. He has fantastic level of knowledge in security field and he never
+    hestitated to share them with the team. I will be looking forward to working with him
+    again on any future company/path/project.
+
+- id: kelsey
+  name: Kelsey Heick
+  title: Director, Strategic Programs and Operations, at Micron Technology
+  linkedin: https://www.linkedin.com/in/kelseylaroche/
+  photo: rec-kelsey-heick.png
+  date: 2015-07-31
+  relation: Kelsey and Stephen studied together
+  quote: >-
+    It is rare to find me talking on the phone and ever more rare to find me enjoying it. I
+    could talk to Stephen on the phone for hours which speaks volumes to his personality.
+    Stephen is THE person to go to if you want an intelligent, lively and thought-provoking
+    conversation on pretty much any topic. I had the pleasure of meeting Stephen and his family
+    while Stephen was a freshman and I was a senior at the University of Idaho. We have
+    continued to bounce ideas and thoughts off each other ever since. I am particularly
+    impressed by his ability to focus. Stephen does not give up and will never drop the ball.
+    He is also not afraid to question the way things are done and I know his view of the world
+    will lead to some earth-shaking innovations one day. No matter how busy he is (and trust me
+    - the guy keeps busy), he will always take time for a friend. As a team member, mentor,
+    mentee or leader, Stephen has my highest recommendation.
