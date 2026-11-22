@@ -1,0 +1,15 @@
+# Photo gallery ("A little about me"), in display order. Stephen edits `text`.
+# Alt text for each photo comes from source-images/image-manifest.json.
+
+main:
+  portrait: mark.jpg
+  heading: A little about me
+  text: "Seattle is home, and the Pacific Northwest is my favorite place to photograph: water, mountains and good light. Away from the keyboard I'm usually traveling, learning something new, or planning the next trip. These are a few of my own shots."
+  caption: Swipe through
+  photos:
+    - gallery-1-driftwood.jpg
+    - gallery-2-seattle-skyline.jpg
+    - gallery-3-silhouettes.jpg
+    - gallery-4-olympics.jpg
+    - gallery-5-hilltop-rainier.jpg
+    - gallery-6-rainier.jpg

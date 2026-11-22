@@ -1,0 +1,74 @@
+/* 404 page, ported from site-assets/404.html. Uses the site tokens from global.css,
+   so it also follows the visitor's chosen theme. */
+html:has(body.nf),
+body.nf {
+  height: 100%;
+}
+body.nf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: var(--t0);
+  text-align: center;
+}
+.nf-main {
+  max-width: 520px;
+}
+.nf-img {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: #ffffff;
+  object-fit: contain;
+}
+.nf-main h1 {
+  margin: 0;
+  font-size: clamp(34px, 6vw, 56px);
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.nf-main p {
+  margin: 16px 0 0;
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--t3);
+}
+.nf-b {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-top: 32px;
+  padding: 0 26px;
+  border-radius: 999px;
+  background: var(--btn);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 500;
+  transition: transform 0.25s var(--ease), filter 0.2s;
+}
+.nf-b:focus-visible {
+  border-radius: 999px;
+}
+@media (hover: hover) {
+  .nf-b:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+  }
+}
+.nf-b:active {
+  transform: scale(0.97);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nf-main {
+    animation: nf-in 0.9s var(--ease) both;
+  }
+  @keyframes nf-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+}

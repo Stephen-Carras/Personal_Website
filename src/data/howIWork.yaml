@@ -1,0 +1,18 @@
+# How I work: lead sentence plus six items (3-column grid), in display order.
+
+main:
+  heading: How I work
+  lead: "I'm a leader who is data-driven with a strategic vision. The numbers tell me what's true, and the strategy decides what's worth doing about it."
+  items:
+    - title: Hands-off, with a clear rhythm
+      text: I manage teams with a light touch. The team and I meet twice a week to level-set expectations and goals for the current week and the one ahead, and then people own their work.
+    - title: Hands-on when it counts
+      text: When something needs to get done, I get hands-on-keyboard and work alongside the team instead of directing from the sidelines.
+    - title: Start with the data
+      text: "Before I form an opinion, I get to the facts: the baseline, the trend, and the few metrics that actually drive the outcome."
+    - title: Keep the long view
+      text: Data shows where things stand. A clear strategy decides where to go, and which of the many things we could do are worth doing.
+    - title: Learn the whole business
+      text: I read everything I can and learn how the entire business works, not just my corner of it, so there are fewer blind spots and fewer wheels reinvented.
+    - title: Simplify until it's obvious
+      text: With Amazon Kiro, I built an internal tool that lets executive leaders overseeing a Fortune 500 division track manufacturing milestones in real time. I cut it down to the few milestones that matter and their live status, so leaders see where things stand without waiting for a report. I prototype with AI tools like Claude Code and Kiro so teams react to something real.

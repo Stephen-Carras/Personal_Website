@@ -1,0 +1,31 @@
+# Beyond work (everything except the gallery and trips, which have their own files).
+
+main:
+  heading: Beyond work
+  intro: "The person behind the resume: where I've been, what I do with my time, and what I'd love to talk about over coffee."
+  tripsHeading: Trips & places
+  hobbies:
+    heading: Hobbies & interests
+    items: [Traveling, Road Trips, Designing Houses, History, Making Podcasts with AI, Finance & Investing]
+  books:
+    heading: Favorite books
+    items:
+      - { title: Titan, author: Ron Chernow }
+      - { title: Elon Musk, author: Walter Isaacson }
+      - { title: Talk Like TED, author: Carmine Gallo }
+      - { title: The Everything Store, author: Brad Stone }
+  music:
+    heading: Music
+    # Add a public Spotify/Apple Music playlist URL here when available (link only, no embed).
+    items: [ILLENIUM, BLACKPINK, BAND-MAID, Brantley Gilbert, Marshmello, Skillet]
+  askMeAbout:
+    heading: Ask me about
+    items:
+      - Getting up to speed in an unfamiliar industry within weeks
+      - Rapid AI prototyping with Claude Code and Amazon Kiro
+  now:
+    heading: Now
+    items:
+      - { label: Building, text: AI-augmented workflows with Claude Code and Amazon Kiro }
+      - { label: Reading, text: "The Nvidia Way, by Tae Kim" }
+      - { label: Listening, text: ILLENIUM }

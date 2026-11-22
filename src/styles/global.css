@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Tokens. Light is the default; dark applies when theme.js sets
+   data-theme="dark", or (without JS) when the system prefers dark.
+   Values from CLAUDE.md "Design" and design/Main.dc.html.
+   ========================================================================== */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --bga: #f5f5f7;
+  --card: #ffffff;
+  --cardw: #f5f5f7;
+  --hair: #d2d2d7;
+  --hair2: #e8e8ed;
+  --t0: #1d1d1f;
+  --t1: #1d1d1f;
+  --t2: #424245;
+  --t3: #5c5c61;
+  --m: #6e6e73;
+  --nav: rgba(255, 255, 255, 0.8);
+  --accent: #0066cc;
+  --ring: var(--accent);
+  --btn: #0071e3;
+  --on-accent: #ffffff;
+  --accbg: rgba(0, 113, 227, 0.1);
+  --navk: #58585c;
+  --navkh: #000000;
+  --awbg: #fff3dc;
+  --awfg: #9a4a00;
+
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Inter,
+    'Segoe UI', Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --nav-h: 48px;
+  --maxw: 1080px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #000000;
+  --bga: #121214;
+  --card: #1d1d1f;
+  --cardw: #1d1d1f;
+  --hair: #3a3a3c;
+  --hair2: #2a2a2d;
+  --t0: #f5f5f7;
+  --t1: #f5f5f7;
+  --t2: #d2d2d7;
+  --t3: #a1a1a6;
+  --m: #86868b;
+  --nav: rgba(0, 0, 0, 0.72);
+  --accent: #2997ff;
+  --navk: #c7c7cc;
+  --navkh: #ffffff;
+  --awbg: rgba(255, 159, 10, 0.16);
+  --awfg: #ffb340;
+}
+
+/* No-JS fallback: follow the system setting. Same values as above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --bg: #000000;
+    --bga: #121214;
+    --card: #1d1d1f;
+    --cardw: #1d1d1f;
+    --hair: #3a3a3c;
+    --hair2: #2a2a2d;
+    --t0: #f5f5f7;
+    --t1: #f5f5f7;
+    --t2: #d2d2d7;
+    --t3: #a1a1a6;
+    --m: #86868b;
+    --nav: rgba(0, 0, 0, 0.72);
+    --accent: #2997ff;
+    --navk: #c7c7cc;
+    --navkh: #ffffff;
+    --awbg: rgba(255, 159, 10, 0.16);
+    --awfg: #ffb340;
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+main:focus {
+  outline: none;
+}
+
+section,
+header {
+  scroll-margin-top: 47px;
+}
+
+summary {
+  cursor: pointer;
+}
+
+/* Focus: a visible ring in the accent color on every interactive element. */
+:where(a, button, summary, [tabindex]):focus {
+  outline: none;
+}
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip {
+  position: fixed;
+  left: 16px;
+  top: -80px;
+  z-index: 300;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--t0);
+  color: var(--bg);
+  font-size: 15px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+.skip:focus,
+.skip:focus-visible {
+  top: 12px;
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Nav (sticky, translucent, 48px)
+   ========================================================================== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--nav-h);
+  background: var(--nav);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--hair2);
+}
+.nav-in {
+  max-width: 1144px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.nav-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--t0);
+  white-space: nowrap;
+}
+/* Personal mark: opaque image on a white circle in both themes (never inverted). */
+.nav-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ffffff;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.navl {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  font-size: 13px;
+}
+.navk {
+  color: var(--navk);
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+.nav-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+  margin: 0;
+  padding: 0 14px 0 11px;
+  border: none;
+  border-radius: 999px;
+  background: var(--cardw);
+  color: var(--t3);
+  cursor: pointer;
+  font-size: 13px;
+}
+.nav-search:focus-visible {
+  border-radius: 999px;
+}
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0 -10px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--t2);
+  cursor: pointer;
+}
+.theme-toggle:focus-visible {
+  border-radius: 50%;
+}
+/* Show the sun in dark mode (switch to light) and the moon in light mode. */
+.ic-sun {
+  display: none;
+}
+:root[data-theme='dark'] .ic-sun {
+  display: inline;
+}
+:root[data-theme='dark'] .ic-moon {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .ic-sun {
+    display: inline;
+  }
+  :root:not([data-theme]) .ic-moon {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  .navk:hover {
+    color: var(--navkh);
+  }
+  .theme-toggle:hover {
+    background: var(--cardw);
+    color: var(--t0);
+  }
+  .nav-search:hover {
+    background: var(--hair2);
+  }
+}
+
+@media (max-width: 860px) {
+  .navl {
+    display: none;
+  }
+  .nav-home {
+    min-height: 44px;
+  }
+  .nav-search {
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+@media (max-width: 520px) {
+  .nav-search-t {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Page sections (filled in phase 2)
+   ========================================================================== */
+.sec {
+  padding: 96px 32px;
+  background: var(--bg);
+}
+.sec.alt {
+  background: var(--bga);
+}
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.h2 {
+  margin: 0;
+  font-size: clamp(32px, 4.2vw, 56px);
+  line-height: 1.07;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--t0);
+}

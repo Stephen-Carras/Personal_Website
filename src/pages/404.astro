@@ -1,0 +1,14 @@
+---
+// Port of site-assets/404.html. Its inline <style> moved to src/styles/404.css.
+import Base from '../layouts/Base.astro';
+import '../styles/404.css';
+---
+
+<Base title="Page not found | Stephen Carras" minimal bodyClass="nf">
+  <main class="nf-main">
+    <img class="nf-img" src="/apple-touch-icon.png" alt="" width="88" height="88" />
+    <h1>This page took<br />a different path.</h1>
+    <p>The link you followed doesn't lead anywhere. Let's get you back to something real.</p>
+    <a class="nf-b" href="/">Back to home</a>
+  </main>
+</Base>
