@@ -1,0 +1,152 @@
+[
+  {
+    "file": "source-images/mark.jpg",
+    "artifact_blob_id": "5be4fa15115ff3f47dc632abb4065c92",
+    "used_in": "Nav mark (28px round) and Beyond work portrait (96px round)",
+    "alt": "Illustrated portrait of Stephen"
+  },
+  {
+    "file": "source-images/headshot.jpg",
+    "artifact_blob_id": "c1e6d598379208bb16fd137bdfc6f84d",
+    "used_in": "Hero round headshot (128px)",
+    "alt": "Portrait of Stephen"
+  },
+  {
+    "file": "source-images/seattle-banner.png",
+    "artifact_blob_id": "6090efaf68c92acd0f5c9917c8bb622f",
+    "used_in": "Hero wide banner (about 4:1, not cropped)",
+    "alt": "Seattle skyline at sunset with Mount Rainier"
+  },
+  {
+    "file": "source-images/logo-boeing.png",
+    "artifact_blob_id": "d196dc6caf2f43ba6ecafb3aecea3d58",
+    "used_in": "Experience: Boeing",
+    "alt": "Boeing logo"
+  },
+  {
+    "file": "source-images/logo-tmobile.png",
+    "artifact_blob_id": "5c1a3829194eb8e8529b19e67b05dd1e",
+    "used_in": "Experience: T-Mobile",
+    "alt": "T-Mobile logo"
+  },
+  {
+    "file": "source-images/logo-inductev.png",
+    "artifact_blob_id": "bdd2016753cb5f1deeeb6bf8358409fc",
+    "used_in": "Experience: InductEV (scaled to 80% inside tile)",
+    "alt": "InductEV logo"
+  },
+  {
+    "file": "source-images/logo-ftse-russell.png",
+    "artifact_blob_id": "61782a67c862154d20c5cc322203a968",
+    "used_in": "Experience: FTSE Russell",
+    "alt": "FTSE Russell logo"
+  },
+  {
+    "file": "source-images/logo-constellation-energy.png",
+    "artifact_blob_id": "139ce2710aeccbcec0d7ba6dbf1e6425",
+    "used_in": "Experience: Constellation Energy (scaled 1.3x inside tile)",
+    "alt": "Constellation Energy logo"
+  },
+  {
+    "file": "source-images/logo-momentum-dynamics.png",
+    "artifact_blob_id": "1b32291231aad838fe59efb55a8bff05",
+    "used_in": "Experience: Momentum Dynamics (scaled 1.35x inside tile)",
+    "alt": "Momentum Dynamics logo"
+  },
+  {
+    "file": "source-images/logo-penn-state.png",
+    "artifact_blob_id": "26f76a5439374dd97dbde9b48ee251e2",
+    "used_in": "Education: Penn State (72% inside tile)",
+    "alt": "Penn State logo"
+  },
+  {
+    "file": "source-images/rec-allen-khaligh.png",
+    "artifact_blob_id": "f87dcac13cd00bd61f617359cce998e2",
+    "used_in": "Recommendation avatar",
+    "alt": "Portrait of Allen Khaligh"
+  },
+  {
+    "file": "source-images/rec-kelsey-heick.png",
+    "artifact_blob_id": "29303060fb24bcb36b00e5dda89a56fb",
+    "used_in": "Recommendation avatar",
+    "alt": "Portrait of Kelsey Heick"
+  },
+  {
+    "file": "source-images/rec-collin-long.jpg",
+    "artifact_blob_id": "cbb1d56494ebe0007a9160a8a0a6a3f8",
+    "used_in": "Recommendation avatar",
+    "alt": "Portrait of Collin Long"
+  },
+  {
+    "file": "source-images/rec-kevin-murphy.jpg",
+    "artifact_blob_id": "162611b29ab19615186a1a2b89d614c8",
+    "used_in": "Recommendation avatar",
+    "alt": "Portrait of Kevin Murphy"
+  },
+  {
+    "file": "source-images/trip-toronto.jpg",
+    "artifact_blob_id": "0f63debfa4306a040a9df09abc35c017",
+    "used_in": "Trips & places 1 (Toronto, Canada)",
+    "alt": "Toronto skyline with the CN Tower at dusk, reflected in the lake"
+  },
+  {
+    "file": "source-images/trip-seoul.jpg",
+    "artifact_blob_id": "963af80df4c7cbdcade40352bb4656b2",
+    "used_in": "Trips & places 2 (Seoul, South Korea)",
+    "alt": "Seoul skyline across the Han River, with Lotte World Tower in the distance"
+  },
+  {
+    "file": "source-images/trip-florence.jpg",
+    "artifact_blob_id": "bc7ad6030506ca869e9073a7a12f0b0f",
+    "used_in": "Trips & places 3 (Florence, Italy)",
+    "alt": "Florence rooftops with the Duomo and Palazzo Vecchio tower"
+  },
+  {
+    "file": "source-images/trip-rome.jpg",
+    "artifact_blob_id": "b4cdcad59ce992f90209dcbbeaac7847",
+    "used_in": "Trips & places 4 (Rome, Italy)",
+    "alt": "The Colosseum in Rome at sunset, framed by trees"
+  },
+  {
+    "file": "source-images/trip-jeju.jpg",
+    "artifact_blob_id": "123c44f6539edb7e0f419e3c5b8ad999",
+    "used_in": "Trips & places 5 (Jeju Island, South Korea)",
+    "alt": "Lighthouse and a statue on the volcanic rock coast of Jeju Island"
+  },
+  {
+    "file": "source-images/gallery-1-driftwood.jpg",
+    "artifact_blob_id": "8cf8ab14a04bc2dc6289050bef87f7a4",
+    "used_in": "Photo gallery 1 (480x360)",
+    "alt": "Driftwood stump in the surf against a vivid orange and purple sunset"
+  },
+  {
+    "file": "source-images/gallery-2-seattle-skyline.jpg",
+    "artifact_blob_id": "34d98cf9d47fc9a740c0a537dd0a7c72",
+    "used_in": "Photo gallery 2 (480x360)",
+    "alt": "Seattle skyline across calm blue water at golden hour"
+  },
+  {
+    "file": "source-images/gallery-3-silhouettes.jpg",
+    "artifact_blob_id": "3ca0c6f6cf309d02b7a4ece2ed5294f7",
+    "used_in": "Photo gallery 3 (480x360)",
+    "alt": "Three people silhouetted on a beach at sunset with distant mountains"
+  },
+  {
+    "file": "source-images/gallery-4-olympics.jpg",
+    "artifact_blob_id": "ed8bf75680b7c3cf33abd92f0edb6b02",
+    "used_in": "Photo gallery 4 (480x360)",
+    "alt": "Snow-capped mountain range above blue water under a clear sky"
+  },
+  {
+    "file": "source-images/gallery-5-hilltop-rainier.jpg",
+    "artifact_blob_id": "e738cbd8a2104c5ec6ddb9b27d3a331c",
+    "used_in": "Photo gallery 5",
+    "alt": "View from a grassy hilltop over forested valleys toward a distant snow-covered Mount Rainier"
+  },
+  {
+    "file": "source-images/gallery-6-rainier.jpg",
+    "artifact_blob_id": "63fa3d27e78639e7b7ca9cf1079d4bed",
+    "used_in": "Photo gallery 6",
+    "alt": "Mount Rainier framed by two evergreen trees against a blue sky"
+  }
+]
