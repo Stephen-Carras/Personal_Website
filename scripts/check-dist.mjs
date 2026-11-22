@@ -183,7 +183,7 @@ function htmlProblems(s) {
     ['script in a comment', page('<!-- <script>alert(1)</script> -->')],
     ['JSON-LD data block', page('<script type="application/ld+json">{"a":"</scri"}</script>')],
     ['text that looks like a tag inside a data block', page('<script type="application/json">["<style>"]</script >')],
-    ['canonical link to the site', page('<link rel="canonical" href="https://stephen-carras.github.io/">')],
+    ['canonical link to the site', page('<link rel="canonical" href="https://stephencarras.com/">')],
     ['ordinary external link', page('', '<a href="https://www.linkedin.com/" rel="noopener noreferrer">x</a>')],
   ];
   const broken = [
