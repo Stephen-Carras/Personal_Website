@@ -1,0 +1,27 @@
+# Dependabot: weekly update PRs for npm packages and for the pinned GitHub Actions
+# (it updates the SHA and the version comment together). A 7-day cooldown skips
+# brand-new releases, which is when compromised versions are usually caught.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      astro:
+        patterns: ['astro', '@astrojs/*']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ['*']

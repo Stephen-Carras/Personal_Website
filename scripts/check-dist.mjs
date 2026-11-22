@@ -51,11 +51,12 @@ for (const f of html) {
     if (/\b(?:src|href|srcset|poster)\s*=\s*["']?\s*data:/i.test(t)) fail(f, `data: URI: ${t.slice(0, 100)}`);
     if (/\bhref\s*=\s*["']?\s*javascript:/i.test(t)) fail(f, `javascript: URL: ${t.slice(0, 100)}`);
     const ext = t.match(/<(?:link|img|source|iframe|embed|object)\b[^>]*\b(?:src|href)\s*=\s*["']((?:https?:)?\/\/[^"']+)/i);
-    if (ext && !/^https:\/\/YOUR-DOMAIN\//.test(ext[1]) && !/rel=["']?canonical/i.test(t)) {
+    if (ext && !/rel=["']?canonical/i.test(t)) {
       fail(f, `third-party resource: ${ext[1]}`);
     }
   }
   if (!s.includes('http-equiv="Content-Security-Policy"')) fail(f, 'missing CSP meta tag');
+  if (s.includes('YOUR-DOMAIN')) fail(f, 'YOUR-DOMAIN placeholder left in the page (set `site` in astro.config.mjs)');
 }
 
 // --- CSS: no data: URIs or remote imports ------------------------------------------
@@ -106,6 +107,18 @@ if (home) {
       if (e.a === 'rec' && !ids.has(`rec-${e.rc}`)) fail(home, `search: no card for recommender "${e.t}"`);
       if (!e.i && !e.a) fail(home, `search: "${e.t}" has no target`);
     }
+  }
+}
+
+// --- security.txt (RFC 9116): present, with Contact and an Expires under a year away --
+{
+  const f = path.join(DIST, '.well-known', 'security.txt');
+  if (!fs.existsSync(f)) fail(f, 'missing /.well-known/security.txt');
+  else {
+    const t = fs.readFileSync(f, 'utf8');
+    if (!/^Contact: https:\/\//m.test(t)) fail(f, 'security.txt has no Contact');
+    const exp = Date.parse(t.match(/^Expires: (.+)$/m)?.[1] ?? '');
+    if (!(exp > Date.now() && exp < Date.now() + 365 * 864e5)) fail(f, 'security.txt Expires missing or not within a year');
   }
 }
 

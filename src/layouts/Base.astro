@@ -1,6 +1,6 @@
 ---
-// Base layout. The <head> is site-assets/head-snippet.html verbatim (YOUR-DOMAIN is a
-// placeholder until the domain is chosen) plus the CSP from CLAUDE.md, the blocking
+// Base layout. The <head> is site-assets/head-snippet.html, with its YOUR-DOMAIN
+// placeholder replaced by `site` from astro.config.mjs, plus the CSP from CLAUDE.md, the blocking
 // theme script, the stylesheet and the main script. Nothing is inlined except the
 // JSON-LD data block, which is not executable and not governed by script-src.
 import '../styles/global.css';
@@ -20,6 +20,10 @@ const {
   bodyClass,
 } = Astro.props;
 
+if (!Astro.site) throw new Error('Set `site` in astro.config.mjs (used for canonical and share URLs).');
+const home = new URL('/', Astro.site).href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+
 const csp =
   "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'";
 
@@ -27,8 +31,8 @@ const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Stephen Carras',
-  url: 'https://YOUR-DOMAIN/',
-  image: 'https://YOUR-DOMAIN/og-image.png',
+  url: home,
+  image: ogImage,
   jobTitle: 'Strategy & Operations Leader',
   address: {
     '@type': 'PostalAddress',
@@ -50,7 +54,7 @@ const jsonLd = JSON.stringify({
     <script is:inline src="/theme.js"></script>
     <title>{title}</title>
     <meta name="description" content={description} />
-    {!minimal && <link rel="canonical" href="https://YOUR-DOMAIN/" />}
+    {!minimal && <link rel="canonical" href={home} />}
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
@@ -70,8 +74,8 @@ const jsonLd = JSON.stringify({
             property="og:description"
             content="Strategy & operations leader. Two startups (one acquired). Hardware, AI, security and business."
           />
-          <meta property="og:url" content="https://YOUR-DOMAIN/" />
-          <meta property="og:image" content="https://YOUR-DOMAIN/og-image.png" />
+          <meta property="og:url" content={home} />
+          <meta property="og:image" content={ogImage} />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:image:alt" content="Stephen Carras: Turning ideas into execution." />

@@ -43,7 +43,9 @@ function pruneUnusedAssets() {
 // and asset must be an external file.
 export default defineConfig({
   output: 'static',
-  // `site` is left unset until the domain is chosen (see YOUR-DOMAIN in the head).
+  // The site's public URL: used for the canonical link, share tags, structured data
+  // and security.txt. Change this one line when a custom domain is chosen.
+  site: 'https://stephen-carras.github.io',
   build: {
     inlineStylesheets: 'never',
   },
