@@ -161,7 +161,7 @@ Do these on the live address after the first deploy.
 7. **Console:** open the browser developer tools, Console tab. There should be no red errors (a CSP violation would show here).
 8. **Lighthouse:** in Chrome developer tools, Lighthouse tab, run for mobile. Aim for 90+ in Performance, Accessibility, Best Practices and SEO.
 9. **Share preview:** paste the live address into LinkedIn's Post Inspector (https://www.linkedin.com/post-inspector/) and check the image and title. If it shows an old or missing image, click "Inspect" again to refresh.
-10. **Replace the placeholder:** search the repo for `YOUR-DOMAIN` and replace it with the real address (it appears in the share-preview and canonical tags). Commit, push, and re-run step 9.
+10. **Site address:** the share-preview, canonical and schema URLs use `https://stephen-carras.github.io`, set once as `site` in `astro.config.mjs`. If the address changes, edit that line, commit, push, and re-run step 9.
 
 ---
 
@@ -172,7 +172,7 @@ Do these on the live address after the first deploy.
 3. Repo, Settings, Pages, "Custom domain": enter it, save, then tick Enforce HTTPS once the certificate is ready.
 4. Add the DNS records GitHub lists (A records for an apex domain, or a CNAME for `www`).
 5. Never leave a DNS record pointing at GitHub Pages after you stop using a domain; that is how subdomain takeovers happen.
-6. Update `YOUR-DOMAIN` (Part 6, step 10) to the new domain.
+6. Change `site` in `astro.config.mjs` to the new domain (Part 6, step 10).
 
 GitHub Pages cannot set some security headers (HSTS preload, frame-ancestors, Permissions-Policy). If you want those later, put Cloudflare in front or host on Cloudflare Pages with the code still on GitHub. `CLAUDE.md` has the details.
 

@@ -1,6 +1,6 @@
 ---
-// Base layout. The <head> is site-assets/head-snippet.html, with its YOUR-DOMAIN
-// placeholder replaced by `site` from astro.config.mjs, plus the CSP from CLAUDE.md, the blocking
+// Base layout. The <head> is site-assets/head-snippet.html, with its absolute URLs built
+// from `site` in astro.config.mjs, plus the CSP from CLAUDE.md, the blocking
 // theme script, the stylesheet and the main script. Nothing is inlined except the
 // JSON-LD data block, which is not executable and not governed by script-src.
 import '../styles/global.css';
