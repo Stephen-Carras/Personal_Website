@@ -1,0 +1,284 @@
+/* Motion, per MOTION.md. Ported from the design's reference <style> block.
+   - Every animation sits inside prefers-reduced-motion: no-preference; scroll-driven
+     parts also sit inside @supports (animation-timeline: view()). Everyone else sees
+     the content at rest.
+   - The design set stagger values with inline style="--i:2". The CSP forbids inline
+     styles, so the markup uses classes (i0-i9, d1-d6, k0-k18, row2) instead. */
+
+/* ---- Stagger values ---------------------------------------------------------------- */
+.i1 { --i: 1; } .i2 { --i: 2; } .i3 { --i: 3; } .i4 { --i: 4; }
+.i5 { --i: 5; } .i6 { --i: 6; } .i7 { --i: 7; } .i8 { --i: 8; } .i9 { --i: 9; }
+.d1 { --d: 1; } .d2 { --d: 2; } .d3 { --d: 3; } .d4 { --d: 4; } .d5 { --d: 5; } .d6 { --d: 6; }
+.row2 { --s: 450px; }
+.k1 { --k: 1; } .k2 { --k: 2; } .k3 { --k: 3; } .k4 { --k: 4; } .k5 { --k: 5; } .k6 { --k: 6; }
+.k7 { --k: 7; } .k8 { --k: 8; } .k9 { --k: 9; } .k10 { --k: 10; } .k11 { --k: 11; } .k12 { --k: 12; }
+.k13 { --k: 13; } .k14 { --k: 14; } .k15 { --k: 15; } .k16 { --k: 16; } .k17 { --k: 17; } .k18 { --k: 18; }
+
+/* ---- Scroll progress bar (2px accent line under the nav) -------------------------- */
+.prog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---- Load: hero fades up, staggered ---------------------------------------------- */
+  .ld {
+    animation: ld 1s var(--ease) both;
+    animation-delay: calc(var(--d, 0) * 110ms + 80ms);
+  }
+  @keyframes ld {
+    from { opacity: 0; transform: translate3d(0, 28px, 0); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ---- Scroll-driven reveals --------------------------------------------------------- */
+  @supports (animation-timeline: view()) {
+    .rv-l, .rv-r, .rv-z, .rv-u, .rv-c, .rv-n {
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+    }
+    .rv-l {
+      animation-name: rvl;
+      animation-range: cover calc(var(--i, 0) * 3%) cover calc(48% + var(--i, 0) * 3%);
+    }
+    .rv-r {
+      animation-name: rvr;
+      animation-range: cover calc(var(--i, 0) * 3%) cover calc(48% + var(--i, 0) * 3%);
+    }
+    .rv-z { animation-name: rvz; animation-range: cover 0% cover 46%; }
+    .rv-u {
+      animation-name: rvu;
+      animation-range: entry calc(var(--i, 0) * 40px) entry calc(340px + var(--i, 0) * 40px);
+    }
+    .rv-c {
+      animation-name: rvc;
+      animation-range: entry calc(var(--i, 0) * 22px) entry calc(190px + var(--i, 0) * 22px);
+    }
+    .rv-n { animation-name: rvn; animation-range: cover 6% cover 46%; }
+    /* The Contact rows sit at the very end of the page: the last one starts only
+       ~267px above the end of the document, so a 340px entry range could never
+       finish and it would rest faded. End their reveal at 220px instead. */
+    .facts .fact.rv-u {
+      animation-range: entry 0 entry 220px;
+    }
+
+    /* Results: one named timeline for the whole section keeps the 2x2 grid together. */
+    .rs-l, .rs-r, .rs-n {
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: --res;
+    }
+    .rs-l { animation-name: rvl; animation-range: cover var(--s, 200px) cover calc(100vh + 48px); }
+    .rs-r { animation-name: rvr; animation-range: cover var(--s, 200px) cover calc(100vh + 48px); }
+    .rs-n {
+      animation-name: rvn;
+      animation-range: cover calc(var(--s, 200px) + 60px) cover calc(100vh - 40px);
+    }
+
+    /* Longhands in two rules: the minifier would otherwise fold them into an
+       animation shorthand containing scroll(root), which browsers reject. */
+    .prog {
+      animation-name: prog;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+    .nav .prog {
+      animation-timeline: scroll(root);
+    }
+
+    @keyframes rvl {
+      from { opacity: 0; transform: translate3d(-220px, 90px, 0) scale(0.84); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rvr {
+      from { opacity: 0; transform: translate3d(220px, 90px, 0) scale(0.84); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rvz {
+      from { opacity: 0; transform: translate3d(0, 90px, 0) scale(0.86); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rvu {
+      from { opacity: 0; transform: translate3d(0, 56px, 0); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rvc {
+      from { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.8); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes rvn {
+      from { opacity: 0; transform: translate3d(0, 70px, 0) scale(0.9); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes prog {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+  }
+
+  /* ---- Expand and collapse ------------------------------------------------------------ */
+  details {
+    interpolate-size: allow-keywords;
+  }
+  details::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height 0.55s var(--ease),
+      opacity 0.45s ease,
+      content-visibility 0.55s allow-discrete;
+  }
+  details[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+  @supports not selector(details::details-content) {
+    details[open] > :not(summary) {
+      animation: dopen 0.5s var(--ease) both;
+    }
+  }
+  .fold {
+    animation: dopen 0.6s var(--ease) both;
+  }
+  .comp details[open] .comp-row {
+    animation: dopen 0.6s var(--ease) both;
+  }
+  .comp details[open] .comp-row:nth-child(2) { animation-delay: 70ms; }
+  .comp details[open] .comp-row:nth-child(3) { animation-delay: 140ms; }
+  .comp details[open] .comp-row:nth-child(4) { animation-delay: 210ms; }
+  .comp details[open] .comp-row:nth-child(5) { animation-delay: 280ms; }
+  .comp details[open] .comp-row:nth-child(6) { animation-delay: 350ms; }
+  details[open] .cw span {
+    animation: cwp 0.5s var(--ease) both;
+    animation-delay: calc(var(--k, 0) * 26ms);
+  }
+  @keyframes dopen {
+    from { opacity: 0; transform: translate3d(0, -12px, 0); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes cwp {
+    from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.9); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* ---- Hint nudge ---------------------------------------------------------------------- */
+  .hint-a {
+    animation: hnt 1.8s ease-in-out infinite;
+  }
+  @keyframes hnt {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+}
+
+/* ---- Reduced motion ----------------------------------------------------------------------
+   Nothing above applies, so reveals render at rest and details open instantly. Scripted
+   scrolling already uses behavior 'auto' (scripts/util.ts); this covers CSS smooth scroll.
+   The search flash is a 2s colour fade with no movement, so it stays. */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Print ------------------------------------------------------------------------------ */
+@media print {
+  /* Always print in the light palette, with slightly stronger greys. */
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff !important;
+    --bga: #ffffff !important;
+    --card: #ffffff !important;
+    --cardw: #f5f5f7 !important;
+    --t0: #000000 !important;
+    --t1: #1d1d1f !important;
+    --t2: #333333 !important;
+    --t3: #444444 !important;
+    --m: #555555 !important;
+    --hair: #cccccc !important;
+    --hair2: #dddddd !important;
+    --accent: #0066cc !important;
+    --awbg: #fff3dc !important;
+    --awfg: #9a4a00 !important;
+    color-scheme: light !important;
+  }
+  .nav,
+  .prog,
+  .skip,
+  dialog,
+  .gbtns,
+  .track-bar,
+  .gal-bar,
+  .rm,
+  .about-toggle,
+  details > summary,
+  [data-clone] {
+    display: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .ld, .rv-l, .rv-r, .rv-z, .rv-u, .rv-c, .rv-n, .rs-l, .rs-r, .rs-n {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  /* Everything expanded: role details, coursework, competencies, About, quotes. */
+  details::details-content {
+    height: auto !important;
+    opacity: 1 !important;
+    content-visibility: visible !important;
+  }
+  .js .fold {
+    display: flex !important;
+  }
+  .js .rec-q {
+    height: auto !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+  .comp:has(details[open]) .hl,
+  .hl {
+    display: none !important;
+  }
+  /* Carousels print as wrapped grids, each item once. */
+  .track {
+    flex-wrap: wrap !important;
+    overflow: visible !important;
+  }
+  .co-side {
+    position: static !important;
+  }
+  figure,
+  details,
+  .rec,
+  .trip,
+  .gal-slide,
+  .res-tile,
+  .how-item,
+  .card,
+  .degree {
+    break-inside: avoid;
+  }
+  .h2,
+  .h3 {
+    break-after: avoid;
+  }
+  @page {
+    margin: 14mm;
+  }
+}

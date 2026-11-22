@@ -81,3 +81,18 @@ initCarousels();
 initFolds();
 initContact();
 initSearch();
+
+/* ------------------------------------------------------------------------
+   Print: expand everything. CSS handles ::details-content where supported;
+   this opens the <details> elements themselves for other browsers, and
+   puts them back afterwards.
+   ------------------------------------------------------------------------ */
+let printOpened: HTMLDetailsElement[] = [];
+window.addEventListener('beforeprint', () => {
+  printOpened = Array.from(document.querySelectorAll<HTMLDetailsElement>('main details:not([open])'));
+  printOpened.forEach((d) => (d.open = true));
+});
+window.addEventListener('afterprint', () => {
+  printOpened.forEach((d) => (d.open = false));
+  printOpened = [];
+});
