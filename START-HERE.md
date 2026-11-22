@@ -161,7 +161,7 @@ Do these on the live address after the first deploy.
 7. **Console:** open the browser developer tools, Console tab. There should be no red errors (a CSP violation would show here).
 8. **Lighthouse:** in Chrome developer tools, Lighthouse tab, run for mobile. Aim for 90+ in Performance, Accessibility, Best Practices and SEO.
 9. **Share preview:** paste the live address into LinkedIn's Post Inspector (https://www.linkedin.com/post-inspector/) and check the image and title. If it shows an old or missing image, click "Inspect" again to refresh.
-10. **Site address:** the share-preview, canonical and schema URLs use `https://stephen-carras.github.io`, set once as `site` in `astro.config.mjs`. If the address changes, edit that line, commit, push, and re-run step 9.
+10. **Site address:** the share-preview, canonical and schema URLs use `https://stephencarras.com`, set once as `site` in `astro.config.mjs`. If the address changes, edit that line, commit, push, and re-run step 9.
 
 ---
 
