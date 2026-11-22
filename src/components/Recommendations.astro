@@ -37,7 +37,7 @@ const recs = await inFileOrder('recommendations');
           recs.map(({ id, data: r }) => {
             const photo = img(r.photo);
             return (
-              <figure class="rec" id={`rec-${id}`}>
+              <figure class="rec" id={`rec-${id}`} data-rec-id={id}>
                 <div class="rec-top">
                   <div class="rec-mark" aria-hidden="true">“</div>
                   <blockquote class="rec-q" id={`recq-${id}`}>

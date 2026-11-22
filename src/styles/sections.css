@@ -704,6 +704,17 @@ html:not(.js) .about-toggle {
 html:not(.js) .rec-more {
   display: none;
 }
+/* Quotes that fit in five lines show in full, without the fade. */
+.js .rec-q.fits {
+  height: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .rec-q {
+    transition: none;
+  }
+}
 .rec-by {
   display: flex;
   gap: 16px;
@@ -1045,4 +1056,166 @@ html:not(.js) .rec-more {
   font-size: 13px;
   line-height: 1.6;
   color: var(--m);
+}
+
+/* ---- Contact popup (native <dialog>) ------------------------------------ */
+.cmod {
+  width: calc(100% - 48px);
+  max-width: 480px;
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 28px;
+  background: var(--bg);
+  color: var(--t1);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  overflow: auto;
+}
+.cmod::backdrop {
+  background: rgba(0, 0, 0, 0.42);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+/* Lock page scroll while a modal is open. */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
+.cmod-in {
+  position: relative;
+  padding: 36px 36px 28px;
+}
+.cmod-x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  color: var(--t3);
+}
+.cmod-h {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.1;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--t0);
+}
+.cmod-p {
+  margin: 10px 0 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--t3);
+}
+.cmod-rows {
+  margin-top: 24px;
+  border-bottom: 1px solid var(--hair2);
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  border-top: 1px solid var(--hair2);
+  color: var(--t1);
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+.row-txt {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+.row-l {
+  font-size: 13px;
+  color: var(--m);
+}
+.row-v {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.row-chev {
+  flex: none;
+  font-size: 22px;
+  color: var(--accent);
+}
+.row-email {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid var(--hair2);
+}
+.row-in {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+  color: var(--t1);
+}
+.chip {
+  flex: none;
+  min-width: 72px;
+  height: 36px;
+  margin: 0;
+  padding: 0 14px;
+  border: none;
+  border-radius: 999px;
+  background: var(--cardw);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+  transition: transform 0.25s var(--ease), background-color 0.2s ease;
+}
+.chip:focus-visible {
+  border-radius: 999px;
+}
+.chip:active {
+  transform: scale(0.94);
+}
+.cmod-note {
+  margin: 18px 0 0;
+  font-size: 14px;
+  color: var(--m);
+}
+@media (hover: hover) {
+  .row:hover {
+    opacity: 1;
+    background: var(--cardw);
+  }
+  .chip:hover {
+    background: var(--hair2);
+  }
+  .cmod-x:hover {
+    background: var(--cardw);
+    color: var(--t0);
+  }
+}
+@media (max-width: 860px) {
+  .chip {
+    height: 44px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cmod[open] {
+    animation: cmod-in 0.35s var(--ease) both;
+  }
+  .cmod[open]::backdrop {
+    animation: cmod-fade 0.3s ease both;
+  }
+  @keyframes cmod-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0) scale(0.97);
+    }
+  }
+  @keyframes cmod-fade {
+    from {
+      opacity: 0;
+    }
+  }
 }

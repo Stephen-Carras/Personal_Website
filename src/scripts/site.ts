@@ -1,7 +1,10 @@
-// The site's one external script (bundled by Astro). No inline handlers anywhere:
-// everything is wired here with addEventListener. Later phases add the popup,
-// carousels, search and the rest.
+// The site's one external script (bundled by Astro into a single file). No inline
+// handlers anywhere: everything is wired with addEventListener. Module scripts run
+// after the HTML is parsed, so the DOM is ready here.
 import { duration } from '../lib/dates';
+import { initCarousels } from './carousel';
+import { initContact } from './contact';
+import { initFolds } from './folds';
 
 /* ------------------------------------------------------------------------
    Theme. public/theme.js already set data-theme before paint. Here: the
@@ -68,3 +71,11 @@ document.querySelectorAll<HTMLElement>('[data-dur-start]').forEach((el) => {
    ------------------------------------------------------------------------ */
 const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
 if (!isApple) document.querySelectorAll('[data-kbd]').forEach((k) => (k.textContent = 'Ctrl K'));
+
+/* ------------------------------------------------------------------------
+   Interactions. Carousels first: they add the loop clones that the
+   recommendation toggles also need to cover.
+   ------------------------------------------------------------------------ */
+initCarousels();
+initFolds();
+initContact();

@@ -14,6 +14,7 @@ import Recommendations from '../components/Recommendations.astro';
 import HowIWork from '../components/HowIWork.astro';
 import Beyond from '../components/Beyond.astro';
 import Contact from '../components/Contact.astro';
+import ContactDialog from '../components/ContactDialog.astro';
 
 const profile = (await getEntry('profile', 'stephen'))!.data;
 const h = profile.headings;
@@ -38,4 +39,5 @@ const h = profile.headings;
       {profile.footer.map((line, n) => (n ? [<br />, line] : line))}
     </div>
   </footer>
+  <ContactDialog popup={profile.contactPopup} linkedin={profile.linkedin} />
 </Base>
