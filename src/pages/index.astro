@@ -1,9 +1,19 @@
 ---
-// Phase 1 shell: nav, landmarks and section ids. Phase 2 fills in every section from
-// the data files in src/data/.
+// The page, in CLAUDE.md order. Every section reads from the YAML files in src/data/.
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import '../styles/sections.css';
 import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Results from '../components/Results.astro';
+import About from '../components/About.astro';
+import Competencies from '../components/Competencies.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import Recommendations from '../components/Recommendations.astro';
+import HowIWork from '../components/HowIWork.astro';
+import Beyond from '../components/Beyond.astro';
+import Contact from '../components/Contact.astro';
 
 const profile = (await getEntry('profile', 'stephen'))!.data;
 const h = profile.headings;
@@ -12,15 +22,20 @@ const h = profile.headings;
 <Base>
   <Nav name={profile.name} links={profile.nav} />
   <main id="main" tabindex="-1">
-    <header id="top" class="sec"><div class="wrap"><h1 class="h2">{profile.hero.headline.join(' ')}</h1></div></header>
-    <section id="results" class="sec alt"><div class="wrap"><h2 class="h2">{h.results}</h2></div></section>
-    <section id="about" class="sec"><div class="wrap"><h2 class="h2">{profile.about.heading}</h2></div></section>
-    <section id="focus" class="sec alt"><div class="wrap"><h2 class="h2">Core competencies</h2></div></section>
-    <section id="experience" class="sec"><div class="wrap"><h2 class="h2">{h.experience}</h2></div></section>
-    <section id="education" class="sec alt"><div class="wrap"><h2 class="h2">{h.education}</h2></div></section>
-    <section id="recommendations" class="sec"><div class="wrap"><h2 class="h2">{h.recommendations}</h2></div></section>
-    <section id="how" class="sec alt"><div class="wrap"><h2 class="h2">How I work</h2></div></section>
-    <section id="beyond" class="sec"><div class="wrap"><h2 class="h2">Beyond work</h2></div></section>
-    <section id="contact" class="sec alt"><div class="wrap"><h2 class="h2">{profile.contact.heading}</h2></div></section>
+    <Hero name={profile.name} hero={profile.hero} />
+    <Results heading={h.results} />
+    <About about={profile.about} />
+    <Competencies />
+    <Experience heading={h.experience} />
+    <Education heading={h.education} />
+    <Recommendations heading={h.recommendations} hint={h.recommendationsHint} />
+    <HowIWork />
+    <Beyond />
+    <Contact contact={profile.contact} linkedin={profile.linkedin.url} email={profile.email} />
   </main>
+  <footer class="foot">
+    <div>
+      {profile.footer.map((line, n) => (n ? [<br />, line] : line))}
+    </div>
+  </footer>
 </Base>

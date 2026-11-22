@@ -1,7 +1,7 @@
 // The site's one external script (bundled by Astro). No inline handlers anywhere:
 // everything is wired here with addEventListener. Later phases add the popup,
 // carousels, search and the rest.
-import { dateRange, duration } from '../lib/dates';
+import { duration } from '../lib/dates';
 
 /* ------------------------------------------------------------------------
    Theme. public/theme.js already set data-theme before paint. Here: the
@@ -62,6 +62,9 @@ document.querySelectorAll<HTMLElement>('[data-dur-start]').forEach((el) => {
   const prefix = el.dataset.durPrefix ?? '';
   el.textContent = prefix + duration(start, end);
 });
-document.querySelectorAll<HTMLElement>('[data-range-start]').forEach((el) => {
-  el.textContent = dateRange(el.dataset.rangeStart!, el.dataset.rangeEnd || null);
-});
+
+/* ------------------------------------------------------------------------
+   Search shortcut hint: ⌘K on Apple platforms, Ctrl K elsewhere.
+   ------------------------------------------------------------------------ */
+const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+if (!isApple) document.querySelectorAll('[data-kbd]').forEach((k) => (k.textContent = 'Ctrl K'));

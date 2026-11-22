@@ -1,0 +1,41 @@
+---
+// Core competencies: 10 highlighted chips; "Show all 31 +" (native <details>) replaces
+// them with all competencies in six groups.
+import { getEntry } from 'astro:content';
+
+const c = (await getEntry('competencies', 'core'))!.data;
+const total = c.groups.reduce((n, g) => n + g.items.length, 0);
+---
+
+<section id="focus" class="sec alt">
+  <div class="wrap">
+    <h2 class="h2 rv-u">{c.heading}</h2>
+    <div class="comp">
+      <div class="hl">
+        {c.highlighted.map((name, n) => <span class:list={['comp-chip rv-c', `i${n}`]}>{name}</span>)}
+      </div>
+      <div class="comp-more">
+        <details id="comp-all">
+          <summary class="aboutrole">
+            <span class="ab-c">{c.showAllLabel.replace('{n}', String(total))}</span>
+            <span class="ab-o">{c.showFewerLabel}</span>
+          </summary>
+          <div class="comp-groups">
+            {
+              c.groups.map((g) => (
+                <div class="comp-row">
+                  <div class="comp-name">{g.name}</div>
+                  <div class="comp-items">
+                    {g.items.map((name) => (
+                      <span class="comp-item">{name}</span>
+                    ))}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>

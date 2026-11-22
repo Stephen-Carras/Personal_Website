@@ -1,0 +1,62 @@
+---
+// Contact section. The email address never appears in the HTML: the parts sit in
+// data attributes and the script builds the mailto: link (phase 3). Until then, and
+// without JS, "Email me" points at this section's LinkedIn alternative.
+interface Props {
+  contact: {
+    heading: string;
+    intro: string;
+    emailButton: string;
+    linkedinButton: string;
+    rows: {
+      openTo: { label: string; value: string };
+      replyTime: { label: string; value: string };
+      where: { label: string; places: { state: string; cities: string[] }[]; also: string };
+    };
+  };
+  linkedin: string;
+  email: { user: string; domain: string; subject: string };
+}
+const { contact, linkedin, email } = Astro.props;
+const r = contact.rows;
+---
+
+<section id="contact" class="sec alt">
+  <div class="wrap">
+    <h2 class="h2-xl rv-z">{contact.heading}</h2>
+    <p class="contact-intro rv-u">{contact.intro}</p>
+    <div class="contact-btns">
+      <a class="btp btp-lg" href="#contact" data-email-me data-eu={email.user} data-ed={email.domain} data-es={email.subject}>
+        {contact.emailButton}
+      </a>
+      <a class="btl" href={linkedin} target="_blank" rel="noopener noreferrer">
+        {contact.linkedinButton} &nbsp;›<span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    </div>
+    <div class="facts">
+      <div class="fact rv-u">
+        <div class="fact-l">{r.openTo.label}</div>
+        <div class="fact-v">{r.openTo.value}</div>
+      </div>
+      <div class="fact rv-u">
+        <div class="fact-l">{r.replyTime.label}</div>
+        <div class="fact-v">{r.replyTime.value}</div>
+      </div>
+      <div class="fact rv-u">
+        <div class="fact-l">{r.where.label}</div>
+        <div class="fact-v">
+          <div class="places">
+            {
+              r.where.places.map((p) => (
+                <span class="place">
+                  <span class="st">{p.state}</span>&nbsp; {p.cities.join(' · ')}
+                </span>
+              ))
+            }
+            <span class="place st">{r.where.also}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

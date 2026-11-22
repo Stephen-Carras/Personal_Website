@@ -1,0 +1,27 @@
+---
+// Results: four tiles in a 2x2 grid. The section owns the named view timeline --res
+// (MOTION.md): left-column tiles use rs-l, right-column rs-r, bottom row starts later (row2).
+import { inFileOrder } from '../lib/order';
+
+interface Props {
+  heading: string;
+}
+const results = await inFileOrder('results');
+---
+
+<section id="results" class="sec alt results">
+  <div class="wrap">
+    <h2 class="h2 rv-u">{Astro.props.heading}</h2>
+    <div class="res-grid">
+      {
+        results.map(({ data }, n) => (
+          <div class:list={['res-tile', n % 2 ? 'rs-r' : 'rs-l', n >= 2 && 'row2']}>
+            <div class="res-n rs-n">{data.value}</div>
+            <div class="res-l">{data.label}</div>
+            <div class="res-s">{data.source}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
