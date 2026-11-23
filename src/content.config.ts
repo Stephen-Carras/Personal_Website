@@ -39,8 +39,6 @@ const profile = defineCollection({
       lead: text,
       body: text,
       more: z.array(text).min(1),
-      moreLabel: text,
-      lessLabel: text,
     }),
     contactPopup: z.object({
       heading: text,

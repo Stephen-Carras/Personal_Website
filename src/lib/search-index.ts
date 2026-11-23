@@ -126,7 +126,7 @@ export async function buildSearchIndex(): Promise<SearchEntry[]> {
   }
 
   const ab = profile.about;
-  out.push({ k: 'About', t: cfg.about.title, s: cfg.about.sub, i: 'about', o: 'about-more', extra: [ab.lead, ab.body, ...ab.more].join(' ') });
+  out.push({ k: 'About', t: cfg.about.title, s: cfg.about.sub, i: 'about', extra: [ab.lead, ab.body, ...ab.more].join(' ') });
 
   const c = profile.contact.rows;
   const where = c.where.places.map((p) => `${p.state} ${p.cities.join(' ')}`).join(' ');
