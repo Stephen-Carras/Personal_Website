@@ -419,11 +419,19 @@ html:not(.js) .about-toggle {
   flex: 1 1 240px;
   max-width: 320px;
   align-self: flex-start;
-  position: sticky;
-  top: 76px;
   display: flex;
   flex-direction: column;
   gap: 14px;
+}
+/* Pinned only while it sits beside the roles. The row wraps below about 848px
+   (240 + 64 + 480 + 2 x 32 padding, ~863px with a desktop scrollbar); stacked and
+   still sticky, it would cover the role text. Narrower, it scrolls away normally
+   (and fades out, see motion.css). */
+@media (min-width: 880px) {
+  .co-side {
+    position: sticky;
+    top: 76px;
+  }
 }
 .logo {
   flex: none;
