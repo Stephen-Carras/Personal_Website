@@ -331,17 +331,6 @@ details:not([open]) > summary.aboutrole .ab-o {
   line-height: 1.65;
   color: var(--t3);
 }
-.fold {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-}
-.js .fold:not(.open) {
-  display: none;
-}
-html:not(.js) .about-toggle {
-  display: none;
-}
 
 /* ---- Core competencies -------------------------------------------------- */
 .hl {

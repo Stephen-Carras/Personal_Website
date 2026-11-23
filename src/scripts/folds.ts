@@ -1,26 +1,5 @@
-// About "Read more" and the recommendation quote clamps.
+// Recommendation quote clamps.
 import { $$, reducedMotion } from './util';
-
-/* About: the fold opens below the body paragraph; the toggle stays under the revealed
-   text and switches between "Read more +" and "Show less −". */
-function initAbout() {
-  const btn = document.querySelector<HTMLButtonElement>('[data-about-toggle]');
-  const fold = document.getElementById('about-more');
-  if (!btn || !fold) return;
-  btn.addEventListener('click', () => {
-    const open = !fold.classList.contains('open');
-    setAbout(open);
-  });
-}
-
-export function setAbout(open: boolean) {
-  const btn = document.querySelector<HTMLButtonElement>('[data-about-toggle]');
-  const fold = document.getElementById('about-more');
-  if (!btn || !fold) return;
-  fold.classList.toggle('open', open);
-  btn.setAttribute('aria-expanded', String(open));
-  btn.textContent = (open ? btn.dataset.less : btn.dataset.more) || '';
-}
 
 /* Recommendation quotes: height animates between the 5-line clamp (CSS) and the
    measured full height. Every copy of a card (the carousel clones) stays in sync. */
@@ -90,6 +69,5 @@ function initRecs() {
 }
 
 export function initFolds() {
-  initAbout();
   initRecs();
 }

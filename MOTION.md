@@ -19,7 +19,7 @@ Everything is CSS-only except the carousel loops and the search jump, which need
 ## Expand and collapse (click-driven, native `<details>`)
 - `details { interpolate-size: allow-keywords }` and `details::details-content` transitions height from 0 to auto (`.55s cubic-bezier(.22,.7,.2,1)`) plus opacity (`.45s`), with `content-visibility` as a discrete transition. This animates the role "About this role +", Education coursework and the competencies "Show all" panels.
 - Fallback when `::details-content` is unsupported (`@supports not selector(...)`): children fade and slide down 12px (`dopen`, `.5s`).
-- About "Read more" fold (`.fold`) uses the same `dopen` entrance (`.6s`). Competency groups inside the open panel stagger by 70ms each (six rows).
+- Competency groups inside the open panel stagger by 70ms each (six rows).
 - Coursework chips pop in (`cwp`, scale .9 and 10px rise, `.5s`), staggered by `--k * 26ms`.
 - Recommendation quotes animate their height between the 5-line clamp and the measured full height (a pixel value measured on click), not a keyframe.
 - Search jump: after the overlay closes, the target scrolls into view and flashes a soft accent background (`flash`, 2s ease-out).

@@ -1,14 +1,11 @@
 ---
-// About: bold lead, one body paragraph, then "Read more +" reveals the rest. The toggle
-// sits below the revealed text. Without JS the fold is simply open and the button hidden.
+// About: bold lead, then every body paragraph, all shown in full (no fold).
 interface Props {
   about: {
     heading: string;
     lead: string;
     body: string;
     more: string[];
-    moreLabel: string;
-    lessLabel: string;
   };
 }
 const { about } = Astro.props;
@@ -20,20 +17,7 @@ const { about } = Astro.props;
     <div class="about">
       <p class="about-lead rv-u">{about.lead}</p>
       <p class="about-p rv-u i1">{about.body}</p>
-      <div class="fold" id="about-more">
-        {about.more.map((p) => <p class="about-p">{p}</p>)}
-      </div>
-      <button
-        class="rm about-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="about-more"
-        data-about-toggle
-        data-more={about.moreLabel}
-        data-less={about.lessLabel}
-      >
-        {about.moreLabel}
-      </button>
+      {about.more.map((p) => <p class="about-p rv-u">{p}</p>)}
     </div>
   </div>
 </section>

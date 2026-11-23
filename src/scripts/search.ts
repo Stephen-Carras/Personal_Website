@@ -3,7 +3,7 @@
 // and aria-activedescendant points at the highlighted option.
 import { scrollItemIntoTrack } from './carousel';
 import { openContact } from './contact';
-import { setAbout, setRec } from './folds';
+import { setRec } from './folds';
 import { $$, scrollBehavior, trapFocus } from './util';
 
 interface Entry {
@@ -175,8 +175,7 @@ export function initSearch() {
       }, smooth === 'smooth' ? 450 : 0);
       return;
     }
-    if (e.o === 'about-more') setAbout(true);
-    else if (e.o) {
+    if (e.o) {
       const d = document.getElementById(e.o);
       if (d instanceof HTMLDetailsElement) d.open = true;
     }
