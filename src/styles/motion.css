@@ -122,6 +122,23 @@
       from { transform: scaleX(0); }
       to { transform: scaleX(1); }
     }
+
+    /* Experience / Education, stacked layout: the company header (logo, name, pills,
+       tenure) fades and lifts slightly as it scrolls off the top. It is in normal flow
+       here (sticky only from 880px, see sections.css), so this is polish only. */
+    @media (max-width: 879.98px) {
+      .co-side {
+        animation-name: cof;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: view();
+        animation-range: exit 0% exit 75%;
+      }
+    }
+    @keyframes cof {
+      from { opacity: 1; transform: none; }
+      to { opacity: 0; transform: translate3d(0, -12px, 0); }
+    }
   }
 
   /* ---- Expand and collapse ------------------------------------------------------------ */

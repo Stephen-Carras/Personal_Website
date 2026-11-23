@@ -38,6 +38,7 @@ Recommendations, Trips & places and the photo gallery loop endlessly. JS adds tw
 - **Never put a view-timeline animation on an element inside a horizontal scroller** (recommendation cards, trips, gallery track). The timeline attaches to the nearest scroller (the horizontal track), not the page. Animate the wrapper outside the scroller instead (`rv-z` on the wrapper).
 - Put `overflow-x: clip` on any section containing side-sliding cards so they enter from the screen edge and never cause a horizontal scrollbar (the Results section has it).
 - Sticky columns (Experience, Education) are inside `rv-u` rows. That is fine because the animation ends with `transform: none`.
+- The company column (`.co-side`) is sticky only from 880px up, where it sits beside the roles. Below that it stacks above them in normal flow and, as a scroll-driven enhancement, fades out and lifts 12px as it leaves the top of the screen (`cof`, range `exit 0%` to `exit 75%`). No fade under reduced motion or where `animation-timeline` is unsupported.
 - A scale transform from a reveal animation makes elements measure smaller than they are mid-animation. When checking tap-target sizes, measure after the animation finishes.
 - Keep it restrained: no autoplay, no parallax on text, no count-up on the Results numbers (they are credibility claims).
 - Verify by rendering the page with an offset instead of scrolling (headless screenshots of scrolled documents come out blank).
