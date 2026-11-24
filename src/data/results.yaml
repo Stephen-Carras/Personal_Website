@@ -7,7 +7,7 @@
 
 - id: network
   value: $3.46M
-  label: Network modernization delivered a year ahead of schedule
+  label: Future-proofed the network for higher production rates
   source: Boeing
 
 - id: wifi
