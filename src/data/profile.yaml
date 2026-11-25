@@ -45,10 +45,10 @@ stephen:
   about:
     heading: About
     lead: "You won't catch me in a collared shirt and tie. I'm usually in jeans, Vessi sneakers, and a black hoodie, focused entirely on solving the hardest problems in front of me."
-    body: "Most of my career starts by stepping into unfamiliar industries to drive immediate impact. As Billions puts it: “The greats never sacrifice the important for the urgent. They handle the immediate problem and still make sure to secure the future.” I challenge the status quo, carrying an early-stage startup mentality into Fortune 500 environments. If you want to move fast, you have to douse the bureaucratic cookbook in gas and toss it in the fire pit, s'mores optional."
+    body: "Most of my career starts by stepping into unfamiliar industries to drive immediate impact. As Billions puts it: “The greats never sacrifice the important for the urgent. They handle the immediate problem and still make sure to secure the future.” I challenge the status quo, carrying an early-stage startup mentality into Fortune 500 environments. I cut through organizational friction so engineering and business teams can ship faster."
     more:
-      - "There's no secret to my success over the years. When I start something new, I get obsessive about learning the ins and outs. I use AI to create podcasts to help me speed-run my learning about the industry and understanding of how the whole business works, not just my corner of it. My brain craves understanding not just the tactical details but the overall strategic vision and execution."
-      - "That habit of constantly learning doesn't switch off between jobs. It's what pushed me to earn an MBA and a technical master's. Right now, my evenings and weekends go to building out my GitHub profile, using Muse to plan international trips with my girlfriend, reading biographies, and watching shows on Netflix. During the week, I use AI, specifically Claude Code and Amazon Kiro for rapid prototyping and building workflows used by teams and executives."
+      - "There's no secret to my success over the years. When I start something new, I get obsessive about learning the ins and outs. I speed-run my learning about the industry and how the whole business works, not just my corner of it. My brain craves understanding not just the tactical details but the overall strategic vision and execution."
+      - "That habit of constantly learning doesn't switch off between jobs. It's what pushed me to earn an MBA and a technical master's. Day to day, I use AI for rapid prototyping and building workflows used by teams and executives."
       - "I'm looking for an organization that will energize me every day, encourage me to solve the hard problems, and let me grow, not only in the role but into a leader who helps others expand their careers too. When I look back at my career, the happiest moments were the early days when I was in startups, working crazy hours but contributing to a meaningful outcome. I miss those days: the fast pace, getting my hands dirty, and being close to the product. I'm at my best where the ground is still moving and the job is to act as a force multiplier for executives, figuring things out faster than expected and turning ideas into execution. I want to bring my experience to an organization to support both engineering and business teams making amazing products. If that sounds like what you're building, especially at a smaller, fast-paced company, or Big Tech, I'd love to connect."
 
   contactPopup:
@@ -68,7 +68,7 @@ stephen:
     rows:
       openTo:
         label: Open to
-        value: Chief of Staff · Head of Strategy & Operations
+        value: Chief of Staff · Head of Strategy & Operations · Director, Strategy & Operations · Senior Manager, Strategy & Operations · Business Operations Lead
       replyTime:
         label: Reply time
         value: Usually within 1–2 business days

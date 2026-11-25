@@ -6,7 +6,7 @@ main:
   tripsHeading: Trips & places
   hobbies:
     heading: Hobbies & interests
-    items: [Traveling, Road Trips, Designing Houses, History, Making Podcasts with AI, Finance & Investing]
+    items: [Traveling, Road Trips, Designing Houses, History, Making Podcasts with AI, Finance & Investing, Building My GitHub Profile, Planning Trips with Muse, Reading Biographies, Watching Netflix]
   # Books and artists: add `url` to make a row a link (opens in a new tab).
   # `featured: true` items show on the card; every item shows in the full-list pop-up.
   # The "Full ... list" button appears only once at least one item is not featured.
@@ -37,10 +37,10 @@ main:
     heading: Ask me about
     items:
       - Getting up to speed in an unfamiliar industry within weeks
-      - Rapid AI prototyping with Claude Code and Amazon Kiro
+      - Rapid AI prototyping
   now:
     heading: Now
     items:
-      - { label: Building, text: AI-augmented workflows with Claude Code and Amazon Kiro }
+      - { label: Building, text: AI-augmented workflows }
       - { label: Reading, text: "The Nvidia Way, by Tae Kim" }
       - { label: Listening, text: ILLENIUM }

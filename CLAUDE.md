@@ -1,9 +1,9 @@
 # Personal Website: Build Spec for Claude Code
 
-Last updated: 2026-11-21 (evening). Supersedes every earlier version, including the dark/techy spec and the first light-theme spec.
+Last updated: 2026-11-25. Supersedes every earlier version, including the dark/techy spec and the first light-theme spec.
 
 ## Goal
-Static personal career site for Stephen, sent to recruiters. LinkedIn-style sections plus a human side ("Beyond work"). Target roles: Chief of Staff, Head of Strategy & Operations, leading a small team at a company of roughly 1,000 to 5,000 people or fewer (about $180K to $220K base). Not Director level at a large company. Seattle-based, open to relocating (WA, TX, CA, NY, MA, SC, CO, UT) plus remote/hybrid.
+Static personal career site for Stephen, sent to recruiters. LinkedIn-style sections plus a human side ("Beyond work"). Target roles (the Contact "Open to" row): Chief of Staff, Head of Strategy & Operations, Director, Strategy & Operations, Senior Manager, Strategy & Operations, Business Operations Lead, leading a small team at a company of roughly 1,000 to 5,000 people or fewer (about $180K to $220K base). Seattle-based, open to relocating (WA, TX, CA, NY, MA, SC, CO, UT) plus remote/hybrid.
 
 ## Source of truth for design and content
 - The finished design is `design/Main.dc.html` in this repo (a Design Component: markup, CSS and one script in a single file; open it in a browser or read it as text). It is also published as the claude.ai artifact "Stephen — Personal Website": https://claude.ai/artifact/EYd7mipGDavQYu92LniX6i. Match it visually and copy text verbatim. Do not rewrite Stephen's wording.
@@ -35,7 +35,7 @@ Skip link ("Skip to content") first, then the nav, then `<main id="main">`.
 1. Nav: round personal mark + "Stephen Carras", links (Results, About, Experience, Education, Recommendations, Contact), Search button (⌘K hint), theme toggle.
 2. Hero (centered, `id="top"`): round headshot, name, headline "Turning ideas into execution.", three-sentence sub-line ("Data-driven leader with a strategic vision." / "Two startups." / "Bridging hardware, AI, security and business." Each sentence is `display:inline-block` so a phrase never splits), one button: "Contact me" (opens the popup). There is no resume download anywhere. Then "Seattle, WA · Penn State MBA & M.S. in Cybersecurity", the wide Seattle skyline image (4:1, not cropped), and "Experience across Boeing · T-Mobile · FTSE Russell · InductEV · Constellation Energy".
 3. Results (gray, `id="results"`): "Results that moved the business." Four tiles in a 2x2 grid: $13.4M (new revenue potential unlocked in 8 months by a 5-person strategy team, Startup · Series C), $3.46M (future-proofed the network for higher production rates, Boeing), 37 days (facility WiFi upgrade delivered without impacting production-rate targets, Boeing), 150K (unassigned assets traced; unknown-owner backlog cut 30%, T-Mobile). This section also owns the named view timeline `--res` (see MOTION.md).
-4. About (white, `id="about"`): bold lead paragraph, then all body paragraphs shown in full (no Read more / Show less toggle; removed at Stephen's request 2026-11-22). All paragraph gaps equal (26px). The text ends with "I'd love to connect." Then Core competencies (gray, `id="focus"`): 10 highlighted chips, "Show all 31 +" shows all competencies grouped in six rows (AI & Transformation, Business & Strategy, Leadership, AI Tools, Data & Analytics, Enterprise Platforms).
+4. About (white, `id="about"`): bold lead paragraph, then all body paragraphs shown in full (no Read more / Show less toggle; removed at Stephen's request 2026-11-22). All paragraph gaps equal (26px). The text ends with "I'd love to connect." Then Core competencies (gray, `id="focus"`): 10 highlighted chips, "Show all 28 +" shows all competencies grouped in six rows (AI & Transformation, Business & Strategy, Leadership, AI Tools, Data & Analytics, Enterprise Platforms).
 5. Experience (white, `id="experience"`): per company a sticky left column (logo, name, pills, header line) and a right column of roles. Each role is collapsed behind "About this role +" (native `<details>`). See "Role and company format".
 6. Education (gray, `id="education"`): Penn State, sticky left column like Experience; four degrees (MBA 3.93 GPA, M.S. Cybersecurity Analytics and Operations 3.97 cumulative GPA summa cum laude, and two bachelor's degrees with **no GPA shown**); MBA (19) and M.S. (10) coursework collapsed.
 7. Recommendations (white, `id="recommendations"`): "What people say." Four horizontal scroll-snap cards, newest first: Collin Long (Aug 28, 2025), Kevin Murphy (Dec 9, 2023), Allen Khaligh, Kelsey Heick. Quotes clamp with Read more / Show less. Quote typos ("inisitatives", "pursing", "recommend course of action") are the writers' own words and stay verbatim. A "Swipe or scroll to read more" hint with a nudging arrow sits above the track with round previous/next buttons. The carousel loops (see Behaviors).
@@ -135,6 +135,11 @@ GitHub Pages cannot set custom response headers (HSTS preload, `frame-ancestors`
 - T-Mobile title is "Engineer, Cybersecurity | Strategy & Transformation Lead".
 - InductEV Senior Manager: reports to the CEO, location Renton, Washington · Remote, paragraph says "formerly Momentum Dynamics".
 - The "Apple simplicity" fun fact was tried and removed; it does not belong anywhere right now.
+
+## Decisions made with Stephen (2026-11-25)
+- Placement rule: Claude Code and Amazon Kiro are named only in Experience, "How I work" and Core competencies. Personal hobbies (AI podcasts, biographies, trips, GitHub profile, Muse, Netflix) appear only in Beyond work. About names neither.
+- InductEV Strategic Advisor and Senior Manager dates were re-checked and are correct; the overlap is real.
+- Core competencies: Microsoft 365, Visio and Smartsheet removed (28 total). Salesforce stays.
 
 ## Open items
 - Domain name and whether the repo is public or private (not decided).

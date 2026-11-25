@@ -54,10 +54,7 @@ core:
       items:
         - ServiceNow (CMDB / ITAM)
         - Jira
-        - Visio
         - Salesforce
-        - Smartsheet
-        - Microsoft 365
   # "{n}" is replaced with the computed total.
   showAllLabel: "Show all {n} +"
   showFewerLabel: Show fewer −
