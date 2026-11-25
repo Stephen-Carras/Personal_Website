@@ -31,6 +31,7 @@ const profile = defineCollection({
       educationLink: text,
       banner: image,
       headshot: image,
+      statement: z.object({ main: text, support: text }),
       experienceLead: text,
       experienceList: z.array(text),
     }),
