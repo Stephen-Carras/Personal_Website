@@ -39,6 +39,9 @@ stephen:
     educationLink: Penn State MBA & M.S. in Cybersecurity
     banner: seattle-banner.png
     headshot: headshot.jpg
+    statement:
+      main: "In the age of AI, business and technical roles are merging. That's where I add the most value."
+      support: I move fluidly between executive conversations, the spreadsheet and the product.
     experienceLead: Experience across
     experienceList: [Boeing, T-Mobile, FTSE Russell, InductEV, Constellation Energy]
 

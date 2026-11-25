@@ -12,6 +12,7 @@ interface Props {
     educationLink: string;
     banner: string;
     headshot: string;
+    statement: { main: string; support: string };
     experienceLead: string;
     experienceList: string[];
   };
@@ -55,6 +56,10 @@ const banner = img(hero.banner);
       sizes="(min-width: 1264px) 1200px, calc(100vw - 64px)"
       loading="eager"
     />
+  </div>
+  <div class="hero-say">
+    <p class="hero-say-main rv-u">{hero.statement.main}</p>
+    <p class="hero-say-sub rv-u i1">{hero.statement.support}</p>
   </div>
   <div class="hero-xp">
     {hero.experienceLead} &nbsp;<span>{hero.experienceList.join('  ·  ')}</span>
