@@ -9,7 +9,7 @@ interface Props {
     emailButton: string;
     linkedinButton: string;
     rows: {
-      openTo: { label: string; value: string };
+      openTo: { label: string; groups: { label: string; description: string }[] };
       replyTime: { label: string; value: string };
       where: { label: string; places: { state: string; cities: string[] }[]; also: string };
     };
@@ -36,7 +36,16 @@ const r = contact.rows;
     <div class="facts">
       <div class="fact rv-u">
         <div class="fact-l">{r.openTo.label}</div>
-        <div class="fact-v">{r.openTo.value}</div>
+        <div class="fact-v">
+          {
+            r.openTo.groups.map((g) => (
+              <div class="open-group">
+                <div class="st">{g.label}</div>
+                <div class="open-desc">{g.description}</div>
+              </div>
+            ))
+          }
+        </div>
       </div>
       <div class="fact rv-u">
         <div class="fact-l">{r.replyTime.label}</div>

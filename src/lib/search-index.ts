@@ -130,7 +130,14 @@ export async function buildSearchIndex(): Promise<SearchEntry[]> {
 
   const c = profile.contact.rows;
   const where = c.where.places.map((p) => `${p.state} ${p.cities.join(' ')}`).join(' ');
-  out.push({ k: 'Contact', t: c.openTo.label, s: c.openTo.value, i: 'contact', extra: `${where} ${c.where.also} ${cfg.contact.keywords}` });
+  const openTo = c.openTo.groups;
+  out.push({
+    k: 'Contact',
+    t: c.openTo.label,
+    s: openTo.map((g) => g.label).join(' · '),
+    i: 'contact',
+    extra: `${openTo.map((g) => g.description).join(' ')} ${where} ${c.where.also} ${cfg.contact.keywords}`,
+  });
 
   return merge(out);
 }
