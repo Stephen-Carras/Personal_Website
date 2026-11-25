@@ -236,6 +236,9 @@
   .track-bar,
   .gal-bar,
   .rm,
+  .card-foot,
+  .list-btn,
+  .lrow-a,
   details > summary,
   [data-clone] {
     display: none !important;

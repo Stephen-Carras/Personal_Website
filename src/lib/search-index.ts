@@ -117,7 +117,7 @@ export async function buildSearchIndex(): Promise<SearchEntry[]> {
   for (const { data: t } of trips) out.push({ k: 'Place', t: t.place, s: t.country, i: 'beyond' });
   for (const h of beyond.hobbies.items) out.push({ k: 'Interest', t: h, s: beyond.hobbies.heading, i: 'beyond' });
   for (const b of beyond.books.items) out.push({ k: 'Book', t: b.title, s: b.author, i: 'beyond' });
-  for (const m of beyond.music.items) out.push({ k: 'Music', t: m, s: '', i: 'beyond' });
+  for (const m of beyond.music.items) out.push({ k: 'Music', t: m.name, s: '', i: 'beyond' });
   for (const a of beyond.askMeAbout.items) out.push({ k: 'Ask me about', t: a, s: '', i: 'beyond' });
   for (const n of beyond.now.items) out.push({ k: 'Now', t: n.text, s: n.label, i: 'beyond' });
 
