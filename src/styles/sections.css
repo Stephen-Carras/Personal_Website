@@ -1166,6 +1166,15 @@ a.lrow:focus-visible {
   font-weight: 600;
   color: var(--t1);
 }
+.open-group {
+  overflow-wrap: anywhere;
+}
+.open-group + .open-group {
+  margin-top: 14px;
+}
+.open-desc {
+  color: var(--t2);
+}
 
 /* ---- Footer ------------------------------------------------------------- */
 .foot {

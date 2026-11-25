@@ -56,7 +56,10 @@ const profile = defineCollection({
       emailButton: text,
       linkedinButton: text,
       rows: z.object({
-        openTo: z.object({ label: text, value: text }),
+        openTo: z.object({
+          label: text,
+          groups: z.array(z.object({ label: text, description: text })).min(1),
+        }),
         replyTime: z.object({ label: text, value: text }),
         where: z.object({
           label: text,

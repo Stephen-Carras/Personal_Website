@@ -71,7 +71,11 @@ stephen:
     rows:
       openTo:
         label: Open to
-        value: Chief of Staff · Head of Strategy & Operations · Director, Strategy & Operations · Senior Manager, Strategy & Operations · Business Operations Lead
+        groups:
+          - label: Startups and growth companies
+            description: Senior strategy and operations leadership, such as Chief of Staff or Head of Strategy & Operations
+          - label: Big Tech
+            description: Strategy and operations leadership, such as Chief of Staff or Senior Manager, Strategy & Operations
       replyTime:
         label: Reply time
         value: Usually within 1–2 business days

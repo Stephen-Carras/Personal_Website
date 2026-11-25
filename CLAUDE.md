@@ -3,7 +3,7 @@
 Last updated: 2026-11-25. Supersedes every earlier version, including the dark/techy spec and the first light-theme spec.
 
 ## Goal
-Static personal career site for Stephen, sent to recruiters. LinkedIn-style sections plus a human side ("Beyond work"). Target roles (the Contact "Open to" row): Chief of Staff, Head of Strategy & Operations, Director, Strategy & Operations, Senior Manager, Strategy & Operations, Business Operations Lead, leading a small team at a company of roughly 1,000 to 5,000 people or fewer (about $180K to $220K base). Seattle-based, open to relocating (WA, TX, CA, NY, MA, SC, CO, UT) plus remote/hybrid.
+Static personal career site for Stephen, sent to recruiters. LinkedIn-style sections plus a human side ("Beyond work"). Target roles (the Contact "Open to" row, two groups): Startups and growth companies (senior strategy and operations leadership, such as Chief of Staff or Head of Strategy & Operations) and Big Tech (strategy and operations leadership, such as Chief of Staff or Senior Manager, Strategy & Operations), leading a small team at a company of roughly 1,000 to 5,000 people or fewer (about $180K to $220K base). Seattle-based, open to relocating (WA, TX, CA, NY, MA, SC, CO, UT) plus remote/hybrid.
 
 ## Source of truth for design and content
 - The finished design is `design/Main.dc.html` in this repo (a Design Component: markup, CSS and one script in a single file; open it in a browser or read it as text). It is also published as the claude.ai artifact "Stephen — Personal Website": https://claude.ai/artifact/EYd7mipGDavQYu92LniX6i. Match it visually and copy text verbatim. Do not rewrite Stephen's wording.
