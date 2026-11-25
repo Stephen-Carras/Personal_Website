@@ -1,0 +1,33 @@
+---
+// One row of a Beyond work list (books, music), on a card or in a full-list pop-up.
+// With a url: a link that opens in a new tab, with a trailing up-right arrow.
+// Without one: a plain row, no arrow, no link. URLs come only from beyond.yaml.
+interface Props {
+  title: string;
+  sub?: string;
+  url?: string;
+}
+const { title, sub, url } = Astro.props;
+---
+
+<li>
+  {
+    url ? (
+      <a class="lrow" href={url} target="_blank" rel="noopener noreferrer">
+        <span class="lrow-txt">
+          <span class="lrow-t">{title}</span>
+          {sub && <span class="lrow-s">{sub}</span>}
+        </span>
+        <svg class="lrow-a" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+        <span class="sr-only"> (opens in a new tab)</span>
+      </a>
+    ) : (
+      <span class="lrow">
+        <span class="lrow-txt">
+          <span class="lrow-t">{title}</span>
+          {sub && <span class="lrow-s">{sub}</span>}
+        </span>
+      </span>
+    )
+  }
+</li>

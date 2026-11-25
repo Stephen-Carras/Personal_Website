@@ -4,6 +4,7 @@
 import { duration } from '../lib/dates';
 import { initCarousels } from './carousel';
 import { initContact } from './contact';
+import { initDialogs } from './dialogs';
 import { initFolds } from './folds';
 import { initSearch } from './search';
 
@@ -80,6 +81,7 @@ if (!isApple) document.querySelectorAll('[data-kbd]').forEach((k) => (k.textCont
 initCarousels();
 initFolds();
 initContact();
+initDialogs();
 initSearch();
 
 /* ------------------------------------------------------------------------

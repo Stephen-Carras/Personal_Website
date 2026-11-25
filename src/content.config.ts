@@ -178,7 +178,10 @@ const gallery = defineCollection({
   }),
 });
 
-const labelled = (item: z.ZodType) => z.object({ heading: text, items: z.array(item).min(1) });
+const labelled = <T extends z.ZodType>(item: T) => z.object({ heading: text, items: z.array(item).min(1) });
+// A card list with a "Full list" pop-up: the card shows featured items, the pop-up all.
+const fullList = <T extends z.ZodType>(item: T) =>
+  labelled(item).extend({ fullListLabel: text, dialogTitle: text, dialogSubtitle: text });
 
 const beyond = defineCollection({
   loader: file('src/data/beyond.yaml'),
@@ -187,8 +190,10 @@ const beyond = defineCollection({
     intro: text,
     tripsHeading: text,
     hobbies: labelled(text),
-    books: labelled(z.object({ title: text, author: text })),
-    music: labelled(text).extend({ playlist: z.url().optional() }),
+    books: fullList(z.object({ title: text, author: text, url: z.url().optional(), featured: z.boolean().default(false) })),
+    music: fullList(z.object({ name: text, url: z.url().optional(), featured: z.boolean().default(false) })).extend({
+      playlist: z.url().optional(),
+    }),
     askMeAbout: labelled(text),
     now: labelled(z.object({ label: text, text })),
   }),
