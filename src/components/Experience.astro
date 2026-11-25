@@ -1,6 +1,6 @@
 ---
 // Experience: per company a sticky left column (logo, name, pills, tenure) and a right
-// column of roles, each collapsed behind "About this role +" (native <details>).
+// column of roles, each collapsed behind "Key impact +" (native <details>).
 // Durations are computed from start/end. Open-ended ones carry data-dur-* so the
 // browser recomputes them and they never go stale.
 import { inFileOrder } from '../lib/order';
@@ -77,8 +77,8 @@ const FT = 'Full-time · ';
                     )}
                     <details id={`rd-${r.id}`}>
                       <summary class="aboutrole">
-                        <span class="ab-c">About this role +</span>
-                        <span class="ab-o">Hide details −</span>
+                        <span class="ab-c">Key impact +</span>
+                        <span class="ab-o">Hide key impact −</span>
                       </summary>
                       <div class="role-body">
                         <p>
