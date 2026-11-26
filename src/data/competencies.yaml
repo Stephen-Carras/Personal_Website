@@ -5,17 +5,18 @@
 core:
   heading: Expertise & Tools
   highlighted:
-    - AI Strategy & Adoption
-    - Digital Transformation
-    - Enterprise Strategy & Roadmapping
-    - Operating Model & KPI Design
-    - Business Case & Investment Prioritization
-    - Financial Modeling & Budgeting
+    - Claude & Claude Code
+    - Cursor
+    - OpenAI Codex
+    - AI Agents & MCP Multi-Agent Workflows
+    - Anthropic & OpenAI APIs
+    - ChatGPT
+    - Gemini
+    - Perplexity
+    - Microsoft 365 Copilot
     - Cross-Functional & People Leadership
     - Executive & Board Communication
     - Organizational Change Management
-    - Claude & Claude Code
-    - Tableau
   blocks:
     - name: Skills
       groups:

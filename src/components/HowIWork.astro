@@ -4,7 +4,7 @@ import { getEntry } from 'astro:content';
 const h = (await getEntry('howIWork', 'main'))!.data;
 ---
 
-<section id="how" class="sec alt">
+<section id="how" class="sec">
   <div class="wrap">
     <h2 class="h2 rv-u">{h.heading}</h2>
     <p class="lead-p rv-u i1">{h.lead}</p>

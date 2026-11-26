@@ -741,6 +741,11 @@ details:not([open]) > summary.aboutrole .ab-o {
 }
 
 /* ---- Recommendations ---------------------------------------------------- */
+/* The section sits on the gray band, so its round prev/next buttons use the card
+   colour instead of the default gray (which would vanish in light mode). */
+#recommendations .ib {
+  background: var(--card);
+}
 .track-bar {
   display: flex;
   align-items: center;
@@ -767,7 +772,8 @@ details:not([open]) > summary.aboutrole .ab-o {
   margin: 0;
   padding: 36px;
   scroll-snap-align: start;
-  background: var(--cardw);
+  /* White cards on the gray band (the section is .alt). */
+  background: var(--card);
   border-radius: 28px;
   display: flex;
   flex-direction: column;
