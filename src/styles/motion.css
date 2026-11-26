@@ -279,6 +279,20 @@
     .hstmt { animation-range: cover 220vh cover 270vh; }
     .hsub { animation-range: cover 232vh cover 282vh; }
 
+    /* Phones and touch tablets: the same run in small-viewport units (svh, toolbars
+       showing) so the stage fits the visible area and the ranges line up with it.
+       Desktop keeps the vh values above. */
+    @media (max-width: 640px), (hover: none) and (pointer: coarse) {
+      .hrun { height: 320svh; }
+      .hstage { height: calc(100svh - var(--nav-h)); }
+      .himg { animation-range: cover 100svh cover 230svh; }
+      .hcopy,
+      .hloc { animation-range: cover 100svh cover 130svh; }
+      .hblank { animation-range: cover 115svh cover 200svh; }
+      .hstmt { animation-range: cover 220svh cover 270svh; }
+      .hsub { animation-range: cover 232svh cover 282svh; }
+    }
+
     @keyframes hzoom {
       from { transform: scale(1); }
       to { transform: scale(1.12); }
