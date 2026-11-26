@@ -37,7 +37,7 @@ stephen:
     button: Contact me
     location: Seattle, WA
     educationLink: Penn State MBA & M.S. in Cybersecurity
-    banner: seattle-banner.png
+    background: hero-space.jpg
     headshot: headshot.jpg
     statement:
       main: "In the age of AI, business and technical roles are merging. I operate at the fulcrum."

@@ -29,7 +29,7 @@ const profile = defineCollection({
       button: text,
       location: text,
       educationLink: text,
-      banner: image,
+      background: image,
       headshot: image,
       statement: z.object({ main: text, support: text }),
       experienceLead: text,
