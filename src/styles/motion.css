@@ -30,8 +30,8 @@
 @media (prefers-reduced-motion: no-preference) {
   /* ---- Load: hero fades up, staggered ---------------------------------------------- */
   .ld {
-    animation: ld 1s var(--ease) both;
-    animation-delay: calc(var(--d, 0) * 110ms + 80ms);
+    animation: ld 1.3s var(--ease) both;
+    animation-delay: calc(var(--d, 0) * 180ms + 300ms);
   }
   @keyframes ld {
     from { opacity: 0; transform: translate3d(0, 28px, 0); }
