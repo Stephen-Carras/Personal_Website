@@ -8,6 +8,7 @@
 /* ---- Stagger values ---------------------------------------------------------------- */
 .i1 { --i: 1; } .i2 { --i: 2; } .i3 { --i: 3; } .i4 { --i: 4; }
 .i5 { --i: 5; } .i6 { --i: 6; } .i7 { --i: 7; } .i8 { --i: 8; } .i9 { --i: 9; }
+.i10 { --i: 10; }
 .d1 { --d: 1; } .d2 { --d: 2; } .d3 { --d: 3; } .d4 { --d: 4; } .d5 { --d: 5; } .d6 { --d: 6; }
 .row2 { --s: 450px; }
 .k1 { --k: 1; } .k2 { --k: 2; } .k3 { --k: 3; } .k4 { --k: 4; } .k5 { --k: 5; } .k6 { --k: 6; }
@@ -163,14 +164,13 @@
       animation: dopen 0.5s var(--ease) both;
     }
   }
-  .comp details[open] .comp-row {
+  /* Group rows stagger 70ms each across both blocks (d0-d5 = running row index);
+     each block heading arrives with its first row. */
+  .comp details[open] .comp-row,
+  .comp details[open] .comp-block-h {
     animation: dopen 0.6s var(--ease) both;
+    animation-delay: calc(var(--d, 0) * 70ms);
   }
-  .comp details[open] .comp-row:nth-child(2) { animation-delay: 70ms; }
-  .comp details[open] .comp-row:nth-child(3) { animation-delay: 140ms; }
-  .comp details[open] .comp-row:nth-child(4) { animation-delay: 210ms; }
-  .comp details[open] .comp-row:nth-child(5) { animation-delay: 280ms; }
-  .comp details[open] .comp-row:nth-child(6) { animation-delay: 350ms; }
   details[open] .cw span {
     animation: cwp 0.5s var(--ease) both;
     animation-delay: calc(var(--k, 0) * 26ms);

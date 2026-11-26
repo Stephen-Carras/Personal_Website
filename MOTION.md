@@ -9,7 +9,7 @@ Everything is CSS-only except the carousel loops and the search jump, which need
 
 ## Scroll-driven (view timelines, `linear` easing, `fill-mode: both`)
 - `rv-u` (rise): opacity 0 and translateY 56px to rest. Range `entry` offset 0 to 340px, plus `--i * 40px` for staggering. Used on every h2, About paragraphs, Experience and Education rows, How I work items, every Beyond work block except Trips & places ("A little about me" and the gallery, and each row of cards, staggered 0 then 1), Contact rows.
-- `rv-c` (chip pop): scale .8, translateY 26px to rest. Range `entry` 0 to 190px, plus `--i * 22px`. Used on the 10 highlighted competency chips.
+- `rv-c` (chip pop): scale .8, translateY 26px to rest. Range `entry` 0 to 190px, plus `--i * 22px`. Used on the 11 highlighted Expertise & Tools chips.
 - `rv-l` / `rv-r` (cards from the sides): translateX of -/+220px, translateY 90px, scale .84 to rest. Range `cover` from `--i * 3%` to `48% + --i * 3%`, so motion continues until the card is centered on screen, then it stays still. Not used in Beyond work.
 - `rv-z` (zoom up): translateY 90px, scale .86 to rest. Range `cover 0%` to `cover 46%`. Used on Recommendations, Trips, and the "Let's talk." headline.
 - `rv-n` (numbers): translateY 70px, scale .9, range `cover 6%` to `cover 46%`.
@@ -19,7 +19,7 @@ Everything is CSS-only except the carousel loops and the search jump, which need
 ## Expand and collapse (click-driven, native `<details>`)
 - `details { interpolate-size: allow-keywords }` and `details::details-content` transitions height from 0 to auto (`.55s cubic-bezier(.22,.7,.2,1)`) plus opacity (`.45s`), with `content-visibility` as a discrete transition. This animates the role "About this role +", Education coursework and the competencies "Show all" panels.
 - Fallback when `::details-content` is unsupported (`@supports not selector(...)`): children fade and slide down 12px (`dopen`, `.5s`).
-- Competency groups inside the open panel stagger by 70ms each (six rows).
+- Expertise & Tools groups inside the open panel stagger by 70ms each (six rows, counted across the Skills and Tools blocks; each block heading arrives with its first row).
 - Coursework chips pop in (`cwp`, scale .9 and 10px rise, `.5s`), staggered by `--k * 26ms`.
 - Recommendation quotes animate their height between the 5-line clamp and the measured full height (a pixel value measured on click), not a keyframe.
 - Search jump: after the overlay closes, the target scrolls into view and flashes a soft accent background (`flash`, 2s ease-out).
