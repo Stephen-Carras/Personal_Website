@@ -199,7 +199,9 @@
    sticky stage under the nav: the copy fades up and out, the photo slowly zooms, the
    stage fades to the page background and the statement rises in. All ranges are on
    the --hero view timeline. Reduced motion and browsers without scroll-driven
-   animations get the static layout: photo hero, then the statement band. */
+   animations get the static layout: photo hero, then the statement band.
+   Longhands only: the minifier folds an `animation:` shorthand and a separate
+   animation-timeline into one shorthand that browsers reject. */
 @media screen and (prefers-reduced-motion: no-preference) {
   .hbg {
     animation: hfade 2.2s var(--ease) both;
@@ -226,7 +228,9 @@
       min-height: 0;
     }
     .himg {
-      animation: hzoom linear both;
+      animation-name: hzoom;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --hero;
       animation-range: cover 100vh cover 230vh;
     }
@@ -246,7 +250,9 @@
       background: var(--bg);
       opacity: 0;
       pointer-events: none;
-      animation: hfadein linear both;
+      animation-name: hfadein;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --hero;
       animation-range: cover 115vh cover 200vh;
     }
@@ -265,7 +271,9 @@
     .hstmt,
     .hsub {
       opacity: 0;
-      animation: hrise linear both;
+      animation-name: hrise;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
       animation-timeline: --hero;
     }
     .hstmt { animation-range: cover 220vh cover 270vh; }
