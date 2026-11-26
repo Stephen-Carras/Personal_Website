@@ -194,6 +194,100 @@
   }
 }
 
+/* ---- Space hero scroll (Hero.astro, layout in sections.css) -------------------------
+   Screen only, so print keeps the static layout. The hero becomes a 320vh run with a
+   sticky stage under the nav: the copy fades up and out, the photo slowly zooms, the
+   stage fades to the page background and the statement rises in. All ranges are on
+   the --hero view timeline. Reduced motion and browsers without scroll-driven
+   animations get the static layout: photo hero, then the statement band. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  .hbg {
+    animation: hfade 2.2s var(--ease) both;
+  }
+  @keyframes hfade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @supports (animation-timeline: view()) {
+    .hrun {
+      height: 320vh;
+      view-timeline: --hero block;
+    }
+    .hstage {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow: hidden;
+    }
+    .hbox {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+    }
+    .himg {
+      animation: hzoom linear both;
+      animation-timeline: --hero;
+      animation-range: cover 100vh cover 230vh;
+    }
+    .hcopy,
+    .hloc {
+      animation-name: hout;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 100vh cover 130vh;
+    }
+    .hblank {
+      display: block;
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      opacity: 0;
+      pointer-events: none;
+      animation: hfadein linear both;
+      animation-timeline: --hero;
+      animation-range: cover 115vh cover 200vh;
+    }
+    /* Covers the stage, so it must not swallow clicks on the Contact button or links. */
+    .hafter {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+      padding: 0 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .hstmt,
+    .hsub {
+      opacity: 0;
+      animation: hrise linear both;
+      animation-timeline: --hero;
+    }
+    .hstmt { animation-range: cover 220vh cover 270vh; }
+    .hsub { animation-range: cover 232vh cover 282vh; }
+
+    @keyframes hzoom {
+      from { transform: scale(1); }
+      to { transform: scale(1.12); }
+    }
+    @keyframes hout {
+      to { opacity: 0; transform: translate3d(0, -40px, 0); }
+    }
+    @keyframes hfadein {
+      to { opacity: 1; }
+    }
+    @keyframes hrise {
+      from { opacity: 0; transform: translate3d(0, 40px, 0); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+}
+
 /* ---- Reduced motion ----------------------------------------------------------------------
    Nothing above applies, so reveals render at rest and details open instantly. Scripted
    scrolling already uses behavior 'auto' (scripts/util.ts); this covers CSS smooth scroll.
@@ -275,6 +369,32 @@
   }
   .co-side {
     position: static !important;
+  }
+  /* Space hero prints as plain text: no photo, dark text on white. */
+  .hbg,
+  .hscrim,
+  .hport {
+    display: none !important;
+  }
+  .hbox {
+    min-height: 0 !important;
+    background: none !important;
+    padding-bottom: 24px;
+  }
+  .hcopy,
+  .hloc,
+  .hloc a,
+  .hexp,
+  .hexp span,
+  .hero-name,
+  .hero-h1,
+  .hero-sub {
+    color: var(--t0) !important;
+    text-shadow: none !important;
+  }
+  .hloc {
+    position: static !important;
+    margin-top: 24px;
   }
   figure,
   details,

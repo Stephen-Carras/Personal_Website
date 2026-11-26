@@ -8,14 +8,13 @@
   {
     "file": "source-images/headshot.jpg",
     "artifact_blob_id": "c1e6d598379208bb16fd137bdfc6f84d",
-    "used_in": "Hero round headshot (128px)",
+    "used_in": "Hero round headshot (96px, hidden at 640px and below)",
     "alt": "Portrait of Stephen"
   },
   {
-    "file": "source-images/seattle-banner.png",
-    "artifact_blob_id": "6090efaf68c92acd0f5c9917c8bb622f",
-    "used_in": "Hero wide banner (about 4:1, not cropped)",
-    "alt": "Seattle skyline at sunset with Mount Rainier"
+    "file": "source-images/hero-space.jpg",
+    "used_in": "Hero full-bleed background (16:9, 2688x1512, object-position 50% 62%)",
+    "alt": "A lone figure stands on a mountain ridge beneath the Milky Way at night"
   },
   {
     "file": "source-images/logo-boeing.png",
