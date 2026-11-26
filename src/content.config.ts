@@ -83,14 +83,26 @@ const competencies = defineCollection({
     .object({
       heading: text,
       highlighted: z.array(text),
-      groups: z.array(z.object({ name: text, items: z.array(text).min(1) })),
+      // Labelled blocks (Skills, Tools), each holding the group rows.
+      blocks: z
+        .array(
+          z.object({
+            name: text,
+            groups: z.array(z.object({ name: text, items: z.array(text).min(1) })).min(1),
+          }),
+        )
+        .min(1),
       showAllLabel: text.includes('{n}'),
       showFewerLabel: text,
     })
     .refine(
-      (c) => c.highlighted.every((h) => c.groups.some((g) => g.items.includes(h))),
-      'Every highlighted competency must also appear in a group',
-    ),
+      (c) => c.highlighted.every((h) => c.blocks.some((b) => b.groups.some((g) => g.items.includes(h)))),
+      'Every highlighted item must also appear in a group',
+    )
+    .refine((c) => {
+      const all = c.blocks.flatMap((b) => b.groups.flatMap((g) => g.items));
+      return new Set(all).size === all.length;
+    }, 'No item may appear in more than one group (the "Show all" count depends on it)'),
 });
 
 const role = z.object({

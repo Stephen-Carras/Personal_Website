@@ -1,10 +1,14 @@
 ---
-// Core competencies: 10 highlighted chips; "Show all 31 +" (native <details>) replaces
-// them with all competencies in six groups.
+// Expertise & Tools (id "focus"): highlighted chips; "Show all N +" (native <details>)
+// replaces them with every item, in labelled blocks (Skills, Tools) of group rows.
+// N is computed from the data.
 import { getEntry } from 'astro:content';
 
 const c = (await getEntry('competencies', 'core'))!.data;
-const total = c.groups.reduce((n, g) => n + g.items.length, 0);
+const total = c.blocks.reduce((n, b) => n + b.groups.reduce((m, g) => m + g.items.length, 0), 0);
+// Running row index across blocks, so the open stagger flows through all rows (d0, d1, ...).
+let row = 0;
+const blocks = c.blocks.map((b) => ({ ...b, groups: b.groups.map((g) => ({ ...g, d: row++ })) }));
 ---
 
 <section id="focus" class="sec alt">
@@ -22,14 +26,19 @@ const total = c.groups.reduce((n, g) => n + g.items.length, 0);
           </summary>
           <div class="comp-groups">
             {
-              c.groups.map((g) => (
-                <div class="comp-row">
-                  <div class="comp-name">{g.name}</div>
-                  <div class="comp-items">
-                    {g.items.map((name) => (
-                      <span class="comp-item">{name}</span>
-                    ))}
-                  </div>
+              blocks.map((b) => (
+                <div class="comp-block">
+                  <h3 class:list={['comp-block-h', `d${b.groups[0]!.d}`]}>{b.name}</h3>
+                  {b.groups.map((g) => (
+                    <div class:list={['comp-row', `d${g.d}`]}>
+                      <div class="comp-name">{g.name}</div>
+                      <div class="comp-items">
+                        {g.items.map((name) => (
+                          <span class="comp-item">{name}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ))
             }

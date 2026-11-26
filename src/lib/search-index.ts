@@ -6,7 +6,7 @@ import { inFileOrder } from './order';
 
 /** Kind priority used to break score ties (first = highest). */
 export const KIND_ORDER = [
-  'Company', 'Role', 'Skill', 'Competency', 'Education', 'Coursework', 'Result',
+  'Company', 'Role', 'Skill', 'Tool', 'Education', 'Coursework', 'Result',
   'Recommendation', 'About', 'How I work', 'Place', 'Interest', 'Book', 'Music',
   'Ask me about', 'Now', 'Recognition', 'Contact', 'Jump to',
 ] as const;
@@ -86,9 +86,13 @@ export async function buildSearchIndex(): Promise<SearchEntry[]> {
     out.push({ k: 'Skill', t: name, s: e.companies.join(' · '), i: `r-${e.role}`, o: `rd-${e.role}` });
   }
 
-  // Competencies (all of them live in the "Show all" panel)
-  for (const g of comp.groups) {
-    for (const item of g.items) out.push({ k: 'Competency', t: item, s: g.name, i: 'focus', o: 'comp-all' });
+  // Expertise & Tools (all of them live in the "Show all" panel). The Tools block's items
+  // are kind "Tool"; every other block's are "Skill".
+  for (const b of comp.blocks) {
+    const k: Kind = b.name === 'Tools' ? 'Tool' : 'Skill';
+    for (const g of b.groups) {
+      for (const item of g.items) out.push({ k, t: item, s: g.name, i: 'focus', o: 'comp-all' });
+    }
   }
 
   // Coursework, then schools and degrees

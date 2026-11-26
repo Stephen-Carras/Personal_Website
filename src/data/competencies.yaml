@@ -1,60 +1,90 @@
-# Core competencies. `highlighted` are the 10 chips shown by default (in order).
-# `groups` are the six rows shown under "Show all". Every highlighted chip must appear in a group.
+# Expertise & Tools (section id "focus"). `highlighted` are the chips shown by default (in order).
+# `blocks` are the labelled blocks shown under "Show all" (Skills, then Tools), each with its
+# group rows. Every highlighted chip must appear in a group, and no item may appear twice.
 
 core:
-  heading: Core competencies
+  heading: Expertise & Tools
   highlighted:
     - AI Strategy & Adoption
     - Digital Transformation
     - Enterprise Strategy & Roadmapping
     - Operating Model & KPI Design
     - Business Case & Investment Prioritization
+    - Financial Modeling & Budgeting
     - Cross-Functional & People Leadership
     - Executive & Board Communication
     - Organizational Change Management
     - Claude & Claude Code
     - Tableau
-  groups:
-    - name: AI & Transformation
-      items:
-        - AI Strategy & Adoption
-        - Digital Transformation
-        - AI-Augmented Workflow Design
-        - Technology Risk & Governance
-    - name: Business & Strategy
-      items:
-        - Enterprise Strategy & Roadmapping
-        - Operating Model & KPI Design
-        - Business Case & Investment Prioritization
-        - Vendor Management & Cost Optimization
-    - name: Leadership
-      items:
-        - Program & Portfolio Leadership
-        - Cross-Functional & People Leadership
-        - Organizational Change Management
-        - Executive & Board Communication
-        - Process Optimization & Lean
-    - name: AI Tools
-      items:
-        - Amazon Kiro
-        - Claude & Claude Code
-        - Anthropic & OpenAI APIs
-        - MCP / Multi-Agent Workflows
-        - Local LLMs (LM Studio)
-        - Gemini
-        - Microsoft 365 Copilot
-        - Python
-    - name: Data & Analytics
-      items:
-        - SQL (MySQL)
-        - Tableau
-        - Power BI
-        - Excel (Advanced Modeling)
-    - name: Enterprise Platforms
-      items:
-        - ServiceNow (CMDB / ITAM)
-        - Jira
-        - Salesforce
+  blocks:
+    - name: Skills
+      groups:
+        - name: AI & Transformation
+          items:
+            - AI Strategy & Adoption
+            - Digital Transformation
+            - AI-Augmented Workflow Design
+            - Context Engineering
+            - Rapid Prototyping
+            - Technology Risk & Governance
+            - AI Governance & Responsible AI
+            - Cybersecurity
+        - name: Leadership
+          items:
+            - Program & Portfolio Leadership
+            - Cross-Functional & People Leadership
+            - Organizational Change Management
+            - Executive & Board Communication
+            - Stakeholder Management
+        - name: Business Strategy & Operations
+          items:
+            - Enterprise Strategy & Roadmapping
+            - Operating Model & KPI Design
+            - Annual Planning & OKRs
+            - Business Case & Investment Prioritization
+            - Financial Modeling & Budgeting
+            - Vendor Management & Cost Optimization
+            - Go-to-Market Strategy
+            - Process Optimization & Lean
+            - Business Operations
+    - name: Tools
+      groups:
+        - name: AI Tools
+          items:
+            - Amazon Kiro
+            - Claude & Claude Code
+            - Cursor
+            - OpenAI Codex
+            - Anthropic & OpenAI APIs
+            - AI Agents & MCP Multi-Agent Workflows
+            - Local LLMs (LM Studio)
+            - DeepSeek
+            - Kimi
+            - Qwen
+            - Gemini
+            - Gemini Notebook
+            - Perplexity
+            - ChatGPT
+            - Microsoft 365 Copilot
+            - Python
+        - name: Data & Analytics
+          items:
+            - SQL (MySQL)
+            - Tableau
+            - Power BI
+            - Excel (Advanced Modeling)
+        - name: Platforms & Infrastructure
+          items:
+            - ServiceNow (CMDB / ITAM)
+            - Jira
+            - Visio
+            - Salesforce
+            - Smartsheet
+            - Microsoft 365
+            - Cloudflare
+            - GitHub
+            - n8n
+            - Power Automate
   # "{n}" is replaced with the computed total.
   showAllLabel: "Show all {n} +"
   showFewerLabel: Show fewer −

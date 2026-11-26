@@ -358,7 +358,7 @@ details:not([open]) > summary.aboutrole .ab-o {
   color: var(--t3);
 }
 
-/* ---- Core competencies -------------------------------------------------- */
+/* ---- Expertise & Tools (#focus) ----------------------------------------- */
 .hl {
   display: flex;
   flex-wrap: wrap;
@@ -386,6 +386,18 @@ details:not([open]) > summary.aboutrole .ab-o {
 }
 .comp-groups {
   margin-top: 20px;
+}
+.comp-block + .comp-block {
+  margin-top: 40px;
+}
+/* Block heading (Skills, Tools): same type as role titles (.role-t). */
+.comp-block-h {
+  margin: 0 0 16px;
+  font-size: 21px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--t0);
 }
 .comp-row {
   display: flex;
