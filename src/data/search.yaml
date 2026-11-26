@@ -20,8 +20,8 @@
     - { title: About, target: about }
     - { title: Experience, target: experience }
     - { title: Education, target: education }
-    - { title: Recommendations, target: recommendations }
     - { title: How I work, target: how }
+    - { title: Recommendations, target: recommendations }
     - { title: Beyond work, target: beyond }
     - { title: Contact, target: contact }
     - { title: Contact me, sub: Open the contact card, action: contact }
