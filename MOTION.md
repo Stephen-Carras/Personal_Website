@@ -5,7 +5,7 @@ Last updated: 2026-11-21 (evening).
 Everything is CSS-only except the carousel loops and the search jump, which need a little JavaScript (in the external script file). All animation is wrapped in `@media (prefers-reduced-motion: no-preference)`. Scroll-driven parts go inside `@supports (animation-timeline: view())`; browsers without support, and visitors who reduce motion, just see static content. Reference implementation: the `<style>` block in `design/Main.dc.html`.
 
 ## Load (hero, time-based)
-`.ld` class: fade up 28px over 1s, `cubic-bezier(.22,.7,.2,1)`, staggered by `--d` (0 to 6, 110ms each, 80ms base). Order: headshot, name, headline, sub-line, buttons, location line, Seattle banner.
+`.ld` class: fade up 28px over 1.3s, `cubic-bezier(.22,.7,.2,1)`, staggered by `--d` (0 to 6, 180ms each, 300ms base). Order: headshot, name, headline, sub-line, buttons, location line, Seattle banner.
 
 ## Scroll-driven (view timelines, `linear` easing, `fill-mode: both`)
 - `rv-u` (rise): opacity 0 and translateY 56px to rest. Range `entry` offset 0 to 340px, plus `--i * 40px` for staggering. Used on every h2, About paragraphs, Experience and Education rows, How I work items, every Beyond work block except Trips & places ("A little about me" and the gallery, and each row of cards, staggered 0 then 1), Contact rows.
