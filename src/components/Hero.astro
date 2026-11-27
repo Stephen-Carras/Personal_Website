@@ -80,7 +80,8 @@ const bg = img(hero.background);
       </div>
       <div class="hblank" aria-hidden="true"></div>
       <div class="hafter">
-        <p class="hstmt">{hero.statement.main}</p>
+        {/* The bar cursor is decorative (aria-hidden), not part of the statement text. */}
+        <p class="hstmt">{hero.statement.main}<span class="cur cur-bar" aria-hidden="true"></span></p>
         <p class="hsub">{hero.statement.support}</p>
       </div>
     </div>

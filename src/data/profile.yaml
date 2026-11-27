@@ -29,7 +29,7 @@ stephen:
     recommendationsHint: Swipe or scroll to read more
 
   hero:
-    headline: [From whiteboard, to shipped.]
+    headline: [From whiteboard, to shipped]
     sub: Strategy, operations, and rapid AI prototyping—turning business goals into builds that launch.
     button: Contact me
     location: Seattle, WA
@@ -37,8 +37,8 @@ stephen:
     background: hero-space.jpg
     headshot: headshot.jpg
     statement:
-      main: "In the age of AI, business and technical roles are merging. I operate at the fulcrum."
-      support: I move fluidly between executive conversations, the spreadsheet and the product.
+      main: "Business and tech used to be separate jobs. AI is merging them. I’m already in both."
+      support: Technical enough to build it. Business-minded enough to know why it matters.
     experienceLead: Experience across
     experienceList: [2x Startups, Boeing, T-Mobile, FTSE Russell, InductEV, Constellation Energy]
 

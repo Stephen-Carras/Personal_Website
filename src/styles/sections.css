@@ -327,6 +327,13 @@ details:not([open]) > summary.aboutrole .ab-o {
   letter-spacing: -0.03em;
   color: var(--t0);
   overflow-wrap: break-word;
+  text-wrap: balance;
+}
+/* Thinner bar cursor after the statement (decorative; blinks in motion.css). */
+.hstmt .cur-bar {
+  width: 0.06em;
+  height: 0.8em;
+  margin-left: 0.1em;
 }
 .hsub {
   max-width: 640px;
@@ -336,6 +343,7 @@ details:not([open]) > summary.aboutrole .ab-o {
   font-weight: 400;
   letter-spacing: -0.01em;
   color: var(--t2);
+  text-wrap: pretty;
 }
 @media (max-width: 640px) {
   .hport {
