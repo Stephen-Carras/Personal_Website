@@ -13,13 +13,13 @@ const schools = await inFileOrder('education');
 
 <section id="education" class="sec alt">
   <div class="wrap">
-    <h2 class="h2 rv-u">{Astro.props.heading}</h2>
+    <h2 class="h2 rise-a">{Astro.props.heading}</h2>
     <div class="rows">
       {
         schools.map(({ id, data: s }) => {
           const logo = img(s.logo);
           return (
-            <div class="row-co rv-u" id={`ed-${id}`}>
+            <div class="row-co rise-b" id={`ed-${id}`}>
               <div class="co-side">
                 <div class:list={['logo', `logo-${id}`]}>
                   <Image src={logo.src} alt={logo.alt} width={56} height={56} densities={[1, 2]} />

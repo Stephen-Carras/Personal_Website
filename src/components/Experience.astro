@@ -17,14 +17,14 @@ const FT = 'Full-time · ';
 
 <section id="experience" class="sec">
   <div class="wrap">
-    <h2 class="h2 rv-u">{Astro.props.heading}</h2>
+    <h2 class="h2 rise-a">{Astro.props.heading}</h2>
     <div class="rows">
       {
         companies.map(({ id, data: co }) => {
           const span = tenureSpan(co.roles);
           const logo = co.logo ? img(co.logo) : null;
           return (
-            <div class="row-co rv-u" id={`co-${id}`}>
+            <div class="row-co rise-b" id={`co-${id}`}>
               <div class="co-side">
                 {logo ? (
                   <div class:list={['logo', `logo-${id}`]}>

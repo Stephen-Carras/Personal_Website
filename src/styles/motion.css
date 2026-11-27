@@ -41,34 +41,13 @@
 
   /* ---- Scroll-driven reveals --------------------------------------------------------- */
   @supports (animation-timeline: view()) {
-    .rv-l, .rv-r, .rv-z, .rv-u, .rv-c, .rv-n {
+    /* Results heading. The sections after Results use the --sec entrance below. */
+    .rv-u {
+      animation-name: rvu;
       animation-fill-mode: both;
       animation-timing-function: linear;
       animation-timeline: view();
-    }
-    .rv-l {
-      animation-name: rvl;
-      animation-range: cover calc(var(--i, 0) * 3%) cover calc(48% + var(--i, 0) * 3%);
-    }
-    .rv-r {
-      animation-name: rvr;
-      animation-range: cover calc(var(--i, 0) * 3%) cover calc(48% + var(--i, 0) * 3%);
-    }
-    .rv-z { animation-name: rvz; animation-range: cover 0% cover 46%; }
-    .rv-u {
-      animation-name: rvu;
       animation-range: entry calc(var(--i, 0) * 40px) entry calc(340px + var(--i, 0) * 40px);
-    }
-    .rv-c {
-      animation-name: rvc;
-      animation-range: entry calc(var(--i, 0) * 22px) entry calc(190px + var(--i, 0) * 22px);
-    }
-    .rv-n { animation-name: rvn; animation-range: cover 6% cover 46%; }
-    /* The Contact rows sit at the very end of the page: the last one starts only
-       ~267px above the end of the document, so a 340px entry range could never
-       finish and it would rest faded. End their reveal at 220px instead. */
-    .facts .fact.rv-u {
-      animation-range: entry 0 entry 220px;
     }
 
     /* Results: each tile comes together on its own view timeline (--tile), starting
@@ -112,16 +91,8 @@
       from { opacity: 0; transform: translate3d(220px, 90px, 0) scale(0.84); }
       to { opacity: 1; transform: none; }
     }
-    @keyframes rvz {
-      from { opacity: 0; transform: translate3d(0, 90px, 0) scale(0.86); }
-      to { opacity: 1; transform: none; }
-    }
     @keyframes rvu {
       from { opacity: 0; transform: translate3d(0, 56px, 0); }
-      to { opacity: 1; transform: none; }
-    }
-    @keyframes rvc {
-      from { opacity: 0; transform: translate3d(0, 26px, 0) scale(0.8); }
       to { opacity: 1; transform: none; }
     }
     @keyframes rvn {
@@ -172,13 +143,6 @@
     details[open] > :not(summary) {
       animation: dopen 0.5s var(--ease) both;
     }
-  }
-  /* Group rows stagger 70ms each across both blocks (d0-d5 = running row index);
-     each block heading arrives with its first row. */
-  .comp details[open] .comp-row,
-  .comp details[open] .comp-block-h {
-    animation: dopen 0.6s var(--ease) both;
-    animation-delay: calc(var(--d, 0) * 70ms);
   }
   details[open] .cw span {
     animation: cwp 0.5s var(--ease) both;
@@ -302,57 +266,125 @@
       .hsub { animation-range: cover 232svh cover 282svh; }
     }
 
-    /* ---- Expertise & Tools: rise in as each element enters, no pinning ---------------
-       Same hrise keyframes as the hero statement. The stagger (--i) offsets the start. */
-    .srise {
-      animation-name: hrise;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry calc(10% + var(--i, 0) * 14px) cover calc(35% + var(--i, 0) * 1%);
+    /* ---- Section entrances: blank lead-in band, then the whole section fades up ------
+       Every section after Results owns one view timeline (--sec). Its title, text,
+       images and buttons (.rise-a, .rise-b) all run the same range on it, so they fade
+       up together, never one at a time. Ranges are measured from the section's top
+       entering the bottom of the screen, so a section growing (Show all) doesn't move
+       them. svh = visible height with phone toolbars shown (every browser with
+       view timelines has svh).
+       - About: a 40svh blank band; the fade starts as the section top reaches the top
+         of the screen (Results fully gone) and ends 15svh later (cover 100svh to
+         115svh), when the title is about 25% from the top.
+       - The rest: a 20svh band; the fade runs cover 92svh to 107svh, starting with the
+         title about 28% from the top and ending near the top.
+       - A 12svh runway after each section. Anchor links land with the title just
+         under the nav, past the band (negative scroll-margin).
+       - Expertise & Tools is at least 130svh tall, so Experience never peeks in below
+         it while collapsed. Contact is at least 100svh so the page can scroll far
+         enough for its fade to finish, even on very tall screens. */
+    :root {
+      --band: 40svh;
+      --runway: 12svh;
     }
-
-    /* ---- About and How I work: blank band, then scroll-linked rise-in ---------------
-       Section spacing, not pinning. Each section starts with a blank band one screen
-       tall (padding-top 100svh, page background, nothing in it), so the previous
-       section has scrolled fully off before the heading can enter from the bottom.
-       A 50svh bottom runway follows the text, so a fast scroll can't skip it.
-       - .rise-a (heading, first paragraph): starts when its top is 10% up from the
-         bottom; fully risen just before its top is 25% from the top
-         (cover 10svh to 73svh).
-       - .rise-b (later paragraphs, items): ends by cover 57svh, before its top is 40%
-         from the top; How I work items stagger by column (--i 0-2).
-       Anchor links and search land with the heading about 25% from the top instead
-       of on the blank band (negative scroll-margin: heading top = section top +
-       100svh). svh = visible height with phone toolbars shown. */
     section#about,
+    section#focus,
+    section#experience,
+    section#education,
+    section#how,
+    section#recommendations,
+    section#beyond,
+    section#contact {
+      padding-top: var(--band) !important;
+      padding-bottom: var(--runway) !important;
+      view-timeline: --sec block;
+      scroll-margin-top: calc(var(--nav-h) + 24px - var(--band));
+    }
+    section#focus,
+    section#experience,
+    section#education,
+    section#how,
+    section#recommendations,
+    section#beyond,
+    section#contact {
+      --band: 20svh;
+    }
     section#how {
       display: block;
       min-height: 0;
-      padding-top: 100vh;
-      padding-bottom: 50vh;
-      scroll-margin-top: -75vh;
     }
-    @supports (padding-top: 100svh) {
-      section#about,
-      section#how {
-        padding-top: 100svh;
-        padding-bottom: 50svh;
-        scroll-margin-top: -75svh;
-      }
+    section#focus {
+      box-sizing: border-box;
+      min-height: 130svh;
+    }
+    section#contact {
+      box-sizing: border-box;
+      min-height: 100svh;
     }
     .rise-a,
-    .rise-b {
-      animation-name: hrise;
+    .rise-b,
+    .rise-c {
+      animation-name: sfade;
       animation-timing-function: linear;
       animation-fill-mode: both;
-      animation-timeline: view();
+      animation-timeline: --sec;
+      animation-range: cover 92svh cover 107svh;
     }
-    .rise-a {
-      animation-range: cover 10svh cover 73svh;
+    #about .rise-a,
+    #about .rise-b,
+    #about .rise-c {
+      animation-range: cover 100svh cover 115svh;
     }
-    .rise-b {
-      animation-range: cover calc(10svh + var(--i, 0) * 4svh) cover calc(49svh + var(--i, 0) * 4svh);
+
+    /* ---- Expertise & Tools, Show all: a soft glow behind the list, rows slide in
+       (--rd, 70ms per row), chips pop after their row (--cd, 25ms per chip). The
+       featured chips themselves glide into place (scripts/comp-morph.ts). */
+    .comp-row,
+    .comp-block-h { --rd: calc(var(--d, 0) * 70ms); }
+    .comp-groups {
+      position: relative;
+      isolation: isolate;
+    }
+    #comp-all[open] > .comp-groups::before {
+      content: '';
+      position: absolute;
+      inset: -24px -32px;
+      z-index: -1;
+      border-radius: 28px;
+      background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+      pointer-events: none;
+      animation: xglow 1.4s var(--ease) both;
+    }
+    .comp details[open] .comp-row,
+    .comp details[open] .comp-block-h {
+      animation: xrow 0.6s var(--ease) both;
+      animation-delay: var(--rd);
+    }
+    .comp details[open] .comp-item {
+      animation: xpop 0.45s var(--ease) both;
+      animation-delay: calc(var(--rd) + var(--cd, 0ms) + 140ms);
+    }
+    .comp details[open] .comp-item.mland {
+      animation: none;
+    }
+    .comp-item:nth-child(2) { --cd: 25ms; } .comp-item:nth-child(3) { --cd: 50ms; }
+    .comp-item:nth-child(4) { --cd: 75ms; } .comp-item:nth-child(5) { --cd: 100ms; }
+    .comp-item:nth-child(6) { --cd: 125ms; } .comp-item:nth-child(7) { --cd: 150ms; }
+    .comp-item:nth-child(8) { --cd: 175ms; } .comp-item:nth-child(9) { --cd: 200ms; }
+    .comp-item:nth-child(10) { --cd: 225ms; } .comp-item:nth-child(11) { --cd: 250ms; }
+    .comp-item:nth-child(n + 12) { --cd: 275ms; }
+    @keyframes xglow {
+      0% { opacity: 0; }
+      35% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    @keyframes xrow {
+      from { opacity: 0; transform: translate3d(0, 16px, 0); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes xpop {
+      from { opacity: 0; transform: scale(0.86); }
+      to { opacity: 1; transform: none; }
     }
 
     @keyframes hzoom {
@@ -369,7 +401,37 @@
       from { opacity: 0; transform: translate3d(0, 40px, 0); }
       to { opacity: 1; transform: none; }
     }
+    /* Named sfade, not hfade: hfade is the hero photo's load fade above. */
+    @keyframes sfade {
+      from { opacity: 0; transform: translate3d(0, 24px, 0); }
+      to { opacity: 1; transform: none; }
+    }
   }
+}
+
+/* ---- Pill morph measuring (scripts/comp-morph.ts) ----------------------------------------
+   While the script reads chip positions, nothing inside Expertise & Tools may be mid
+   animation or transition, or it would read a moved or scaled chip. */
+.meas,
+.meas *,
+.meas *::before,
+.meas *::after,
+.meas ::details-content {
+  animation: none !important;
+  transition: none !important;
+}
+/* A chip whose clone is in flight, and the clone itself (left/top/width/size animated). */
+.mfly {
+  visibility: hidden;
+}
+.mclone {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  margin: 0;
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
 /* ---- Reduced motion ----------------------------------------------------------------------
@@ -427,7 +489,7 @@
     animation: none !important;
     transition: none !important;
   }
-  .ld, .rv-l, .rv-r, .rv-z, .rv-u, .rv-c, .rv-n, .rs-l, .rs-r, .rs-n {
+  .ld, .rv-l, .rv-r, .rv-z, .rv-u, .rv-c, .rv-n, .rs-l, .rs-r, .rs-n, .rise-a, .rise-b, .rise-c {
     opacity: 1 !important;
     transform: none !important;
   }

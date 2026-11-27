@@ -20,10 +20,9 @@ const portrait = img(g.portrait);
 const lists = [
   { key: 'books', list: b.books, rows: b.books.items.map((x) => ({ title: x.title, sub: x.author, url: x.url, featured: x.featured })) },
   { key: 'music', list: b.music, rows: b.music.items.map((x) => ({ title: x.name, url: x.url, featured: x.featured })) },
-].map((l, n) => ({
+].map((l) => ({
   ...l,
   id: `${l.key}-dlg`,
-  stagger: n === 0 ? 'i0' : 'i1',
   featured: l.rows.filter((r) => r.featured),
   hasMore: l.rows.some((r) => !r.featured),
 }));
@@ -31,16 +30,16 @@ const lists = [
 
 <section id="beyond" class="sec beyond">
   <div class="wrap">
-    <h2 class="h2 rv-u">{b.heading}</h2>
-    <p class="beyond-intro rv-u i1">{b.intro}</p>
+    <h2 class="h2 rise-a">{b.heading}</h2>
+    <p class="beyond-intro rise-b">{b.intro}</p>
 
     <div class="gal-row">
-      <div class="gal-about rv-u i0">
+      <div class="gal-about rise-b">
         <Image class="gal-mark" src={portrait.src} alt={portrait.alt} width={96} height={96} densities={[1, 2]} loading="lazy" />
         <h3>{g.heading}</h3>
         <p>{g.text}</p>
       </div>
-      <div class="gal-col rv-u i1">
+      <div class="gal-col rise-b">
         <div id="galtrack" class="track galtrack" role="region" aria-label="Photo gallery. Swipe or use the arrow buttons." tabindex="0" data-loop>
           {
             g.photos.map((file) => {
@@ -67,7 +66,7 @@ const lists = [
       </div>
     </div>
 
-    <div class="trips rv-z">
+    <div class="trips rise-b">
       <h3 class="h3">{b.tripsHeading}</h3>
       <div id="triptrack" class="track trip-track" role="region" aria-label="Trips and places, scroll horizontally" tabindex="0" data-loop>
         {
@@ -88,13 +87,13 @@ const lists = [
     </div>
 
     <div class="bw-grid">
-      <div class="card card--full rv-u i0">
+      <div class="card card--full rise-b">
         <h3 class="h3">{b.hobbies.heading}</h3>
         <div class="tags">{b.hobbies.items.map((t) => <span>{t}</span>)}</div>
       </div>
       {
         lists.map((l) => (
-          <div class={`card card--list rv-u ${l.stagger}`}>
+          <div class={`card card--list rise-b`}>
             <h3 class="h3">{l.list.heading}</h3>
             <ul class="llist">
               {l.featured.map((r) => (
@@ -111,11 +110,11 @@ const lists = [
           </div>
         ))
       }
-      <div class="card rv-u i0">
+      <div class="card rise-b">
         <h3 class="h3">{b.askMeAbout.heading}</h3>
         <ul class="ask">{b.askMeAbout.items.map((t) => <li>{t}</li>)}</ul>
       </div>
-      <div class="card rv-u i1">
+      <div class="card rise-b">
         <h3 class="h3">{b.now.heading}</h3>
         <div class="now">
           {
