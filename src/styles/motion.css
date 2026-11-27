@@ -71,17 +71,26 @@
       animation-range: entry 0 entry 220px;
     }
 
-    /* Results: one named timeline for the whole section keeps the 2x2 grid together. */
+    /* Results: each tile comes together on its own view timeline (--tile), starting
+       as its top enters the bottom of the screen and finished by the time its top
+       reaches the 2/3 line (cover 33svh: scrolled a third of the visible height).
+       Left and right tiles of a row share a position, so they move together; the
+       bottom row follows as it is reached. The number starts slightly later and
+       finishes on the same line. svh = the visible height with phone toolbars shown,
+       so it is never later than the 2/3 line. */
+    .res-tile {
+      view-timeline: --tile block;
+    }
     .rs-l, .rs-r, .rs-n {
       animation-fill-mode: both;
       animation-timing-function: linear;
-      animation-timeline: --res;
+      animation-timeline: --tile;
     }
-    .rs-l { animation-name: rvl; animation-range: cover var(--s, 200px) cover calc(100vh + 48px); }
-    .rs-r { animation-name: rvr; animation-range: cover var(--s, 200px) cover calc(100vh + 48px); }
+    .rs-l { animation-name: rvl; animation-range: cover 0svh cover 33svh; }
+    .rs-r { animation-name: rvr; animation-range: cover 0svh cover 33svh; }
     .rs-n {
       animation-name: rvn;
-      animation-range: cover calc(var(--s, 200px) + 60px) cover calc(100vh - 40px);
+      animation-range: cover 6svh cover 33svh;
     }
 
     /* Longhands in two rules: the minifier would otherwise fold them into an
@@ -303,13 +312,13 @@
       animation-range: entry calc(10% + var(--i, 0) * 14px) cover calc(35% + var(--i, 0) * 1%);
     }
 
-    /* ---- About: scroll-triggered rise-in (About.astro) --------------------------------
+    /* ---- About and How I work: scroll-triggered rise-in (About.astro, HowIWork.astro) -
        Triggered, not scrubbed: each rise plays over 0.9s once its trigger fires, so it
        always finishes, even for paragraphs taller than the screen. Two triggers must
        both have fired before text shows:
-       - --about-gate on the section fires once About's top reaches the nav (Results
-         fully gone). It plays hrise on every .ag, staggered by --i.
-       - --about-in on each inner .ar fires once that element is well inside the screen
+       - --about-gate / --how-gate on the section fires once its top reaches the nav
+         (the previous section fully gone). It plays hrise on every .ag, staggered by --i.
+       - --rise-in on each inner .ar fires once that element is well inside the screen
          (its top 15% plus up to 120px above the bottom edge), playing hrise again.
        Text on the first screen is past its own trigger before the gate fires, so it
        rises with the gate; text further down rises with its own trigger as you reach
@@ -319,6 +328,9 @@
     @supports (timeline-trigger-name: --a) {
       #about {
         timeline-trigger: --about-gate view(block var(--nav-h) 0px) contain 0% exit 100% / cover 0% cover 100%;
+      }
+      #how {
+        timeline-trigger: --how-gate view(block var(--nav-h) 0px) contain 0% exit 100% / cover 0% cover 100%;
       }
       .ag,
       .ar {
@@ -332,13 +344,17 @@
       }
       .ar {
         display: block;
-        timeline-trigger: --about-in view(block 0px 15%) entry min(40%, 120px) exit 100% / cover 0% cover 100%;
+        timeline-trigger: --rise-in view(block 0px 15%) entry min(40%, 120px) exit 100% / cover 0% cover 100%;
       }
       #about .ag {
         animation-trigger: --about-gate play-forwards play-backwards;
       }
-      #about .ar {
-        animation-trigger: --about-in play-forwards play-backwards;
+      #how .ag {
+        animation-trigger: --how-gate play-forwards play-backwards;
+      }
+      #about .ar,
+      #how .ar {
+        animation-trigger: --rise-in play-forwards play-backwards;
       }
     }
 
