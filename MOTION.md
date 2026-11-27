@@ -21,6 +21,11 @@ The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav.
   - **About** fades over `cover 100svh` to `cover 115svh`. It starts as the section top reaches the top of the screen (Results fully gone) and ends with the title about 25% from the top.
   - **The rest** fade over `cover 92svh` to `cover 107svh`. They start with the title about 28% from the top and end near the top.
   - **Expertise & Tools** starts at the same point but takes half the scroll: `cover 92svh` to `cover 99.5svh`.
+  - The end of each range comes from the section's `--rise-end` custom property (in svh: 107, About 115, Expertise & Tools 99.5), read as `cover calc(var(--rise-end) * 1svh)`.
+  - **Latch** (`src/scripts/section-latch.ts`): once a section has fully faded in, it stays in. The script adds `lat` to the section when its top reaches `(100 - --rise-end)` svh, the point where the animation already rests at its last frame, so there is no jump. `section.lat .rise-*` sets `animation: none`, `opacity: 1` and `transform: none`. Scrolling up keeps it visible. `lat` is removed only when the section top is at or below the bottom of the screen (the whole section is out of view), so scrolling back down replays the fade.
+    - The script reads `--rise-end` with `getComputedStyle`, so CSS and script share one value. It measures svh with a hidden fixed 100svh probe (`.svh-probe`), falling back to `innerHeight`.
+    - It runs at most once per frame (requestAnimationFrame) on scroll (passive, capture), and also on resize, at start and on load, so a `#hash` load or a long jump latches every section already passed.
+    - No timers, no fade-out. It does nothing under reduced motion or without `animation-timeline` support.
   - `padding-bottom: var(--runway)` (12svh) after each section.
   - Expertise & Tools is at least 130svh tall (border-box), so Experience never peeks in below it while it is collapsed. Contact is at least 100svh, so the page can scroll far enough for its fade to finish, even on very tall screens.
   - Anchors and nav links: `scroll-margin-top: calc(var(--nav-h) + 24px - var(--band))`, so a jump lands with the title 72px from the top, fully faded in, instead of in the blank band.
@@ -52,7 +57,7 @@ The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav.
 Recommendations, Trips & places and the photo gallery loop endlessly. JS adds two clone sets, starts at the middle set, and jumps by one set width after scrolling settles (about 140ms) with scroll-snap temporarily off, so the visitor never sees the jump. Previous/next buttons use `scrollBy`, smooth unless reduced motion. Clones are `aria-hidden` and not focusable. No autoplay.
 
 ## Reduced motion and print
-- `prefers-reduced-motion: reduce`: all `ld`, `rv-u`, `rs-*` and `rise-*` classes render in their final state, the blank bands are gone, Show all toggles without the morph (`opacity: 1`, no transform), details open and close instantly, `scroll-behavior: auto` everywhere (including scripted `scrollTo`, `scrollBy`, `scrollIntoView`), no nudge arrow.
+- `prefers-reduced-motion: reduce`: all `ld`, `rv-u`, `rs-*` and `rise-*` classes render in their final state, the blank bands are gone, the section latch does nothing, Show all toggles without the morph (`opacity: 1`, no transform), details open and close instantly, `scroll-behavior: auto` everywhere (including scripted `scrollTo`, `scrollBy`, `scrollIntoView`), no nudge arrow.
 - Print: animations off, everything visible, all `<details>` expanded, figures not split across pages.
 
 ## Rules that matter

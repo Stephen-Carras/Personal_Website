@@ -322,6 +322,18 @@
       box-sizing: border-box;
       min-height: 100svh;
     }
+    /* --rise-end is the "fully in" point in svh. The range below reads it, and so does
+       scripts/section-latch.ts (its latch threshold), so the two can't drift apart. */
+    section#about,
+    section#focus,
+    section#experience,
+    section#education,
+    section#how,
+    section#recommendations,
+    section#beyond,
+    section#contact {
+      --rise-end: 107;
+    }
     .rise-a,
     .rise-b,
     .rise-c {
@@ -329,18 +341,31 @@
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: --sec;
-      animation-range: cover 92svh cover 107svh;
+      animation-range: cover 92svh cover calc(var(--rise-end) * 1svh);
+    }
+    section#about {
+      --rise-end: 115;
     }
     #about .rise-a,
     #about .rise-b,
     #about .rise-c {
-      animation-range: cover 100svh cover 115svh;
+      animation-range: cover 100svh cover calc(var(--rise-end) * 1svh);
     }
     /* Expertise & Tools: same start, half the length, so it is fully in twice as fast. */
-    #focus .rise-a,
-    #focus .rise-b,
-    #focus .rise-c {
-      animation-range: cover 92svh cover 99.5svh;
+    section#focus {
+      --rise-end: 99.5;
+    }
+
+    /* Latched (scripts/section-latch.ts): once a section has fully faded in it stays
+       in, scrolling up included, until the whole section is below the screen. The
+       latch is added only past --rise-end, where the animation already rests at its
+       last frame (opacity 1, no transform), so adding it causes no jump. */
+    section.lat .rise-a,
+    section.lat .rise-b,
+    section.lat .rise-c {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
     }
 
     /* ---- Expertise & Tools, Show all: a soft glow behind the list, rows slide in
@@ -422,6 +447,16 @@
 .meas ::details-content {
   animation: none !important;
   transition: none !important;
+}
+/* Measures 1svh for scripts/section-latch.ts. */
+.svh-probe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100svh;
+  visibility: hidden;
+  pointer-events: none;
 }
 /* A chip whose clone is in flight, and the clone itself (left/top/width/size animated). */
 .mfly {
