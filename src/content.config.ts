@@ -68,7 +68,14 @@ const profile = defineCollection({
         }),
       }),
     }),
-    footer: z.array(text),
+    footer: z.array(
+      z.union([
+        text,
+        z
+          .object({ text, cursorAfter: text })
+          .refine((l) => l.text.includes(l.cursorAfter), { message: 'cursorAfter must appear in text' }),
+      ]),
+    ),
   }),
 });
 

@@ -89,6 +89,8 @@ stephen:
           - { state: UT, cities: [Salt Lake City] }
         also: Remote & Hybrid
 
+  # A line can be { text, cursorAfter }: a decorative blinking cursor (aria-hidden,
+  # not part of the text) is drawn right after the cursorAfter word.
   footer:
-    - Designed and built with Claude
+    - { text: "Designed by stephen · built with Claude", cursorAfter: stephen }
     - Views expressed on this site are my own.
