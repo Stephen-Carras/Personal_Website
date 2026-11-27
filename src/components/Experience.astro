@@ -3,6 +3,10 @@
 // column of roles, each collapsed behind "Key impact +" (native <details>).
 // Durations are computed from start/end. Open-ended ones carry data-dur-* so the
 // browser recomputes them and they never go stale.
+// Wave section (sections.css .wave): .bstage holds the title, .bbody the companies.
+// Entrance (motion.css): the title, then the first company on the section timeline;
+// every later company (.rv-own) fades on its own view() timeline as it enters. The
+// block cursor after the title is decorative (aria-hidden).
 import { inFileOrder } from '../lib/order';
 import { Image } from 'astro:assets';
 import { img } from '../lib/images';
@@ -15,16 +19,18 @@ const companies = await inFileOrder('roles');
 const FT = 'Full-time · ';
 ---
 
-<section id="experience" class="sec">
-  <div class="wrap">
-    <h2 class="h2 rise-a">{Astro.props.heading}</h2>
+<section id="experience" class="sec wave">
+  <div class="wrap bstage">
+    <h2 class="h2 rise-a">{Astro.props.heading}<span class="cur cur-b" aria-hidden="true"></span></h2>
+  </div>
+  <div class="wrap bbody">
     <div class="rows">
       {
-        companies.map(({ id, data: co }) => {
+        companies.map(({ id, data: co }, n) => {
           const span = tenureSpan(co.roles);
           const logo = co.logo ? img(co.logo) : null;
           return (
-            <div class="row-co rise-b" id={`co-${id}`}>
+            <div class:list={['row-co rise-b', n > 0 && 'rv-own']} id={`co-${id}`}>
               <div class="co-side">
                 {logo ? (
                   <div class:list={['logo', `logo-${id}`]}>

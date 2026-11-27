@@ -2,7 +2,7 @@
 // handlers anywhere: everything is wired with addEventListener. Module scripts run
 // after the HTML is parsed, so the DOM is ready here.
 import { duration } from '../lib/dates';
-import { initBeyondPhoto } from './beyond-photo';
+import { initSectionPhotos } from './section-photos';
 import { initCarousels } from './carousel';
 import { initCompMorph } from './comp-morph';
 import { initContact } from './contact';
@@ -88,7 +88,7 @@ initDialogs();
 initSearch();
 initCompMorph();
 initSectionLatch();
-initBeyondPhoto();
+initSectionPhotos();
 
 /* ------------------------------------------------------------------------
    Print: expand everything. CSS handles ::details-content where supported;

@@ -1,7 +1,9 @@
 ---
 // About: bold lead, then every body paragraph, all shown in full (no fold).
-// Entrance (motion.css): scroll-linked rise-in. Heading and lead use .rise-a, the
-// paragraphs .rise-b.
+// Wave section (sections.css .wave): dark wave photo pinned behind the whole section.
+// .bstage holds the title, .bbody the paragraphs. Entrance (motion.css): the title
+// fades in, then all the paragraphs together, close beneath it. The cursor after the
+// title is decorative (aria-hidden), not part of the heading text.
 interface Props {
   about: {
     heading: string;
@@ -13,9 +15,11 @@ interface Props {
 const { about } = Astro.props;
 ---
 
-<section id="about" class="sec">
-  <div class="wrap">
-    <h2 class="h2 rise-a">{about.heading}</h2>
+<section id="about" class="sec wave">
+  <div class="wrap bstage">
+    <h2 class="h2 rise-a">{about.heading}<span class="cur" aria-hidden="true">_</span></h2>
+  </div>
+  <div class="wrap bbody">
     <div class="about">
       <p class="about-lead rise-a">{about.lead}</p>
       <p class="about-p rise-b">{about.body}</p>

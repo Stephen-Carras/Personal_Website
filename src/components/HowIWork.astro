@@ -2,14 +2,17 @@
 import { getEntry } from 'astro:content';
 
 const h = (await getEntry('howIWork', 'main'))!.data;
-// Entrance: same as About (motion.css). Heading and lead use .rise-a, the items
-// .rise-b, staggered by column (i0-i2).
+// Wave section, like About (sections.css .wave): .bstage holds the title and the lead
+// sentence, .bbody the six items. Entrance (motion.css): title, then lead, then the
+// items. The bar cursor after the title is decorative (aria-hidden).
 ---
 
-<section id="how" class="sec">
-  <div class="wrap">
-    <h2 class="h2 rise-a">{h.heading}</h2>
+<section id="how" class="sec wave">
+  <div class="wrap bstage">
+    <h2 class="h2 rise-a">{h.heading}<span class="cur cur-bar" aria-hidden="true"></span></h2>
     <p class="lead-p rise-a">{h.lead}</p>
+  </div>
+  <div class="wrap bbody">
     <div class="how-grid">
       {
         h.items.map((it, n) => (
