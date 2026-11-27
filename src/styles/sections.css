@@ -433,15 +433,6 @@ details:not([open]) > summary.aboutrole .ab-o {
   flex-direction: column;
   gap: 26px;
 }
-/* The lead sits in the About stage (.astage), the paragraphs in .about-rest below it.
-   Static layout matches a single .about block: 56px under the heading, 26px gaps. */
-.about-lead.alead {
-  max-width: 780px;
-  margin-top: 56px;
-}
-.about.about-rest {
-  margin-top: 26px;
-}
 .about-lead {
   margin: 0;
   font-size: clamp(22px, 2.6vw, 30px);

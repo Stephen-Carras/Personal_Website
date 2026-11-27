@@ -293,57 +293,8 @@
       .hsub { animation-range: cover 232svh cover 282svh; }
     }
 
-    /* ---- About: pinned heading and lead (About.astro) ----------------------------
-       .arun is a 220vh run on the --about timeline with a sticky stage under the nav.
-       It pins from about cover 95vh to cover 220vh. The heading rises in as the stage
-       arrives, the lead follows, then a ~60vh hold before it unpins and the paragraphs
-       (normal flow, too long to pin) rise in one by one. The section's top padding
-       goes, so the stage follows Results directly. Negative scroll-margin: the About
-       link and search land in the hold (cover ~180vh), with both lines shown. */
-    #about {
-      padding-top: 0;
-      scroll-margin-top: -80vh;
-    }
-    .arun {
-      height: 220vh;
-      view-timeline: --about block;
-    }
-    .astage {
-      position: sticky;
-      top: var(--nav-h);
-      height: calc(100vh - var(--nav-h));
-      display: flex;
-      flex-direction: column;
-      justify-content: safe center;
-      background: var(--bg);
-      text-align: center;
-    }
-    .astage .wrap {
-      width: 100%;
-    }
-    /* Hero statement type scale (.hstmt), capped by height for short screens. */
-    .astage .alead {
-      max-width: 820px;
-      margin: 32px auto 0;
-      font-size: min(clamp(28px, 2.4vw + 20px, 52px), 6vh);
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-    }
-    #about .about-rest {
-      margin: 0 auto;
-    }
-    .ahd,
-    .alead {
-      opacity: 0;
-      animation-name: hrise;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: --about;
-    }
-    .ahd { animation-range: cover 65vh cover 110vh; }
-    .alead { animation-range: cover 85vh cover 155vh; }
-
-    /* ---- Expertise & Tools and the About paragraphs: rise in, no pinning ---------- */
+    /* ---- About and Expertise & Tools: rise in as each element enters, no pinning -----
+       Same hrise keyframes as the hero statement. The stagger (--i) offsets the start. */
     .srise,
     .srise-p {
       animation-name: hrise;
@@ -358,15 +309,6 @@
        lines faded while being read: finish 320px after the top enters instead. */
     .srise-p {
       animation-range: entry 0% entry 320px;
-    }
-
-    @media (max-width: 640px), (hover: none) and (pointer: coarse) {
-      #about { scroll-margin-top: -80svh; }
-      .arun { height: 220svh; }
-      .astage { height: calc(100svh - var(--nav-h)); }
-      .astage .alead { font-size: min(clamp(28px, 2.4vw + 20px, 52px), 6svh); }
-      .ahd { animation-range: cover 65svh cover 110svh; }
-      .alead { animation-range: cover 85svh cover 155svh; }
     }
 
     @keyframes hzoom {
