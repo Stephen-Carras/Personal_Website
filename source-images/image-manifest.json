@@ -17,6 +17,11 @@
     "alt": "A lone figure stands on a mountain ridge beneath the Milky Way at night"
   },
   {
+    "file": "source-images/results-seattle-skyline.jpg",
+    "used_in": "Results section background (CSS, decorative, 2000x1333 from the 2940x1960 original, JPEG q78, background-position 50% 55%)",
+    "alt": ""
+  },
+  {
     "file": "source-images/logo-boeing.png",
     "artifact_blob_id": "d196dc6caf2f43ba6ecafb3aecea3d58",
     "used_in": "Experience: Boeing",

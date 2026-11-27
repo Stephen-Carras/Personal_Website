@@ -11,8 +11,23 @@ Everything is CSS-only except the carousel loops, the search jump and the Expert
 The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav. The copy and location line fade up and out (`hout`, cover 100vh to 130vh), the photo zooms to 1.12 (`hzoom`, cover 100vh to 230vh), a page-background layer fades over the stage (`hfadein`, cover 115vh to 200vh), then the statement and its sub-line fade in where they rest, opacity only with no movement (`hfadein`; cover 220vh to 270vh and 232vh to 282vh). On phones and touch tablets the same values are in svh. Reduced motion and unsupported browsers get the static photo hero, then the statement band.
 
 ## Scroll-driven (view timelines, `linear` easing, `fill-mode: both`)
-- **Results heading** (`rv-u`): opacity 0 and translateY 56px to rest, range `entry 0` to `entry 340px`.
-- **Results tiles** (`rs-l`, `rs-r`, `rs-n`): each tile declares its own timeline (`view-timeline: --tile block`). `rs-l` and `rs-r` (keyframes `rvl` / `rvr`: translateX -/+220px, translateY 90px, scale .84 to rest) run `cover 0svh` to `cover 33svh`, so each tile is assembled by the time its top reaches the 2/3 line. The left and right tiles of a row share a position, so they move together. The number (`rs-n`, keyframes `rvn`: translateY 70px, scale .9) runs `cover 6svh` to `cover 33svh`. `#results` is at least 100svh tall with its content centered (`sections.css`).
+- **Results look** (all screen sizes, `sections.css`, screen only):
+  - The Seattle skyline is the section's `::before` (`source-images/results-seattle-skyline.jpg`, 2000px JPEG q78, referenced from CSS), centered 50% 55% / cover. A vertical gradient (`rgba(0,0,0,.32)` at the top, `.12` at 40%, `.4` at the bottom) is layered above it in the same background, and `filter: saturate(.85) brightness(.92)` mutes both.
+  - The section has `position: relative`, `isolation: isolate` and `overflow: clip`, so the `::before` sits at `z-index: -1` under the content and is clipped at the section edges.
+  - The section redefines `--t0` (white), `--t2` (white .9) and `--m` (white .72), so the title and tile text turn white in light and dark mode alike.
+  - Tiles are frosted dark glass: `rgba(12,14,20,.3)`, a 1px `rgba(255,255,255,.22)` border and `backdrop-filter: blur(10px) saturate(1.1)`.
+  - Print keeps the plain light section.
+- **Results, pinned build** (only at `min-width: 900px` and `min-height: 820px`, inside the motion wrappers):
+  - `#results` is `calc(100svh + 45svh)` tall with no top or bottom padding. The photo (`::before`) is sticky at `top: 0`, exactly one screen tall, full bleed (`width: calc(100% + 64px)`, `margin-left: -32px`), and takes no space (`margin-bottom: -100svh`).
+  - The content wrapper (`#results > .wrap`) is sticky at `top: 0`, 100svh tall, with the title and grid centered as one block. Both stay pinned for 45svh of scroll.
+  - Everything runs on the section's `--res` timeline, where `cover 100svh` is the section top at the screen top (photo fully in):
+    - the title (`sfade`): `cover 100svh` to `cover 110svh`
+    - the tiles (`rvl` / `rvr`): `cover 104svh` to `cover 128svh`
+    - the numbers (`rvn`): `cover 110svh` to `cover 133svh`
+  - So the full photo shows first, then the title fades in and the cards come together.
+  - Smaller or shorter screens don't pin. They keep the normal layout and the per-tile reveals below.
+- **Results heading** (`rv-u`, when not pinned): opacity 0 and translateY 56px to rest, range `entry 0` to `entry 340px`.
+- **Results tiles** (`rs-l`, `rs-r`, `rs-n`, when not pinned): each tile declares its own timeline (`view-timeline: --tile block`). `rs-l` and `rs-r` (keyframes `rvl` / `rvr`: translateX -/+220px, translateY 90px, scale .84 to rest) run `cover 0svh` to `cover 33svh`, so each tile is assembled by the time its top reaches the 2/3 line. The left and right tiles of a row share a position, so they move together. The number (`rs-n`, keyframes `rvn`: translateY 70px, scale .9) runs `cover 6svh` to `cover 33svh`. `#results` is at least 100svh tall with its content centered (`sections.css`).
 - **Section entrances** (About, Expertise & Tools, Experience, Education, How I work, What people say, Beyond work, Let's talk):
   - Each section declares `view-timeline: --sec block`. One animation (`sfade`: opacity 0 and translateY 24px to rest) on that timeline drives the whole section.
   - The title gets `.rise-a`; the text, images and buttons get `.rise-b` on their wrappers. Both run the same range, so everything fades up together, never one element at a time. This includes the Expertise "Show all" wrapper (`.comp-more`) and the Contact buttons (`.contact-btns`), which stay hidden until the text appears. `.rise-c` is reserved and uses the same range.
@@ -62,7 +77,7 @@ Recommendations, Trips & places and the photo gallery loop endlessly. JS adds tw
 
 ## Rules that matter
 - **Never put a view-timeline animation on an element inside a horizontal scroller** (recommendation cards, trips, gallery track). The timeline attaches to the nearest scroller (the horizontal track), not the page. Animate the wrapper outside the scroller instead (`.rise-b` on the Recommendations and Trips wrappers).
-- Put `overflow-x: clip` on any section containing side-sliding cards so they enter from the screen edge and never cause a horizontal scrollbar (the Results section has it).
+- Put `overflow-x: clip` on any section containing side-sliding cards so they enter from the screen edge and never cause a horizontal scrollbar (the Results section has `overflow: clip`, which covers it).
 - Sticky columns (Experience, Education) are inside `.rise-b` rows. That is fine because the animation ends with `transform: none`. Sticky and scroll ancestors use `overflow: clip`, never `hidden` or `auto`.
 - Use svh, not vh, for new heights and ranges, so phone toolbars don't throw them off. Every browser with view timelines supports svh.
 - Write animations as longhands (`animation-name`, `animation-timeline`, ...). The build's CSS minifier folds an `animation` shorthand plus `animation-timeline` into an invalid shorthand. After any motion change, check the built CSS in `dist/_astro/`.
