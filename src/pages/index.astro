@@ -38,7 +38,17 @@ const h = profile.headings;
   </main>
   <footer class="foot">
     <div>
-      {profile.footer.map((line, n) => (n ? [<br />, line] : line))}
+      {
+        profile.footer.map((line, n) => {
+          // { text, cursorAfter }: a decorative blinking cursor after that word (.cur).
+          let out: unknown = line;
+          if (typeof line !== 'string') {
+            const i = line.text.indexOf(line.cursorAfter) + line.cursorAfter.length;
+            out = [line.text.slice(0, i), <span class="cur" aria-hidden="true">_</span>, line.text.slice(i)];
+          }
+          return n ? [<br />, out] : out;
+        })
+      }
     </div>
   </footer>
   <ContactDialog popup={profile.contactPopup} linkedin={profile.linkedin} />
