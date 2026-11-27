@@ -8,6 +8,7 @@ import { initContact } from './contact';
 import { initDialogs } from './dialogs';
 import { initFolds } from './folds';
 import { initSearch } from './search';
+import { initSectionLatch } from './section-latch';
 
 /* ------------------------------------------------------------------------
    Theme. public/theme.js already set data-theme before paint. Here: the
@@ -85,6 +86,7 @@ initContact();
 initDialogs();
 initSearch();
 initCompMorph();
+initSectionLatch();
 
 /* ------------------------------------------------------------------------
    Print: expand everything. CSS handles ::details-content where supported;
