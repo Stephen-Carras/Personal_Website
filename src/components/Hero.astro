@@ -11,7 +11,7 @@ interface Props {
   name: string;
   hero: {
     headline: string[];
-    sub: string[];
+    sub: string;
     button: string;
     location: string;
     educationLink: string;
@@ -59,7 +59,7 @@ const bg = img(hero.background);
             {hero.headline.map((line, n) => (n ? [<br />, line] : line))}
           </h1>
           <p class="hero-sub ld d3">
-            {hero.sub.map((s, n) => [n ? ' ' : '', <span>{s}</span>])}
+            {hero.sub}
           </p>
           <div class="hero-cta ld d4">
             <button class="btp" type="button" data-open-contact aria-haspopup="dialog">{hero.button}</button>
