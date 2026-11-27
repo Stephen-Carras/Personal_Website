@@ -3,6 +3,7 @@
 // after the HTML is parsed, so the DOM is ready here.
 import { duration } from '../lib/dates';
 import { initCarousels } from './carousel';
+import { initCompMorph } from './comp-morph';
 import { initContact } from './contact';
 import { initDialogs } from './dialogs';
 import { initFolds } from './folds';
@@ -83,6 +84,7 @@ initFolds();
 initContact();
 initDialogs();
 initSearch();
+initCompMorph();
 
 /* ------------------------------------------------------------------------
    Print: expand everything. CSS handles ::details-content where supported;

@@ -1,7 +1,9 @@
 ---
 // Expertise & Tools (id "focus"): highlighted chips; "Show all N +" (native <details>)
 // replaces them with every item, in labelled blocks (Skills, Tools) of group rows.
-// N is computed from the data.
+// N is computed from the data. Entrance (motion.css): the heading, the chip row and the
+// Show all wrapper fade up together on the section's --sec timeline. Show all / Show
+// fewer: scripts/comp-morph.ts glides the featured chips to and from their twins.
 import { getEntry } from 'astro:content';
 
 const c = (await getEntry('competencies', 'core'))!.data;
@@ -13,16 +15,14 @@ const blocks = c.blocks.map((b) => ({ ...b, groups: b.groups.map((g) => ({ ...g,
 
 <section id="focus" class="sec alt">
   <div class="wrap">
-    <h2 class="h2 srise">{c.heading}</h2>
+    <h2 class="h2 rise-a">{c.heading}</h2>
     <div class="comp">
-      <div class="hl">
-        {c.highlighted.map((name, n) => <span class:list={['comp-chip srise', `i${n}`]}>{name}</span>)}
+      <div class="hl rise-b">
+        {c.highlighted.map((name, n) => <span class="comp-chip">{name}</span>)}
       </div>
-      <div class="comp-more">
+      <div class="comp-more rise-b">
         <details id="comp-all">
-          {/* The scroll rise sits on the summary, not the details: an expanded
-               details is much taller and would re-enter its own reveal range. */}
-          <summary class="aboutrole srise i3">
+          <summary class="aboutrole">
             <span class="ab-c">{c.showAllLabel.replace('{n}', String(total))}</span>
             <span class="ab-o">{c.showFewerLabel}</span>
           </summary>
