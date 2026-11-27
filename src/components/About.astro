@@ -1,5 +1,8 @@
 ---
 // About: bold lead, then every body paragraph, all shown in full (no fold).
+// The heading and lead sit in .arun > .astage: with scroll-driven animations they pin
+// under the nav and rise in (motion.css); everyone else sees the static layout.
+// The paragraphs follow in normal flow (they are too long to pin).
 interface Props {
   about: {
     heading: string;
@@ -12,12 +15,18 @@ const { about } = Astro.props;
 ---
 
 <section id="about" class="sec">
+  <div class="arun">
+    <div class="astage">
+      <div class="wrap">
+        <h2 class="h2 ahd">{about.heading}</h2>
+        <p class="about-lead alead">{about.lead}</p>
+      </div>
+    </div>
+  </div>
   <div class="wrap">
-    <h2 class="h2 rv-u">{about.heading}</h2>
-    <div class="about">
-      <p class="about-lead rv-u">{about.lead}</p>
-      <p class="about-p rv-u i1">{about.body}</p>
-      {about.more.map((p) => <p class="about-p rv-u">{p}</p>)}
+    <div class="about about-rest">
+      <p class="about-p srise-p">{about.body}</p>
+      {about.more.map((p) => <p class="about-p srise-p">{p}</p>)}
     </div>
   </div>
 </section>
