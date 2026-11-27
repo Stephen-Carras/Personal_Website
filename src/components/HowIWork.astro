@@ -2,18 +2,23 @@
 import { getEntry } from 'astro:content';
 
 const h = (await getEntry('howIWork', 'main'))!.data;
+// Entrance: same as About (motion.css). Each .ag waits for the section gate (the
+// previous section fully scrolled off), and its inner .ar waits until it is well
+// inside the screen. Static layout is unchanged.
 ---
 
 <section id="how" class="sec">
   <div class="wrap">
-    <h2 class="h2 rv-u">{h.heading}</h2>
-    <p class="lead-p rv-u i1">{h.lead}</p>
+    <h2 class="h2 ag"><span class="ar">{h.heading}</span></h2>
+    <p class="lead-p ag i1"><span class="ar">{h.lead}</span></p>
     <div class="how-grid">
       {
         h.items.map((it, n) => (
-          <div class:list={['how-item rv-u', `i${n % 3}`]}>
-            <h3>{it.title}</h3>
-            <p>{it.text}</p>
+          <div class:list={['how-item ag', `i${n + 2}`]}>
+            <div class="ar">
+              <h3>{it.title}</h3>
+              <p>{it.text}</p>
+            </div>
           </div>
         ))
       }

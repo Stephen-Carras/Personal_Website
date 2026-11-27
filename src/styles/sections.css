@@ -385,6 +385,29 @@ details:not([open]) > summary.aboutrole .ab-o {
 }
 
 /* ---- Results ------------------------------------------------------------ */
+/* Results and How I work fill at least one screen, content centered, so the
+   neighbouring sections are out of view while either one fills the screen. Taller
+   content (phones) just grows. Screen only: print keeps natural heights. */
+@media screen {
+  #results,
+  #how {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  #results > .wrap,
+  #how > .wrap {
+    width: 100%;
+  }
+  /* svh in its own block: the minifier drops a vh line followed by an svh line. */
+  @supports (min-height: 100svh) {
+    #results,
+    #how {
+      min-height: 100svh;
+    }
+  }
+}
 .results {
   overflow-x: clip;
   view-timeline: --res block;
@@ -915,7 +938,8 @@ html:not(.js) .rec-more {
   gap: 56px 48px;
   margin-top: 72px;
 }
-.how-item {
+.how-item,
+.how-item > .ar {
   display: flex;
   flex-direction: column;
   gap: 10px;
