@@ -938,8 +938,7 @@ html:not(.js) .rec-more {
   gap: 56px 48px;
   margin-top: 72px;
 }
-.how-item,
-.how-item > .ar {
+.how-item {
   display: flex;
   flex-direction: column;
   gap: 10px;
