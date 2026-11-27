@@ -4,7 +4,7 @@
 main:
   portrait: mark.jpg
   heading: A little about me
-  text: "Seattle is home, and the Pacific Northwest is my favorite place to photograph: water, mountains and good light. Away from the keyboard I'm usually traveling, learning something new, or planning the next trip. These are a few of my own shots."
+  text: "I was born in Seattle and have always called it home, though during my summers my mom took me to visit family and historical sites in New England, and the entire family went on road trips across the American West sometimes. The Pacific Northwest is still my favorite place to photograph: water, mountains, and good light. Away from the keyboard you'll find me traveling, reading, gaming, or planning the next trip. Below are some of my shots, places I've been, and the hobbies, music, and books I love."
   caption: Swipe through
   photos:
     - gallery-1-driftwood.jpg

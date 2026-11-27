@@ -22,6 +22,11 @@
     "alt": ""
   },
   {
+    "file": "source-images/beyond-airplane-window.jpg",
+    "used_in": "Beyond work section background (CSS, decorative, 2000x1125 from the 2560x1440 airplane-window-travel-picture.webp original, JPEG q80, background-position 50% 50%)",
+    "alt": ""
+  },
+  {
     "file": "source-images/logo-boeing.png",
     "artifact_blob_id": "d196dc6caf2f43ba6ecafb3aecea3d58",
     "used_in": "Experience: Boeing",

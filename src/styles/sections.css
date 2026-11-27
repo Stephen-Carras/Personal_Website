@@ -997,6 +997,108 @@ html:not(.js) .rec-more {
 .beyond {
   overflow-x: clip;
 }
+/* Airplane window behind the whole section (screen only; print keeps the plain light
+   section). Same approach as Results: the photo and its gradients are the section's
+   ::before, under the content (isolation keeps z-index -1 inside the section), and the
+   text turns white through the section's own colour variables, the same in light and
+   dark mode. Here the photo is sticky: exactly one screen tall, pinned from the
+   section's top to its bottom while everything scrolls over it (margin-bottom
+   -100svh so it takes no space). Its 64px extra width and -32px offset cancel the
+   section's 32px side padding. Sticky needs every ancestor on overflow: clip (never
+   hidden or auto). Two blocks: .bstage (one screen, title and intro centered) and
+   .bbody (the rest). Cards and the round buttons become frosted dark glass; the --bg
+   override makes the hobby pills and "Full list" buttons translucent. Accent and
+   focus ring use the dark-theme blue so they read on the dark glass. */
+@media screen {
+  #beyond {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    display: block;
+    padding: 0 32px;
+    background: #0b0c10;
+    --t0: #ffffff;
+    --t1: #ffffff;
+    --t2: rgba(255, 255, 255, 0.92);
+    --t3: rgba(255, 255, 255, 0.94);
+    --m: rgba(255, 255, 255, 0.74);
+    --hair: rgba(255, 255, 255, 0.22);
+    --hair2: rgba(255, 255, 255, 0.12);
+    --cardw: rgba(12, 14, 20, 0.34);
+    --bga: rgba(255, 255, 255, 0.08);
+    --bg: rgba(255, 255, 255, 0.16);
+    --accent: #2997ff;
+    --ring: #2997ff;
+  }
+  #beyond::before {
+    content: '';
+    display: block;
+    position: sticky;
+    top: 0;
+    width: calc(100% + 64px);
+    height: 100vh;
+    margin-left: -32px;
+    margin-bottom: -100vh;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.28) 62%, rgba(0, 0, 0, 0.18)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2) 45%, rgba(0, 0, 0, 0.42));
+    filter: saturate(0.9) brightness(0.8);
+  }
+  /* The photo layer is added by scripts/beyond-photo.ts when the section is about two
+     screens away, so it doesn't slow down the hero on first load. */
+  #beyond.photo-on::before {
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.28) 62%, rgba(0, 0, 0, 0.18)),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2) 45%, rgba(0, 0, 0, 0.42)),
+      url('../../source-images/beyond-airplane-window.jpg') 50% 50% / cover no-repeat;
+  }
+  .bstage {
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* svh in its own block: the minifier drops a vh line followed by an svh line. */
+  @supports (height: 100svh) {
+    #beyond::before {
+      height: 100svh;
+      margin-bottom: -100svh;
+    }
+    .bstage {
+      min-height: 100svh;
+    }
+  }
+  .bpin {
+    width: 100%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+  }
+  .bbody {
+    padding-bottom: 112px;
+  }
+  #beyond h2,
+  #beyond h3,
+  #beyond p,
+  #beyond .gal-bar,
+  #beyond .trip figcaption {
+    text-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.4),
+      0 2px 24px rgba(0, 0, 0, 0.5);
+  }
+  #beyond .card,
+  #beyond .ib {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    -webkit-backdrop-filter: blur(10px) saturate(1.1);
+    backdrop-filter: blur(10px) saturate(1.1);
+  }
+  #beyond .card,
+  #beyond .card h3,
+  #beyond .card p {
+    text-shadow: none;
+  }
+}
 .beyond-intro {
   margin: 28px 0 0;
   max-width: 640px;
