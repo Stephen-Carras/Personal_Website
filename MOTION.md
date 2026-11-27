@@ -8,7 +8,7 @@ Everything is CSS-only except the carousel loops, the search jump and the Expert
 `.ld` class: fade up 28px over 1.3s, `cubic-bezier(.22,.7,.2,1)`, staggered by `--d` (0 to 6, 180ms each, 300ms base). Order: headshot, name, headline, sub-line, buttons, location line, Seattle banner. The hero photo fades in over 2.2s (`hfade`, opacity only). Never put `.ld` on an element that also has a scroll-driven animation.
 
 ## Hero scroll (screen only, `--hero` view timeline)
-The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav. The copy and location line fade up and out (`hout`, cover 100vh to 130vh), the photo zooms to 1.12 (`hzoom`, cover 100vh to 230vh), a page-background layer fades over the stage (`hfadein`, cover 115vh to 200vh), then the statement and its sub-line rise in (`hrise`: opacity 0 and 40px to rest; cover 220vh to 270vh and 232vh to 282vh). On phones and touch tablets the same values are in svh. Reduced motion and unsupported browsers get the static photo hero, then the statement band.
+The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav. The copy and location line fade up and out (`hout`, cover 100vh to 130vh), the photo zooms to 1.12 (`hzoom`, cover 100vh to 230vh), a page-background layer fades over the stage (`hfadein`, cover 115vh to 200vh), then the statement and its sub-line fade in where they rest, opacity only with no movement (`hfadein`; cover 220vh to 270vh and 232vh to 282vh). On phones and touch tablets the same values are in svh. Reduced motion and unsupported browsers get the static photo hero, then the statement band.
 
 ## Scroll-driven (view timelines, `linear` easing, `fill-mode: both`)
 - **Results heading** (`rv-u`): opacity 0 and translateY 56px to rest, range `entry 0` to `entry 340px`.
@@ -20,6 +20,7 @@ The hero is a 320vh run (`.hrun`) with a sticky stage (`.hstage`) under the nav.
   - Ranges are measured from the section's top entering the bottom of the screen, so a section that grows (Show all, an opened role) does not move them.
   - **About** fades over `cover 100svh` to `cover 115svh`. It starts as the section top reaches the top of the screen (Results fully gone) and ends with the title about 25% from the top.
   - **The rest** fade over `cover 92svh` to `cover 107svh`. They start with the title about 28% from the top and end near the top.
+  - **Expertise & Tools** starts at the same point but takes half the scroll: `cover 92svh` to `cover 99.5svh`.
   - `padding-bottom: var(--runway)` (12svh) after each section.
   - Expertise & Tools is at least 130svh tall (border-box), so Experience never peeks in below it while it is collapsed. Contact is at least 100svh, so the page can scroll far enough for its fade to finish, even on very tall screens.
   - Anchors and nav links: `scroll-margin-top: calc(var(--nav-h) + 24px - var(--band))`, so a jump lands with the title 72px from the top, fully faded in, instead of in the blank band.

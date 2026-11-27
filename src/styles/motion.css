@@ -241,10 +241,11 @@
       justify-content: center;
       pointer-events: none;
     }
+    /* Opacity only: the statement sits in its final place and fades in, no movement. */
     .hstmt,
     .hsub {
       opacity: 0;
-      animation-name: hrise;
+      animation-name: hfadein;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: --hero;
@@ -335,6 +336,12 @@
     #about .rise-c {
       animation-range: cover 100svh cover 115svh;
     }
+    /* Expertise & Tools: same start, half the length, so it is fully in twice as fast. */
+    #focus .rise-a,
+    #focus .rise-b,
+    #focus .rise-c {
+      animation-range: cover 92svh cover 99.5svh;
+    }
 
     /* ---- Expertise & Tools, Show all: a soft glow behind the list, rows slide in
        (--rd, 70ms per row), chips pop after their row (--cd, 25ms per chip). The
@@ -396,10 +403,6 @@
     }
     @keyframes hfadein {
       to { opacity: 1; }
-    }
-    @keyframes hrise {
-      from { opacity: 0; transform: translate3d(0, 40px, 0); }
-      to { opacity: 1; transform: none; }
     }
     /* Named sfade, not hfade: hfade is the hero photo's load fade above. */
     @keyframes sfade {
