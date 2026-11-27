@@ -3,6 +3,10 @@
 // grid of cards: hobbies (full width), books and music, "Ask me about" and "Now". Carousels are rendered once;
 // the script adds loop clones in phase 3. Never put scroll-driven animation classes
 // on elements inside the horizontal tracks (MOTION.md); the wrappers carry them.
+// Two blocks over one pinned photo (sections.css, motion.css): .bstage > .bpin holds
+// the title and intro (pinned on large screens), .bbody everything else. The full-list
+// pop-ups sit after the section so they keep the page's normal colours, not the
+// section's white-on-photo ones.
 import { getEntry } from 'astro:content';
 import { inFileOrder } from '../lib/order';
 import { Image } from 'astro:assets';
@@ -29,10 +33,13 @@ const lists = [
 ---
 
 <section id="beyond" class="sec beyond">
-  <div class="wrap">
-    <h2 class="h2 rise-a">{b.heading}</h2>
-    <p class="beyond-intro rise-b">{b.intro}</p>
-
+  <div class="bstage">
+    <div class="bpin">
+      <h2 class="h2 rise-a">{b.heading}</h2>
+      <p class="beyond-intro rise-b">{b.intro}</p>
+    </div>
+  </div>
+  <div class="wrap bbody">
     <div class="gal-row">
       <div class="gal-about rise-b">
         <Image class="gal-mark" src={portrait.src} alt={portrait.alt} width={96} height={96} densities={[1, 2]} loading="lazy" />
@@ -128,18 +135,18 @@ const lists = [
         </div>
       </div>
     </div>
-    {
-      lists
-        .filter((l) => l.hasMore)
-        .map((l) => (
-          <ListDialog
-            id={l.id}
-            title={l.list.dialogTitle}
-            subtitle={l.list.dialogSubtitle}
-            closeLabel={`Close ${l.list.dialogTitle.toLowerCase()}`}
-            rows={l.rows}
-          />
-        ))
-    }
   </div>
 </section>
+{
+  lists
+    .filter((l) => l.hasMore)
+    .map((l) => (
+      <ListDialog
+        id={l.id}
+        title={l.list.dialogTitle}
+        subtitle={l.list.dialogSubtitle}
+        closeLabel={`Close ${l.list.dialogTitle.toLowerCase()}`}
+        rows={l.rows}
+      />
+    ))
+}

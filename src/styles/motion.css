@@ -345,7 +345,6 @@
     section#education,
     section#how,
     section#recommendations,
-    section#beyond,
     section#contact {
       padding-top: var(--band) !important;
       padding-bottom: var(--runway) !important;
@@ -357,7 +356,6 @@
     section#education,
     section#how,
     section#recommendations,
-    section#beyond,
     section#contact {
       --band: 20svh;
     }
@@ -381,7 +379,6 @@
     section#education,
     section#how,
     section#recommendations,
-    section#beyond,
     section#contact {
       --rise-end: 107;
     }
@@ -407,13 +404,60 @@
       --rise-end: 99.5;
     }
 
+    /* ---- Beyond work: title over the pinned airplane photo, then the rest --------
+       No blank band: the section's first screen is the photo (sections.css). On --sec,
+       cover 100svh is the section top at the screen top (photo fully in): the title
+       fades in by +10svh, the intro from +6 to +20svh (--rise-end 120, which is also
+       the latch threshold). Large screens pin the title block over the photo for
+       45svh of scroll (like Results); smaller or shorter screens keep it in normal
+       flow, same ranges. Everything in .bbody fades on its own view() timeline as it
+       enters (entry 0% to 45%) and is held by the latch per element. Anchor links
+       land at the fully-in point, title showing. */
+    section#beyond {
+      --rise-end: 120;
+      view-timeline: --sec block;
+      scroll-margin-top: calc((100 - var(--rise-end)) * 1svh - 1px);
+    }
+    #beyond .bpin .rise-a {
+      animation-range: cover 100svh cover 110svh;
+    }
+    #beyond .bpin .rise-b {
+      animation-range: cover 106svh cover calc(var(--rise-end) * 1svh);
+    }
+    #beyond .bbody .rise-a,
+    #beyond .bbody .rise-b,
+    #beyond .bbody .rise-c {
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+    @media screen and (min-width: 900px) and (min-height: 820px) {
+      #beyond .bstage {
+        display: block;
+        min-height: calc(100svh + 45svh);
+      }
+      #beyond .bpin {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+    }
+
     /* Latched (scripts/section-latch.ts): once a section has fully faded in it stays
        in, scrolling up included, until the whole section is below the screen. The
        latch is added only past --rise-end, where the animation already rests at its
-       last frame (opacity 1, no transform), so adding it causes no jump. */
-    section.lat .rise-a,
-    section.lat .rise-b,
-    section.lat .rise-c {
+       last frame (opacity 1, no transform), so adding it causes no jump. Elements in
+       Beyond's .bbody run their own view() timelines, so the section latch skips them
+       and they are latched one by one (.rise-b.lat), past their own end. */
+    section.lat .rise-a:not(.bbody *),
+    section.lat .rise-b:not(.bbody *),
+    section.lat .rise-c:not(.bbody *),
+    .rise-a.lat,
+    .rise-b.lat,
+    .rise-c.lat {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
