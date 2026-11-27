@@ -267,6 +267,57 @@
       .hsub { animation-range: cover 232svh cover 282svh; }
     }
 
+    /* ---- Results, large screens: pinned build over the skyline ----------------------
+       The photo (::before) is pinned to exactly one screen and the content wrapper is
+       pinned and centered over it, for 45svh of scroll. On the section's --res
+       timeline, cover 100svh is the section top at the screen top (photo fully in):
+       the title fades in over the next 10svh, the tiles come together by +28svh,
+       the numbers by +33svh. Smaller or shorter screens keep the per-tile reveals
+       and the normal layout (no pinning). */
+    @media (min-width: 900px) and (min-height: 820px) {
+      #results {
+        min-height: calc(100svh + 45svh);
+        justify-content: flex-start;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      #results::before {
+        position: sticky;
+        inset: auto;
+        top: 0;
+        flex: none;
+        width: calc(100% + 64px);
+        height: 100svh;
+        margin-left: -32px;
+        margin-bottom: -100svh;
+        z-index: -1;
+      }
+      #results > .wrap {
+        position: sticky;
+        top: 0;
+        height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #results h2 {
+        animation-name: sfade;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --res;
+        animation-range: cover 100svh cover 110svh;
+      }
+      #results .rs-l,
+      #results .rs-r {
+        animation-timeline: --res;
+        animation-range: cover 104svh cover 128svh;
+      }
+      #results .rs-n {
+        animation-timeline: --res;
+        animation-range: cover 110svh cover 133svh;
+      }
+    }
+
     /* ---- Section entrances: blank lead-in band, then the whole section fades up ------
        Every section after Results owns one view timeline (--sec). Its title, text,
        images and buttons (.rise-a, .rise-b) all run the same range on it, so they fade
