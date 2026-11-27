@@ -15,7 +15,7 @@ const blocks = c.blocks.map((b) => ({ ...b, groups: b.groups.map((g) => ({ ...g,
 
 <section id="focus" class="sec alt">
   <div class="wrap">
-    <h2 class="h2 rise-a">{c.heading}</h2>
+    <h2 class="h2 rise-a"><span class="cmt" aria-hidden="true">//</span>{c.heading}</h2>
     <div class="comp">
       <div class="hl rise-b">
         {c.highlighted.map((name, n) => <span class="comp-chip">{name}</span>)}

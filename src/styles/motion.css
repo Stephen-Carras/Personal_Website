@@ -157,6 +157,15 @@
     to { opacity: 1; transform: none; }
   }
 
+  /* ---- Heading cursors (sections.css): blink about once a second ---------------------- */
+  .cur {
+    animation: curblink 1.1s step-end infinite;
+  }
+  @keyframes curblink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
   /* ---- Hint nudge ---------------------------------------------------------------------- */
   .hint-a {
     animation: hnt 1.8s ease-in-out infinite;
@@ -325,19 +334,28 @@
        entering the bottom of the screen, so a section growing (Show all) doesn't move
        them. svh = visible height with phone toolbars shown (every browser with
        view timelines has svh).
-       - About: a 40svh blank band; the fade starts as the section top reaches the top
-         of the screen (Results fully gone) and ends 15svh later (cover 100svh to
-         115svh), when the title is about 25% from the top.
-       - The rest: a 20svh band; the fade runs cover 92svh to 107svh, starting with the
-         title about 28% from the top and ending near the top.
-       - A 12svh runway after each section. Anchor links land with the title just
-         under the nav, past the band (negative scroll-margin).
+       - Expertise & Tools and Let's talk: a 20svh blank band; the fade runs cover 92svh
+         to 107svh, starting with the title about 28% from the top and ending near the
+         top. A 12svh runway after each. Anchor links land with the title just under
+         the nav, past the band (negative scroll-margin).
+       - Education and What people say: no band, the section fills the screen with its
+         content centered (sections.css). The fade runs cover 85svh to 100svh, so it is
+         fully in exactly when the section fills the screen (top at the screen top).
+         Anchor links land there, already latched.
+       - About, Experience, How I work and Beyond work have their own entrances over a
+         photo (below).
        - Expertise & Tools is at least 130svh tall, so Experience never peeks in below
          it while collapsed. Contact is at least 100svh so the page can scroll far
          enough for its fade to finish, even on very tall screens. */
     :root {
-      --band: 40svh;
+      --band: 20svh;
       --runway: 12svh;
+    }
+    section#focus,
+    section#contact {
+      padding-top: var(--band) !important;
+      padding-bottom: var(--runway) !important;
+      scroll-margin-top: calc(var(--nav-h) + 24px - var(--band));
     }
     section#about,
     section#focus,
@@ -346,22 +364,7 @@
     section#how,
     section#recommendations,
     section#contact {
-      padding-top: var(--band) !important;
-      padding-bottom: var(--runway) !important;
       view-timeline: --sec block;
-      scroll-margin-top: calc(var(--nav-h) + 24px - var(--band));
-    }
-    section#focus,
-    section#experience,
-    section#education,
-    section#how,
-    section#recommendations,
-    section#contact {
-      --band: 20svh;
-    }
-    section#how {
-      display: block;
-      min-height: 0;
     }
     section#focus {
       box-sizing: border-box;
@@ -373,12 +376,7 @@
     }
     /* --rise-end is the "fully in" point in svh. The range below reads it, and so does
        scripts/section-latch.ts (its latch threshold), so the two can't drift apart. */
-    section#about,
     section#focus,
-    section#experience,
-    section#education,
-    section#how,
-    section#recommendations,
     section#contact {
       --rise-end: 107;
     }
@@ -391,17 +389,51 @@
       animation-timeline: --sec;
       animation-range: cover 92svh cover calc(var(--rise-end) * 1svh);
     }
-    section#about {
-      --rise-end: 115;
+    section#education,
+    section#recommendations {
+      --rise-end: 100;
+      scroll-margin-top: 0;
     }
-    #about .rise-a,
-    #about .rise-b,
-    #about .rise-c {
-      animation-range: cover 100svh cover calc(var(--rise-end) * 1svh);
+    #education .rise-a,
+    #education .rise-b,
+    #recommendations .rise-a,
+    #recommendations .rise-b {
+      animation-range: cover 85svh cover calc(var(--rise-end) * 1svh);
     }
     /* Expertise & Tools: same start, half the length, so it is fully in twice as fast. */
     section#focus {
       --rise-end: 99.5;
+    }
+
+    /* ---- Wave sections (About, Experience, How I work): title, then content -------
+       No blank band and no pinned title: the photo is fully in once the section top
+       reaches the screen top (cover 100svh), and the title sits a quarter screen down.
+       On --sec the title fades in from cover 88svh to 100svh, How I work's lead from
+       90 to 102svh, and the content right beneath from 92 to 104svh: About's
+       paragraphs, How I work's six items and Experience's first company. Every later
+       company (.rv-own) fades on its own view() timeline as it enters (entry 0px to
+       260px), latched per element. Opacity only, nothing slides up. --rise-end 120 is
+       the latch threshold. Anchor links land with the title just under the nav, past
+       the end of every fade. */
+    section.wave {
+      --rise-end: 120;
+      scroll-margin-top: calc(var(--nav-h) + 24px - 25svh);
+    }
+    .wave .rise-a,
+    .wave .rise-b,
+    .wave .rise-c {
+      animation-name: ofade;
+      animation-range: cover 92svh cover 104svh;
+    }
+    .wave .bstage h2.rise-a {
+      animation-range: cover 88svh cover 100svh;
+    }
+    .wave .bstage p.rise-a {
+      animation-range: cover 90svh cover 102svh;
+    }
+    #experience .row-co.rv-own {
+      animation-timeline: view();
+      animation-range: entry 0px entry 260px;
     }
 
     /* ---- Beyond work: title over the pinned airplane photo, then the rest --------
@@ -449,12 +481,13 @@
     /* Latched (scripts/section-latch.ts): once a section has fully faded in it stays
        in, scrolling up included, until the whole section is below the screen. The
        latch is added only past --rise-end, where the animation already rests at its
-       last frame (opacity 1, no transform), so adding it causes no jump. Elements in
-       Beyond's .bbody run their own view() timelines, so the section latch skips them
-       and they are latched one by one (.rise-b.lat), past their own end. */
-    section.lat .rise-a:not(.bbody *),
-    section.lat .rise-b:not(.bbody *),
-    section.lat .rise-c:not(.bbody *),
+       last frame (opacity 1, no transform), so adding it causes no jump. Elements
+       marked .rv-own (Beyond's .bbody, Experience's later companies) run their own
+       view() timelines, so the section latch skips them and they are latched one by
+       one (.rise-b.lat), past their own end. */
+    section.lat .rise-a:not(.rv-own),
+    section.lat .rise-b:not(.rv-own),
+    section.lat .rise-c:not(.rv-own),
     .rise-a.lat,
     .rise-b.lat,
     .rise-c.lat {
@@ -522,6 +555,11 @@
       to { opacity: 0; transform: translate3d(0, -40px, 0); }
     }
     @keyframes hfadein {
+      to { opacity: 1; }
+    }
+    /* The wave sections' fade: opacity only. */
+    @keyframes ofade {
+      from { opacity: 0; }
       to { opacity: 1; }
     }
     /* Named sfade, not hfade: hfade is the hero photo's load fade above. */

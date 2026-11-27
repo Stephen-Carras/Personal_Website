@@ -27,6 +27,11 @@
     "alt": ""
   },
   {
+    "file": "source-images/wave-dark-background.jpg",
+    "used_in": "About, Experience and How I work section background (CSS, decorative, 2000x1125 from the 3840x2160 grayscale wave-themed-dark-wallpaper.jpg original, JPEG q80, background-position 50% 50%)",
+    "alt": ""
+  },
+  {
     "file": "source-images/logo-boeing.png",
     "artifact_blob_id": "d196dc6caf2f43ba6ecafb3aecea3d58",
     "used_in": "Experience: Boeing",
