@@ -267,11 +267,14 @@ details:not([open]) > summary.aboutrole .ab-o {
   max-width: 780px;
   font-size: clamp(18px, 2vw, 24px);
   line-height: 1.4;
+  font-weight: 500;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.92);
-}
-.hero-sub span {
-  display: inline-block;
+  color: rgba(255, 255, 255, 0.96);
+  /* Stronger than the .hcopy shadow: the subline sits over the brightest stars. */
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 2px 22px rgba(0, 0, 0, 0.6);
+  text-wrap: balance;
 }
 .hero-cta {
   display: flex;

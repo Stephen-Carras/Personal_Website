@@ -25,7 +25,7 @@ const profile = defineCollection({
     }),
     hero: z.object({
       headline: z.array(text).min(1),
-      sub: z.array(text).length(3),
+      sub: text,
       button: text,
       location: text,
       educationLink: text,
