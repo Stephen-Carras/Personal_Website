@@ -293,22 +293,53 @@
       .hsub { animation-range: cover 232svh cover 282svh; }
     }
 
-    /* ---- About and Expertise & Tools: rise in as each element enters, no pinning -----
+    /* ---- Expertise & Tools: rise in as each element enters, no pinning ---------------
        Same hrise keyframes as the hero statement. The stagger (--i) offsets the start. */
-    .srise,
-    .srise-p {
+    .srise {
       animation-name: hrise;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: view();
-    }
-    .srise {
       animation-range: entry calc(10% + var(--i, 0) * 14px) cover calc(35% + var(--i, 0) * 1%);
     }
-    /* Paragraphs can be taller than the screen, where cover 35% would leave the first
-       lines faded while being read: finish 320px after the top enters instead. */
-    .srise-p {
-      animation-range: entry 0% entry 320px;
+
+    /* ---- About: scroll-triggered rise-in (About.astro) --------------------------------
+       Triggered, not scrubbed: each rise plays over 0.9s once its trigger fires, so it
+       always finishes, even for paragraphs taller than the screen. Two triggers must
+       both have fired before text shows:
+       - --about-gate on the section fires once About's top reaches the nav (Results
+         fully gone). It plays hrise on every .ag, staggered by --i.
+       - --about-in on each inner .ar fires once that element is well inside the screen
+         (its top 15% plus up to 120px above the bottom edge), playing hrise again.
+       Text on the first screen is past its own trigger before the gate fires, so it
+       rises with the gate; text further down rises with its own trigger as you reach
+       it. Each trigger reverses only once its element is fully off screen. Browsers
+       without triggers (Safari, Firefox today) get the static text. Longhands, with the
+       trigger in its own rule: an animation shorthand would reset animation-trigger. */
+    @supports (timeline-trigger-name: --a) {
+      #about {
+        timeline-trigger: --about-gate view(block var(--nav-h) 0px) contain 0% exit 100% / cover 0% cover 100%;
+      }
+      .ag,
+      .ar {
+        animation-name: hrise;
+        animation-duration: 0.9s;
+        animation-timing-function: var(--ease);
+        animation-fill-mode: both;
+      }
+      .ag {
+        animation-delay: calc(var(--i, 0) * 140ms);
+      }
+      .ar {
+        display: block;
+        timeline-trigger: --about-in view(block 0px 15%) entry min(40%, 120px) exit 100% / cover 0% cover 100%;
+      }
+      #about .ag {
+        animation-trigger: --about-gate play-forwards play-backwards;
+      }
+      #about .ar {
+        animation-trigger: --about-in play-forwards play-backwards;
+      }
     }
 
     @keyframes hzoom {

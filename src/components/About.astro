@@ -1,5 +1,8 @@
 ---
 // About: bold lead, then every body paragraph, all shown in full (no fold).
+// Entrance (motion.css): each element (.ag) waits for the section gate (Results fully
+// scrolled off), and its inner span (.ar) waits until it is well inside the screen.
+// The span is plain inline text without the animation, so the static layout is unchanged.
 interface Props {
   about: {
     heading: string;
@@ -13,11 +16,11 @@ const { about } = Astro.props;
 
 <section id="about" class="sec">
   <div class="wrap">
-    <h2 class="h2 srise">{about.heading}</h2>
+    <h2 class="h2 ag"><span class="ar">{about.heading}</span></h2>
     <div class="about">
-      <p class="about-lead srise i1">{about.lead}</p>
-      <p class="about-p srise-p">{about.body}</p>
-      {about.more.map((p) => <p class="about-p srise-p">{p}</p>)}
+      <p class="about-lead ag i1"><span class="ar">{about.lead}</span></p>
+      <p class="about-p ag i2"><span class="ar">{about.body}</span></p>
+      {about.more.map((p, n) => <p class:list={['about-p ag', `i${n + 3}`]}><span class="ar">{p}</span></p>)}
     </div>
   </div>
 </section>
