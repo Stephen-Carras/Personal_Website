@@ -312,27 +312,33 @@
       animation-range: entry calc(10% + var(--i, 0) * 14px) cover calc(35% + var(--i, 0) * 1%);
     }
 
-    /* ---- About and How I work: scroll-linked rise-in with runway -------------------
-       Scrubbed by scroll (hrise on view()), so fast scrolling can never skip it.
-       - .rise-a (heading, lead): starts when its top is 15% up from the bottom and is
-         fully risen just before its top is 25% from the top (cover 15svh to 72svh).
-       - .rise-b (paragraphs, items): finished when its own top is 40% from the top
-         (ends by cover 57svh, a little before 60svh); How I work items stagger by column (--i 0-2).
-       Both sections get at least 140svh with the content at the top, plus a bottom
-       runway, so the reveal completes before the next section scrolls in. Taller
-       content (phones) grows; the runway adds at most a quarter screen. svh = the
-       visible height with phone toolbars shown, so no range ends later than stated. */
+    /* ---- About and How I work: blank band, then scroll-linked rise-in ---------------
+       Section spacing, not pinning. Each section starts with a blank band one screen
+       tall (padding-top 100svh, page background, nothing in it), so the previous
+       section has scrolled fully off before the heading can enter from the bottom.
+       A 50svh bottom runway follows the text, so a fast scroll can't skip it.
+       - .rise-a (heading, first paragraph): starts when its top is 10% up from the
+         bottom; fully risen just before its top is 25% from the top
+         (cover 10svh to 73svh).
+       - .rise-b (later paragraphs, items): ends by cover 57svh, before its top is 40%
+         from the top; How I work items stagger by column (--i 0-2).
+       Anchor links and search land with the heading about 25% from the top instead
+       of on the blank band (negative scroll-margin: heading top = section top +
+       100svh). svh = visible height with phone toolbars shown. */
     section#about,
     section#how {
       display: block;
-      min-height: 140vh;
-      padding-bottom: max(96px, 25vh);
+      min-height: 0;
+      padding-top: 100vh;
+      padding-bottom: 50vh;
+      scroll-margin-top: -75vh;
     }
-    @supports (min-height: 100svh) {
+    @supports (padding-top: 100svh) {
       section#about,
       section#how {
-        min-height: 140svh;
-        padding-bottom: max(96px, 25svh);
+        padding-top: 100svh;
+        padding-bottom: 50svh;
+        scroll-margin-top: -75svh;
       }
     }
     .rise-a,
@@ -343,10 +349,10 @@
       animation-timeline: view();
     }
     .rise-a {
-      animation-range: cover 15svh cover 72svh;
+      animation-range: cover 10svh cover 73svh;
     }
     .rise-b {
-      animation-range: cover calc(15svh + var(--i, 0) * 4svh) cover calc(49svh + var(--i, 0) * 4svh);
+      animation-range: cover calc(10svh + var(--i, 0) * 4svh) cover calc(49svh + var(--i, 0) * 4svh);
     }
 
     @keyframes hzoom {
