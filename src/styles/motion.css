@@ -312,50 +312,41 @@
       animation-range: entry calc(10% + var(--i, 0) * 14px) cover calc(35% + var(--i, 0) * 1%);
     }
 
-    /* ---- About and How I work: scroll-triggered rise-in (About.astro, HowIWork.astro) -
-       Triggered, not scrubbed: each rise plays over 0.9s once its trigger fires, so it
-       always finishes, even for paragraphs taller than the screen. Two triggers must
-       both have fired before text shows:
-       - --about-gate / --how-gate on the section fires once its top reaches the nav
-         (the previous section fully gone). It plays hrise on every .ag, staggered by --i.
-       - --rise-in on each inner .ar fires once that element is well inside the screen
-         (its top 15% plus up to 120px above the bottom edge), playing hrise again.
-       Text on the first screen is past its own trigger before the gate fires, so it
-       rises with the gate; text further down rises with its own trigger as you reach
-       it. Each trigger reverses only once its element is fully off screen. Browsers
-       without triggers (Safari, Firefox today) get the static text. Longhands, with the
-       trigger in its own rule: an animation shorthand would reset animation-trigger. */
-    @supports (timeline-trigger-name: --a) {
-      #about {
-        timeline-trigger: --about-gate view(block var(--nav-h) 0px) contain 0% exit 100% / cover 0% cover 100%;
+    /* ---- About and How I work: scroll-linked rise-in with runway -------------------
+       Scrubbed by scroll (hrise on view()), so fast scrolling can never skip it.
+       - .rise-a (heading, lead): starts when its top is 15% up from the bottom and is
+         fully risen just before its top is 25% from the top (cover 15svh to 72svh).
+       - .rise-b (paragraphs, items): finished when its own top is 40% from the top
+         (ends by cover 57svh, a little before 60svh); How I work items stagger by column (--i 0-2).
+       Both sections get at least 140svh with the content at the top, plus a bottom
+       runway, so the reveal completes before the next section scrolls in. Taller
+       content (phones) grows; the runway adds at most a quarter screen. svh = the
+       visible height with phone toolbars shown, so no range ends later than stated. */
+    section#about,
+    section#how {
+      display: block;
+      min-height: 140vh;
+      padding-bottom: max(96px, 25vh);
+    }
+    @supports (min-height: 100svh) {
+      section#about,
+      section#how {
+        min-height: 140svh;
+        padding-bottom: max(96px, 25svh);
       }
-      #how {
-        timeline-trigger: --how-gate view(block var(--nav-h) 0px) contain 0% exit 100% / cover 0% cover 100%;
-      }
-      .ag,
-      .ar {
-        animation-name: hrise;
-        animation-duration: 0.9s;
-        animation-timing-function: var(--ease);
-        animation-fill-mode: both;
-      }
-      .ag {
-        animation-delay: calc(var(--i, 0) * 140ms);
-      }
-      .ar {
-        display: block;
-        timeline-trigger: --rise-in view(block 0px 15%) entry min(40%, 120px) exit 100% / cover 0% cover 100%;
-      }
-      #about .ag {
-        animation-trigger: --about-gate play-forwards play-backwards;
-      }
-      #how .ag {
-        animation-trigger: --how-gate play-forwards play-backwards;
-      }
-      #about .ar,
-      #how .ar {
-        animation-trigger: --rise-in play-forwards play-backwards;
-      }
+    }
+    .rise-a,
+    .rise-b {
+      animation-name: hrise;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+    }
+    .rise-a {
+      animation-range: cover 15svh cover 72svh;
+    }
+    .rise-b {
+      animation-range: cover calc(15svh + var(--i, 0) * 4svh) cover calc(49svh + var(--i, 0) * 4svh);
     }
 
     @keyframes hzoom {
