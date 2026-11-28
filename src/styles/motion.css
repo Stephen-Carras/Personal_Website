@@ -394,6 +394,32 @@
       .hbg,
       .hscrim,
       .hni { animation-range: cover 105svh cover 140svh; }
+
+      /* When the browser bar slides away the screen is 100lvh tall but the stage stays
+         100svh, so only the background layers reach down the extra (lvh - svh): the
+         photo (clipped at its own box, for the zoom), the cover that fades it out, and
+         a continuation of the scrim's last stop under the scrim. The copy, portrait
+         and statement keep the svh stage and do not move. The run clips the overhang
+         at its end so nothing reaches into Results. */
+      @supports (height: 100lvh) {
+        .hrun { overflow: clip; }
+        .hstage,
+        .hbox { overflow: visible; }
+        .hbg {
+          bottom: calc(100svh - 100lvh);
+          overflow: hidden;
+        }
+        .hblank { bottom: calc(100svh - 100lvh); }
+        .hscrim::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          height: calc(100lvh - 100svh);
+          background: rgba(0, 0, 0, 0.6);
+        }
+      }
     }
 
     /* ---- Results, large screens: pinned build over the skyline ----------------------
@@ -420,6 +446,13 @@
         margin-left: -32px;
         margin-bottom: -100svh;
         z-index: -1;
+      }
+      /* lvh for the photo layer only (see .wave::before); the content keeps svh. */
+      @supports (height: 100lvh) {
+        #results::before {
+          height: 100lvh;
+          margin-bottom: -100lvh;
+        }
       }
       #results > .wrap {
         position: sticky;

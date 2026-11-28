@@ -658,6 +658,15 @@ details:not([open]) > summary.aboutrole .ab-o {
       padding-top: 25svh;
     }
   }
+  /* lvh (toolbar hidden) for the photo layer only, so it still covers the screen
+     once a phone's browser bar slides away; the content keeps svh. Own block, after
+     the svh one, for the same minifier reason. */
+  @supports (height: 100lvh) {
+    .wave::before {
+      height: 100lvh;
+      margin-bottom: -100lvh;
+    }
+  }
   .wave .bbody {
     padding-bottom: 112px;
   }
@@ -1307,6 +1316,13 @@ html:not(.js) .rec-more {
     }
     #beyond .bstage {
       min-height: 100svh;
+    }
+  }
+  /* lvh for the photo layer only (see .wave::before). */
+  @supports (height: 100lvh) {
+    #beyond::before {
+      height: 100lvh;
+      margin-bottom: -100lvh;
     }
   }
   .bpin {
