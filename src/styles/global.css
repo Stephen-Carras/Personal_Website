@@ -246,6 +246,29 @@ summary {
   outline-offset: 3px;
 }
 
+/* In-page links (nav, skip link, hero, Contact) scroll smoothly to their section.
+   Only the page: scroll-behavior is not inherited, so the carousels' loop jumps stay
+   instant, and scripted scrolls that pass a behavior keep it. Instant under reduced
+   motion (below).
+   Smooth is switched on 1s after the page starts (a 1ms animation of --page-scroll,
+   held with fill-mode forwards), because browsers also apply scroll-behavior to the
+   jump to a #hash on load, which must stay instant. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: var(--page-scroll, auto);
+    animation-name: pagesmooth;
+    animation-duration: 1ms;
+    animation-delay: 1s;
+    animation-fill-mode: forwards;
+  }
+  @keyframes pagesmooth {
+    from,
+    to {
+      --page-scroll: smooth;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html,
   *,

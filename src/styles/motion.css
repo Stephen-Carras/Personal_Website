@@ -297,7 +297,7 @@
     }
     @keyframes hnameup {
       from {
-        transform: translate3d(0, calc(50vh - 76px - clamp(36px, 8vh, 88px)), 0);
+        transform: translate3d(0, calc(50svh - 76px - var(--hpad)), 0);
         font-size: clamp(48px, 7vw, 92px);
         line-height: 1;
         letter-spacing: -0.045em;
@@ -306,19 +306,25 @@
     }
     @keyframes hnamem {
       from {
-        transform: translate3d(0, calc(50vh + 50px - clamp(36px, 8vh, 88px)), 0);
+        transform: translate3d(0, calc(50svh - var(--hno, 44px) - var(--hpad)), 0);
         font-size: 9.5vw;
         line-height: 1;
         letter-spacing: -0.045em;
       }
       to { transform: none; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; }
     }
+    /* All hero centring is in svh, the same unit as the stage (.hstage), so the opening
+       group is centred in the visible screen on phones too (vh there is the screen with
+       the toolbars hidden). Desktop: svh = vh. */
     @keyframes hpup {
-      from { transform: translate3d(0, calc(50vh - 134px - clamp(36px, 8vh, 88px)), 0) scale(2); }
+      from { transform: translate3d(0, calc(50svh - 134px - var(--hpad)), 0) scale(2); }
       to { transform: none; }
     }
-    @keyframes hpfade {
-      to { opacity: 0; }
+    /* Phones: 72px portrait (sections.css), so the start offset differs; short phones
+       (56px portrait) set --hpo and --hno in sections.css. */
+    @keyframes hpupm {
+      from { transform: translate3d(0, calc(50svh - var(--hpo, 90px) - var(--hpad)), 0) scale(2); }
+      to { transform: none; }
     }
     .hcopy,
     .hloc {
@@ -731,28 +737,25 @@
 }
 
 /* ---- Space hero intro, phones (640px and narrower) --------------------------------------
-   The portrait is not part of the phone layout (sections.css hides it), so here it
-   shows only at the start, 160px and centred above the name, and fades out in place
-   while the name travels to the top and morphs as on larger screens. */
+   As on larger screens, the portrait starts at 2x above the centred name and shrinks
+   and rises into its place (72px on phones, sections.css), where it stays. Its range
+   is the touch block's svh range for .hport above. */
 @media screen and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     @media (max-width: 640px) {
       .hcopy .hport {
         display: block !important;
-        position: absolute;
-        left: 50%;
-        top: calc(50vh - 134px - clamp(36px, 8vh, 88px));
-        width: 160px !important;
-        height: 160px !important;
-        /* The .ld wrapper (0px wide, transformed by its load animation) is the
-           containing block, so the global img max-width: 100% would collapse it. */
-        max-width: none;
-        margin: 0 0 0 -80px !important;
-        animation-name: hpfade;
-        animation-timing-function: linear;
-        animation-fill-mode: both;
-        animation-timeline: --hero;
-        animation-range: cover 100svh cover 115svh;
+        width: 72px !important;
+        height: 72px !important;
+        margin: 0 0 14px !important;
+        animation-name: hpupm;
+      }
+      @media (max-height: 700px) {
+        .hcopy .hport {
+          width: 56px !important;
+          height: 56px !important;
+          margin: 0 0 10px !important;
+        }
       }
       .hname {
         animation-name: hnamem;
