@@ -247,12 +247,51 @@ details:not([open]) > summary.aboutrole .ab-o {
   object-fit: cover;
   object-position: 50% 38%;
 }
-.hero-name {
-  font-size: 24px;
+/* Headline, subline and button (and, in .hloc, the location lines): one block that
+   fades in after the name lands (motion.css). */
+.hcopy .hrest {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* The name label. Visually "Stephen Carras" at rest; the intro (motion.css) starts it
+   as "stephen-carras_": each first letter is a lowercase and a capital stacked in one
+   grid cell (.hlc), the hyphen (.hy) holds a space's width, and the cursor (.hus)
+   collapses to nothing. Screen readers get the .sr-only name only. */
+.hname {
+  font-size: 22px;
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+}
+.hni {
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
+}
+.hname .hlc {
+  display: inline-grid;
+}
+.hname .hlc > span {
+  grid-area: 1 / 1;
+}
+.hname .lo {
+  opacity: 0;
+}
+.hname .hy {
+  display: inline-block;
+  width: 0.3em;
+  text-align: center;
+}
+.hname .hy i {
+  font-style: normal;
+  opacity: 0;
+}
+.hname .hus {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  white-space: nowrap;
 }
 .hero-h1 {
   margin: 12px 0 0;
@@ -327,6 +366,12 @@ details:not([open]) > summary.aboutrole .ab-o {
   letter-spacing: -0.03em;
   color: var(--t0);
   overflow-wrap: break-word;
+}
+/* Thinner bar cursor after the statement (decorative; blinks in motion.css). */
+.hstmt .cur-bar {
+  width: 0.06em;
+  height: 0.8em;
+  margin-left: 0.1em;
 }
 .hsub {
   max-width: 640px;

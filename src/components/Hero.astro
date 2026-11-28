@@ -2,8 +2,12 @@
 // Full-bleed space hero. Layers inside .hstage: .hbox (photo, scrim, copy, location),
 // .hblank (fades to the page background) and .hafter (the statement). The scroll
 // choreography is CSS only (motion.css, under prefers-reduced-motion: no-preference and
-// @supports (animation-timeline: view())); everyone else sees the static layout:
-// the photo hero, then the statement band on the page background.
+// @supports (animation-timeline: view())): it opens on the page background with a
+// large portrait and "stephen-carras_", which travel up and morph into the normal
+// "Stephen Carras" label while the photo fades in; then .hrest (headline, subline,
+// button, location) fades in. Everyone else sees the static layout: the photo hero
+// with the "Stephen Carras" label, then the statement band on the page background.
+// .ld (load entrance) sits on wrapper divs only, never on a scroll-animated element.
 import { Image, Picture } from 'astro:assets';
 import { img } from '../lib/images';
 
@@ -23,6 +27,9 @@ interface Props {
   };
 }
 const { name, hero } = Astro.props;
+// The name as letters for the morph: each word's first letter is a lowercase and a
+// capital stacked in one cell (.hlc; .hl is taken by Expertise & Tools), words joined by a hyphen that fades to a space.
+const nameWords = name.split(' ').map((w) => ({ lo: w[0]!.toLowerCase(), up: w[0]!.toUpperCase(), rest: w.slice(1) }));
 const headshot = img(hero.headshot);
 const bg = img(hero.background);
 ---
@@ -45,42 +52,70 @@ const bg = img(hero.background);
         </div>
         <div class="hscrim" aria-hidden="true"></div>
         <div class="hcopy">
-          <Image
-            class="hport ld"
-            src={headshot.src}
-            alt={headshot.alt}
-            width={96}
-            height={96}
-            densities={[1, 2, 3]}
-            loading="eager"
-          />
-          <div class="hero-name ld d1">{name}</div>
-          <h1 class="hero-h1 ld d2">
-            {hero.headline.map((line, n) => (n ? [<br />, line] : line))}
-          </h1>
-          <p class="hero-sub ld d3">
-            {hero.sub}
-          </p>
-          <div class="hero-cta ld d4">
-            <button class="btp" type="button" data-open-contact aria-haspopup="dialog">{hero.button}</button>
+          <div class="ld">
+            <Image
+              class="hport"
+              src={headshot.src}
+              alt={headshot.alt}
+              width={96}
+              height={96}
+              densities={[1, 2, 3]}
+              loading="eager"
+            />
+          </div>
+          <div class="ld d1">
+            <div class="hname">
+              <span class="sr-only">{name}</span>
+              <span class="hni" aria-hidden="true">
+                {
+                  nameWords.map((w, n) => [
+                    n ? (
+                      <span class="hy">
+                        <i>-</i>
+                      </span>
+                    ) : null,
+                    <span class="hlc">
+                      <span class="lo">{w.lo}</span>
+                      <span class="up">{w.up}</span>
+                    </span>,
+                    w.rest,
+                  ])
+                }
+                <span class="hus"><span class="cur">_</span></span>
+              </span>
+            </div>
+          </div>
+          <div class="hrest">
+            <h1 class="hero-h1 ld d2">
+              {hero.headline.map((line, n) => (n ? [<br />, line] : line))}
+            </h1>
+            <p class="hero-sub ld d3">
+              {hero.sub}
+            </p>
+            <div class="hero-cta ld d4">
+              <button class="btp" type="button" data-open-contact aria-haspopup="dialog">{hero.button}</button>
+            </div>
           </div>
         </div>
         <div class="hloc">
           {/* .ld sits on this inner wrapper: its animation shorthand would otherwise
                replace the scroll fade-out on .hloc. */}
-          <div class="ld d5">
-            <div class="hexp">
-              {hero.experienceLead} &nbsp;<span>{hero.experienceList.join('  ·  ')}</span>
-            </div>
-            <div>
-              {hero.location} &nbsp;·&nbsp; <a href="#education">{hero.educationLink}</a>
+          <div class="hrest">
+            <div class="ld d5">
+              <div class="hexp">
+                {hero.experienceLead} &nbsp;<span>{hero.experienceList.join('  ·  ')}</span>
+              </div>
+              <div>
+                {hero.location} &nbsp;·&nbsp; <a href="#education">{hero.educationLink}</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="hblank" aria-hidden="true"></div>
       <div class="hafter">
-        <p class="hstmt">{hero.statement.main}</p>
+        {/* The bar cursor is decorative (aria-hidden), not part of the statement text. */}
+        <p class="hstmt">{hero.statement.main}<span class="cur cur-bar" aria-hidden="true"></span></p>
         <p class="hsub">{hero.statement.support}</p>
       </div>
     </div>
