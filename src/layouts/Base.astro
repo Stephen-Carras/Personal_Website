@@ -14,8 +14,8 @@ interface Props {
 }
 
 const {
-  title = 'Stephen Carras | Strategy & Operations Leader',
-  description = 'Stephen Carras: data-driven strategy and operations leader. Two startups, bridging hardware, AI, security and business. Seattle, WA.',
+  title = 'Stephen Carras | AI, Strategy & Operations',
+  description = 'Stephen Carras works across AI, strategy, operations, engineering and security, and builds AI workflows used by teams and executives. Seattle area.',
   minimal = false,
   bodyClass,
 } = Astro.props;
@@ -27,12 +27,17 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
 const csp =
   "default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'";
 
+// One-sentence summary: JSON-LD description, og:description and twitter:description.
+const summary =
+  'Stephen Carras works across AI, strategy, operations, engineering and security, and builds AI workflows used by teams and executives. Based in the Seattle area.';
+
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Stephen Carras',
   url: home,
   image: ogImage,
+  description: summary,
   jobTitle: 'Strategy & Operations Leader',
   address: {
     '@type': 'PostalAddress',
@@ -69,17 +74,16 @@ const jsonLd = JSON.stringify({
         <>
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content="Stephen Carras" />
-          <meta property="og:title" content="Stephen Carras | Turning ideas into execution" />
-          <meta
-            property="og:description"
-            content="Strategy & operations leader. Two startups. Hardware, AI, security and business."
-          />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={summary} />
           <meta property="og:url" content={home} />
           <meta property="og:image" content={ogImage} />
           <meta property="og:image:width" content="1200" />
           <meta property="og:image:height" content="630" />
           <meta property="og:image:alt" content="Stephen Carras: Turning ideas into execution." />
           <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={summary} />
         </>
       )
     }
