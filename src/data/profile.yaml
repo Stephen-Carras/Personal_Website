@@ -70,9 +70,9 @@ stephen:
         label: Open to
         groups:
           - label: Startups and growth companies
-            description: Senior strategy and operations leadership, such as Chief of Staff or Head of Strategy & Operations
+            description: "Head of AI Operations or AI Strategy. Looking to own AI-driven strategy and operations for a business area end to end: deciding what gets built and why, and working hands-on across engineering, data, security and automation."
           - label: Big Tech
-            description: Strategy and operations leadership, such as Chief of Staff or Senior Manager, Strategy & Operations
+            description: AI Engineering and AI Security Engineering roles.
       replyTime:
         label: Reply time
         value: Usually within 1–2 business days
