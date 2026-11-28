@@ -177,11 +177,16 @@
 }
 
 /* ---- Space hero scroll (Hero.astro, layout in sections.css) -------------------------
-   Screen only, so print keeps the static layout. The hero becomes a 320vh run with a
-   sticky stage under the nav: the copy fades up and out, the photo slowly zooms, the
-   stage fades to the page background and the statement rises in. All ranges are on
-   the --hero view timeline. Reduced motion and browsers without scroll-driven
-   animations get the static layout: photo hero, then the statement band.
+   Screen only, so print keeps the static layout. The hero becomes a 395vh run with a
+   sticky stage under the nav. Intro (cover 100 to 162vh): it opens on the page
+   background with a 2x portrait and "stephen-carras_" centred; both travel up into
+   place while the name morphs into "Stephen Carras" (s/c to S/C, hyphen to a space,
+   cursor out) and turns white as the photo and scrim fade in; then .hrest (headline,
+   subline, button, location) fades in. After that, 75vh later than before: the copy
+   fades up and out, the photo slowly zooms, the stage fades to the page background
+   and the statement fades in. All ranges are on the --hero view timeline. Reduced
+   motion and browsers without scroll-driven animations get the static layout: photo
+   hero with the "Stephen Carras" label, then the statement band.
    Longhands only: the minifier folds an `animation:` shorthand and a separate
    animation-timeline into one shorthand that browsers reject. */
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -195,7 +200,7 @@
 
   @supports (animation-timeline: view()) {
     .hrun {
-      height: 320vh;
+      height: 395vh;
       view-timeline: --hero block;
     }
     .hstage {
@@ -208,13 +213,112 @@
       position: absolute;
       inset: 0;
       min-height: 0;
+      background: var(--bg);
     }
     .himg {
       animation-name: hzoom;
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: --hero;
-      animation-range: cover 100vh cover 230vh;
+      animation-range: cover 100vh cover 305vh;
+    }
+
+    /* Intro: portrait and name travel up from the centre (ease), the letters morph
+       (linear), the photo, scrim and name colour follow, then the rest fades in. */
+    .hname {
+      animation-name: hnameup;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 100vh cover 138vh;
+    }
+    .hname .lo,
+    .hname .hy i,
+    .hname .up,
+    .hname .hus {
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 108vh cover 132vh;
+    }
+    .hname .lo,
+    .hname .hy i { animation-name: hmout; }
+    .hname .up { animation-name: hmin; }
+    .hname .hus { animation-name: hmus; }
+    .hport {
+      animation-name: hpup;
+      animation-timing-function: ease;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 100vh cover 138vh;
+    }
+    /* 1ms duration: overrides the 2.2s load fade (hfade) above, which stays for the
+       fallback only. */
+    .hbg,
+    .hscrim {
+      opacity: 0;
+      animation-name: hfadein;
+      animation-duration: 1ms;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 105vh cover 140vh;
+    }
+    .hni {
+      animation-name: hncol;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 105vh cover 140vh;
+    }
+    .hrest {
+      opacity: 0;
+      animation-name: hfadein;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: --hero;
+      animation-range: cover 140vh cover 162vh;
+    }
+    @keyframes hncol {
+      from { color: var(--t0); text-shadow: 0 1px 14px rgba(0, 0, 0, 0); }
+      to { color: rgba(255, 255, 255, 0.95); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4); }
+    }
+    @keyframes hmin {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes hmout {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    @keyframes hmus {
+      from { opacity: 1; width: 0.6em; }
+      to { opacity: 0; width: 0; }
+    }
+    @keyframes hnameup {
+      from {
+        transform: translate3d(0, calc(50vh - 76px - clamp(36px, 8vh, 88px)), 0);
+        font-size: clamp(48px, 7vw, 92px);
+        line-height: 1;
+        letter-spacing: -0.045em;
+      }
+      to { transform: none; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; }
+    }
+    @keyframes hnamem {
+      from {
+        transform: translate3d(0, calc(50vh + 50px - clamp(36px, 8vh, 88px)), 0);
+        font-size: 9.5vw;
+        line-height: 1;
+        letter-spacing: -0.045em;
+      }
+      to { transform: none; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; }
+    }
+    @keyframes hpup {
+      from { transform: translate3d(0, calc(50vh - 134px - clamp(36px, 8vh, 88px)), 0) scale(2); }
+      to { transform: none; }
+    }
+    @keyframes hpfade {
+      to { opacity: 0; }
     }
     .hcopy,
     .hloc {
@@ -223,7 +327,7 @@
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: --hero;
-      animation-range: cover 100vh cover 130vh;
+      animation-range: cover 175vh cover 205vh;
     }
     .hblank {
       display: block;
@@ -236,7 +340,7 @@
       animation-timing-function: linear;
       animation-fill-mode: both;
       animation-timeline: --hero;
-      animation-range: cover 115vh cover 200vh;
+      animation-range: cover 190vh cover 275vh;
     }
     /* Covers the stage, so it must not swallow clicks on the Contact button or links. */
     .hafter {
@@ -259,21 +363,31 @@
       animation-fill-mode: both;
       animation-timeline: --hero;
     }
-    .hstmt { animation-range: cover 220vh cover 270vh; }
-    .hsub { animation-range: cover 232vh cover 282vh; }
+    .hstmt { animation-range: cover 295vh cover 345vh; }
+    .hsub { animation-range: cover 307vh cover 357vh; }
 
     /* Phones and touch tablets: the same run in small-viewport units (svh, toolbars
        showing) so the stage fits the visible area and the ranges line up with it.
        Desktop keeps the vh values above. */
     @media (max-width: 640px), (hover: none) and (pointer: coarse) {
-      .hrun { height: 320svh; }
+      .hrun { height: 395svh; }
       .hstage { height: calc(100svh - var(--nav-h)); }
-      .himg { animation-range: cover 100svh cover 230svh; }
+      .himg { animation-range: cover 100svh cover 305svh; }
       .hcopy,
-      .hloc { animation-range: cover 100svh cover 130svh; }
-      .hblank { animation-range: cover 115svh cover 200svh; }
-      .hstmt { animation-range: cover 220svh cover 270svh; }
-      .hsub { animation-range: cover 232svh cover 282svh; }
+      .hloc { animation-range: cover 175svh cover 205svh; }
+      .hblank { animation-range: cover 190svh cover 275svh; }
+      .hstmt { animation-range: cover 295svh cover 345svh; }
+      .hsub { animation-range: cover 307svh cover 357svh; }
+      .hname { animation-range: cover 100svh cover 138svh; }
+      .hname .lo,
+      .hname .hy i,
+      .hname .up,
+      .hname .hus { animation-range: cover 108svh cover 132svh; }
+      .hport { animation-range: cover 100svh cover 138svh; }
+      .hrest { animation-range: cover 140svh cover 162svh; }
+      .hbg,
+      .hscrim,
+      .hni { animation-range: cover 105svh cover 140svh; }
     }
 
     /* ---- Results, large screens: pinned build over the skyline ----------------------
@@ -605,6 +719,37 @@
   pointer-events: none;
 }
 
+/* ---- Space hero intro, phones (640px and narrower) --------------------------------------
+   The portrait is not part of the phone layout (sections.css hides it), so here it
+   shows only at the start, 160px and centred above the name, and fades out in place
+   while the name travels to the top and morphs as on larger screens. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    @media (max-width: 640px) {
+      .hcopy .hport {
+        display: block !important;
+        position: absolute;
+        left: 50%;
+        top: calc(50vh - 134px - clamp(36px, 8vh, 88px));
+        width: 160px !important;
+        height: 160px !important;
+        /* The .ld wrapper (0px wide, transformed by its load animation) is the
+           containing block, so the global img max-width: 100% would collapse it. */
+        max-width: none;
+        margin: 0 0 0 -80px !important;
+        animation-name: hpfade;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        animation-timeline: --hero;
+        animation-range: cover 100svh cover 115svh;
+      }
+      .hname {
+        animation-name: hnamem;
+      }
+    }
+  }
+}
+
 /* ---- Reduced motion ----------------------------------------------------------------------
    Nothing above applies, so reveals render at rest and details open instantly. Scripted
    scrolling already uses behavior 'auto' (scripts/util.ts); this covers CSS smooth scroll.
@@ -703,7 +848,8 @@
   .hloc a,
   .hexp,
   .hexp span,
-  .hero-name,
+  .hname,
+  .hni,
   .hero-h1,
   .hero-sub {
     color: var(--t0) !important;
