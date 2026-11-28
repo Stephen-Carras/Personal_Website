@@ -27,6 +27,29 @@
   --awbg: #fff3dc;
   --awfg: #9a4a00;
 
+  /* Wave sections (About, Experience, How I work; sections.css .wave) and What
+     people say cards. The url() tokens are only used once a wave section is near
+     (.photo-on), so each theme loads only its own image. */
+  --wvimg: url('../../source-images/wave-light-background.jpg');
+  --wvov: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.12));
+  --wvfl: none;
+  --wvbg: #f5f5f7;
+  --wvt0: #1d1d1f;
+  --wvt1: #1d1d1f;
+  --wvt2: #424245;
+  --wvt3: #3c3c41;
+  --wvm: #55555a;
+  --wvhair: rgba(0, 0, 0, 0.14);
+  --wvhair2: rgba(0, 0, 0, 0.08);
+  --wvcardw: rgba(255, 255, 255, 0.6);
+  --wvbga: rgba(0, 0, 0, 0.04);
+  --wvaccbg: rgba(0, 0, 0, 0.06);
+  --wvaccent: #0055aa;
+  --wvts: none;
+  --wvacc: none;
+  --recbg: #ffffff;
+  --recsh: 0 0 0 1px rgba(0, 0, 0, 0.07), 0 6px 24px rgba(0, 0, 0, 0.06);
+
   --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Inter,
     'Segoe UI', Arial, sans-serif;
   --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
@@ -53,6 +76,25 @@
   --navkh: #ffffff;
   --awbg: rgba(255, 159, 10, 0.16);
   --awfg: #ffb340;
+  --wvimg: url('../../source-images/wave-dark-background.jpg');
+  --wvov: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.55));
+  --wvfl: brightness(1) contrast(1.05);
+  --wvbg: #050607;
+  --wvt0: #ffffff;
+  --wvt1: #ffffff;
+  --wvt2: rgba(255, 255, 255, 0.92);
+  --wvt3: rgba(255, 255, 255, 0.94);
+  --wvm: rgba(255, 255, 255, 0.86);
+  --wvhair: rgba(255, 255, 255, 0.2);
+  --wvhair2: rgba(255, 255, 255, 0.12);
+  --wvcardw: rgba(255, 255, 255, 0.09);
+  --wvbga: rgba(255, 255, 255, 0.06);
+  --wvaccbg: rgba(255, 255, 255, 0.12);
+  --wvaccent: #2997ff;
+  --wvts: 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 22px rgba(0, 0, 0, 0.55);
+  --wvacc: brightness(1.4);
+  --recbg: #1d1d1f;
+  --recsh: none;
 }
 
 /* No-JS fallback: follow the system setting. Same values as above. */
@@ -76,6 +118,25 @@
     --navkh: #ffffff;
     --awbg: rgba(255, 159, 10, 0.16);
     --awfg: #ffb340;
+    --wvimg: url('../../source-images/wave-dark-background.jpg');
+    --wvov: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.55));
+    --wvfl: brightness(1) contrast(1.05);
+    --wvbg: #050607;
+    --wvt0: #ffffff;
+    --wvt1: #ffffff;
+    --wvt2: rgba(255, 255, 255, 0.92);
+    --wvt3: rgba(255, 255, 255, 0.94);
+    --wvm: rgba(255, 255, 255, 0.86);
+    --wvhair: rgba(255, 255, 255, 0.2);
+    --wvhair2: rgba(255, 255, 255, 0.12);
+    --wvcardw: rgba(255, 255, 255, 0.09);
+    --wvbga: rgba(255, 255, 255, 0.06);
+    --wvaccbg: rgba(255, 255, 255, 0.12);
+    --wvaccent: #2997ff;
+    --wvts: 0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 22px rgba(0, 0, 0, 0.55);
+    --wvacc: brightness(1.4);
+    --recbg: #1d1d1f;
+    --recsh: none;
   }
 }
 

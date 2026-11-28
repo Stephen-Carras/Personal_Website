@@ -558,17 +558,19 @@ details:not([open]) > summary.aboutrole .ab-o {
 }
 
 /* ---- Wave sections: About, Experience, How I work ------------------------------ */
-/* Dark wave photo behind the whole section (screen only; print keeps the plain light
-   section). Same approach as Beyond work: the photo and its gradient are the section's
-   sticky ::before, exactly one screen tall, pinned from the section's top to its
-   bottom while the content scrolls over it (margin-bottom -100svh so it takes no
-   space). Its 64px extra width and -32px offset cancel the section's 32px side
-   padding. The sections are dark in both site themes through their own colour
-   variables. Sticky needs every ancestor on overflow: clip (never hidden or auto).
+/* Wave photo behind the whole section (screen only; print keeps the plain light
+   section): a dark wave in dark mode, a pale white wave in light mode. Same approach
+   as Beyond work: the photo and its gradient are the section's sticky ::before,
+   exactly one screen tall, pinned from the section's top to its bottom while the
+   content scrolls over it (margin-bottom -100svh so it takes no space). Its 64px
+   extra width and -32px offset cancel the section's 32px side padding. Sticky needs
+   every ancestor on overflow: clip (never hidden or auto). Every theme-dependent
+   value (image, overlay, filter, base colour, the section's colour variables, text
+   shadow, accent brightening) is a --wv* token from global.css, set per theme.
    Two blocks: .bstage (the title, in How I work also the lead) a quarter screen down,
-   and .bbody (the rest) right beneath it. The accent and focus ring use the
-   dark-theme blue in both themes, and the accent text (Key impact +, Company
-   acquired) is brightened on top, so it reads on the dark photo. */
+   and .bbody (the rest) right beneath it. In dark mode the accent and focus ring are
+   the dark-theme blue and the accent text (Key impact +, Company acquired) is
+   brightened, so it reads on the dark photo. */
 @media screen {
   .sec.wave {
     position: relative;
@@ -576,20 +578,20 @@ details:not([open]) > summary.aboutrole .ab-o {
     overflow: clip;
     display: block;
     padding: 0 32px;
-    background: #050607;
-    --t0: #ffffff;
-    --t1: #ffffff;
-    --t2: rgba(255, 255, 255, 0.92);
-    --t3: rgba(255, 255, 255, 0.94);
-    --m: rgba(255, 255, 255, 0.86);
-    --hair: rgba(255, 255, 255, 0.2);
-    --hair2: rgba(255, 255, 255, 0.12);
-    --cardw: rgba(255, 255, 255, 0.09);
-    --bga: rgba(255, 255, 255, 0.06);
-    --bg: #050607;
-    --accbg: rgba(255, 255, 255, 0.12);
-    --accent: #2997ff;
-    --ring: #2997ff;
+    background: var(--wvbg);
+    --t0: var(--wvt0);
+    --t1: var(--wvt1);
+    --t2: var(--wvt2);
+    --t3: var(--wvt3);
+    --m: var(--wvm);
+    --hair: var(--wvhair);
+    --hair2: var(--wvhair2);
+    --cardw: var(--wvcardw);
+    --bga: var(--wvbga);
+    --bg: var(--wvbg);
+    --accbg: var(--wvaccbg);
+    --accent: var(--wvaccent);
+    --ring: var(--wvaccent);
   }
   .wave::before {
     content: '';
@@ -601,15 +603,15 @@ details:not([open]) > summary.aboutrole .ab-o {
     margin-left: -32px;
     margin-bottom: -100vh;
     z-index: -1;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.55));
-    filter: contrast(1.05);
+    background: var(--wvov);
+    filter: var(--wvfl);
   }
   /* The photo layer is added by scripts/section-photos.ts when the section is about
      two screens away, so it doesn't slow down the hero on first load. */
   .wave.photo-on::before {
     background:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.55)),
-      url('../../source-images/wave-dark-background.jpg') 50% 50% / cover no-repeat;
+      var(--wvov),
+      var(--wvimg) 50% 50% / cover no-repeat;
   }
   .wave .bstage {
     display: block;
@@ -640,13 +642,11 @@ details:not([open]) > summary.aboutrole .ab-o {
   .wave h4,
   .wave p,
   .wave li {
-    text-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.5),
-      0 2px 22px rgba(0, 0, 0, 0.55);
+    text-shadow: var(--wvts);
   }
   .wave summary.aboutrole,
   .wave .pill-acq {
-    filter: brightness(1.4);
+    filter: var(--wvacc);
   }
 }
 
@@ -1048,8 +1048,11 @@ details:not([open]) > summary.aboutrole .ab-o {
 /* ---- Recommendations ---------------------------------------------------- */
 /* The section sits on the gray band, so its round prev/next buttons use the card
    colour instead of the default gray (which would vanish in light mode). */
+/* Cards and round buttons: white with a soft edge in light mode (they would
+   otherwise barely show on the pale gray band), unchanged in dark mode. */
 #recommendations .ib {
-  background: var(--card);
+  background: var(--recbg);
+  box-shadow: var(--recsh);
 }
 .track-bar {
   display: flex;
@@ -1077,8 +1080,10 @@ details:not([open]) > summary.aboutrole .ab-o {
   margin: 0;
   padding: 36px;
   scroll-snap-align: start;
-  /* White cards on the gray band (the section is .alt). */
-  background: var(--card);
+  /* White cards on the gray band (the section is .alt), with a soft edge in light
+     mode (--recbg, --recsh in global.css). */
+  background: var(--recbg);
+  box-shadow: var(--recsh);
   border-radius: 28px;
   display: flex;
   flex-direction: column;

@@ -32,6 +32,11 @@
     "alt": ""
   },
   {
+    "file": "source-images/wave-light-background.jpg",
+    "used_in": "About, Experience and How I work section background in light mode (CSS, decorative, 2000x3000 from the 3000x4500 white-wave-themed-picture.avif original, JPEG q80, background-position 50% 50%)",
+    "alt": ""
+  },
+  {
     "file": "source-images/logo-boeing.png",
     "artifact_blob_id": "d196dc6caf2f43ba6ecafb3aecea3d58",
     "used_in": "Experience: Boeing",

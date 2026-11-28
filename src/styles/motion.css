@@ -518,6 +518,17 @@
     section#focus {
       --rise-end: 99.5;
     }
+    /* Expertise & Tools spacing: the title sits 96px higher than the band would put it,
+       and with "Show all" open the bottom padding matches the top (without :has() it
+       keeps the 12svh runway). Anchor links land with the title 60px from the top
+       (just under the nav), fully faded in on screens 800px tall or more. */
+    section#focus {
+      padding-top: calc(var(--band) - 96px) !important;
+      scroll-margin-top: calc(var(--nav-h) + 12px - (var(--band) - 96px));
+    }
+    section#focus:has(#comp-all[open]) {
+      padding-bottom: calc(var(--band) - 96px) !important;
+    }
 
     /* ---- Wave sections (About, Experience, How I work): title, then content -------
        No blank band and no pinned title: the photo is fully in once the section top
