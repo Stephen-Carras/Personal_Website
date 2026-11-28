@@ -70,7 +70,7 @@ stephen:
         label: Open to
         groups:
           - label: Startups and growth companies
-            description: "Head of AI Operations or AI Strategy. Looking to own AI-driven strategy and operations for a business area end to end: deciding what gets built and why, and working hands-on across engineering, data, security and automation."
+            description: "Head of AI Operations or AI Strategy. Looking to own AI-driven strategy and operations for a business area end-to-end: deciding what gets built and why, and working hands-on across engineering, data, security and automation."
           - label: Big Tech
             description: AI Engineering and AI Security Engineering roles.
       replyTime:
